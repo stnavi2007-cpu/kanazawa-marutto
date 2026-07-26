@@ -294,7 +294,19 @@
  .cat.has-thumb .cat-open{color:#ffd873;text-shadow:0 1px 5px rgba(0,0,0,.8);}
  .cat.has-thumb:hover{box-shadow:0 12px 30px rgba(18,58,92,.28);}
  .cat.has-thumb.on{border-color:var(--gold);border-width:2px;}
- .cat.has-thumb.on::before{background:linear-gradient(to bottom,rgba(10,22,40,.45) 0%,rgba(10,22,40,.70) 100%);}
+  .cat.has-thumb.on::before{background:linear-gradient(to bottom,rgba(10,22,40,.45) 0%,rgba(10,22,40,.70) 100%);}
+ /* ===== 全部乗せ強化: 色帯・ボタン・ズーム・縁取り ===== */
+ /* ①コーナー色の下辺ライン(--ccでJSが色を注入) */
+ .cat.has-thumb::after{content:"";position:absolute;left:0;right:0;bottom:0;height:5px;background:var(--cc,transparent);z-index:2;}
+ /* ③ホバー/タップで背景サムネがふわっとズーム */
+ .cat.has-thumb{background-size:cover;transition:transform .18s,box-shadow .18s,background-size .35s ease;}
+ .cat.has-thumb:hover{background-size:112%;}
+ /* ④アイコン白丸をコーナー色で縁取り */
+ .cat.has-thumb .cat-img{border:2.5px solid var(--cc,#fff);}
+ /* ②「ひらく」を金色の角丸ボタン風に */
+ .cat.has-thumb .cat-open{display:inline-block;margin-top:9px;padding:3px 14px;border-radius:20px;background:rgba(255,216,115,.16);border:1px solid rgba(255,216,115,.55);backdrop-filter:blur(2px);}
+ .cat.has-thumb:not(.on) .cat-open::before{content:"▼ ひらく";}
+ .cat.has-thumb.on .cat-open{background:rgba(255,216,115,.28);}
  .cat:hover{transform:translateY(-3px);box-shadow:0 10px 26px rgba(18,58,92,.10);border-color:var(--navy);}
  .cat.on{border-color:var(--navy);border-width:2px;background:var(--paper-warm);}
  .cat .cat-img{width:74px;height:74px;margin:0 auto 10px;border-radius:50%;background:var(--paper-warm);display:flex;align-items:center;justify-content:center;overflow:hidden;color:var(--navy);}
@@ -10546,6 +10558,20 @@
   // ===== カテゴリーの画像(映画ポスター風サムネ) =====
   // GitHub Pages上の {id}.jpg を各カードタイルの背景に自動適用。
   // 画像が無いカードは従来の丸アイコンのまま表示される(フォールバック)。
+  // ===== コーナー別カラー(下辺ライン・アイコン縁取り用) =====
+  const CORNER={
+    honebone:['#c9a24b', ['rinen','kdata','hoshiki','chigai']],
+    asobu:   ['#8e6bd6', ['quiz100']],
+    okane:   ['#2f8f6b', ['money','sim','percap','kakei','kyuryo','hakomono','gasu','event','change','otoku']],
+    ima:     ['#d0454c', ['news','ima','saigai','anzen','edu','global']],
+    seiji:   ['#123a5c', ['kouyaku','shinchoku','gikai','sanpi','senkyo','meikan','shigoto','jorei','honne','koe']],
+    kurashi: ['#2b7a9e', ['suido','gomi','kaigo','iryohi','ashi','machinaka','machiya','nogyo','kigyo','sports']],
+    shiru:   ['#c76a2a', ['shoku','bunka','matsuri','maeda','jinbutsu','kouka','ben','saka','jinja','symbol','sandai','zekkei','onsen','shinkansen','sekai','kieta','ichiban','mirai','ichinichi','calendar']],
+    shiraberu:['#5a6b7a', ['soshiki','power','kobunsho','jiten','search','shukudai','about']]
+  };
+  const CORNER_COLOR={};
+  Object.values(CORNER).forEach(([col,ids])=>ids.forEach(id=>CORNER_COLOR[id]=col));
+
   // index.html と同じ場所に置いた {id}.jpg を参照(相対パス)。
   // 画像を別フォルダ(例 images/)に移す場合は 'images/' に変更。
   const CAT_IMG_BASE='';
@@ -10557,6 +10583,7 @@
       img.onload=function(){
         // 読み込めた画像だけをタイル背景に敷き、ポスター化クラスを付与
         tile.style.setProperty('--thumb','url("'+CAT_IMG_BASE+id+'.jpg")');
+        tile.style.setProperty('--cc', CORNER_COLOR[id] || 'rgba(255,255,255,.7)');
         tile.classList.add('has-thumb');
       };
       img.src=CAT_IMG_BASE+id+'.jpg';
