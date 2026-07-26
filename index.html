@@ -38,6 +38,11 @@
  .bar{max-width:1080px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;}
  .brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--ink);}
  .logo-mark{width:42px;height:42px;flex:0 0 42px;border-radius:50%;overflow:hidden;display:block;}
+ .logo-mark img{width:100%;height:100%;object-fit:cover;display:block;}
+ /* ===== 中央の看板バナー ===== */
+ .marutto-banner{max-width:920px;margin:8px auto 18px;border-radius:20px;overflow:hidden;box-shadow:0 10px 30px rgba(18,58,92,.18);border:1px solid var(--line);position:relative;}
+ .marutto-banner img{width:100%;height:auto;display:block;}
+ .marutto-banner::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 40px rgba(18,58,92,.06);pointer-events:none;}
  .logo-mark svg{width:100%;height:100%;display:block;}
  .logo-mark::before{content:"";width:13px;height:13px;border-radius:50%;background:var(--navy);}
  .logo-mark::after{content:"";position:absolute;width:6px;height:6px;border-radius:50%;background:var(--paper-warm);top:14px;left:16px;}
@@ -637,7 +642,7 @@
 <header class="site">
   <div class="bar">
     <a class="brand" href="/">
-      <span class="logo-mark"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="60" fill="#123a5c"/><text x="60" y="79" text-anchor="middle" font-family="'Zen Maru Gothic',sans-serif" font-weight="900" font-size="56" fill="#c9a24b">金</text></svg></span>
+      <span class="logo-mark"><img src="marutto%20logo.jpg" alt="金沢まるっと" loading="eager"></span>
       <span class="brand-txt"><b class="maru">金沢まるっと</b><span>金沢のこと、まるっとわかるじ</span></span>
     </a>
     <div class="rgt">
@@ -853,6 +858,9 @@
 </div>
 
   <div class="wrap">
+  <div class="marutto-banner reveal">
+    <img src="marutto.jpg" alt="金沢まるっと — 金沢のシンボルが集まった世界" loading="lazy">
+  </div>
   <section class="block reveal" style="padding-top:0;">
     <div class="flow-panel reveal" style="border-left:5px solid var(--gold);background:var(--paper-warm);">
     <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px;">
