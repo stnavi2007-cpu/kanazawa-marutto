@@ -297,10 +297,10 @@
   .cat.has-thumb.on::before{background:linear-gradient(to bottom,rgba(10,22,40,.45) 0%,rgba(10,22,40,.70) 100%);}
  /* ===== 全部乗せ強化: 色帯・ボタン・ズーム・縁取り ===== */
  /* ①コーナー色の下辺ライン(--ccでJSが色を注入) */
- .cat.has-thumb::after{content:"";position:absolute;left:0;right:0;bottom:0;height:5px;background:var(--cc,transparent);z-index:2;}
+ .cat.has-thumb::after{content:"";position:absolute;left:0;right:0;bottom:0;height:6px;background:var(--cc,transparent);z-index:2;box-shadow:0 -1px 6px var(--cc);}
  /* ③ホバー/タップで背景サムネがふわっとズーム */
- .cat.has-thumb{background-size:cover;transition:transform .18s,box-shadow .18s,background-size .35s ease;}
- .cat.has-thumb:hover{background-size:112%;}
+ .cat.has-thumb{background-size:cover;transition:transform .25s ease,box-shadow .25s ease,background-size .6s cubic-bezier(.22,.61,.36,1);}
+ .cat.has-thumb:hover{background-size:118%;}
  /* ④アイコン白丸をコーナー色で縁取り */
  .cat.has-thumb .cat-img{border:2.5px solid var(--cc,#fff);}
  /* ②「ひらく」を金色の角丸ボタン風に */
@@ -866,220 +866,7 @@
   </section>
 
 <div class="cat-grid">
-    <div class="catg"><span>⚔️ まずは、あそんでみる</span><small>クイズと市長体験から</small></div>
-    <div class="cat" data-cat="quiz100" onclick="openCat('quiz100')">
-      <div class="cat-img" id="catimg-quiz100"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.2 9a2.8 2.8 0 0 1 5.5.8c0 1.9-2.8 2.5-2.8 2.5"/><path d="M12 17h.01"/></svg></div>
-      <h3>金沢まるっと10問クイズ</h3><p>毎日10問！めざせ百万石の主</p>
-      <div class="cat-open"></div>
-    </div>
-    <div class="catg"><span>💴 お金の話</span><small>税金はどこへ？何がもらえる？</small></div>
-    <div class="cat" data-cat="otoku" onclick="openCat('otoku')">
-      <div class="cat-img" id="catimg-otoku"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M9 9.5c0-1.4 1.3-2.5 3-2.5s3 1.1 3 2.5-1.3 2.2-3 2.5-3 1.1-3 2.5 1.3 2.5 3 2.5 3-1.1 3-2.5"/><path d="M12 5.5v13"/></svg></div>
-      <h3>知らんと損する制度</h3><p>申請しないと、もらえない</p>
-      <div class="cat-open"></div>
-    </div>
-    <div class="cat" data-cat="sim" onclick="openCat('sim')">
-      <div class="cat-img" id="catimg-sim"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8M8 11h2M12 11h2M16 11h.01M8 15h2M12 15h2M16 15v3"/></svg></div>
-      <h3>税金シミュレーター</h3><p>あなたの手取りは</p>
-      <div class="cat-open"></div>
-    </div>
-    <div class="cat" data-cat="percap" onclick="openCat('percap')">
-      <div class="cat-img" id="catimg-percap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="8" r="3.2"/><path d="M5 20c0-3.6 3.1-6 7-6s7 2.4 7 6"/><path d="M12 11.5v2"/></svg></div>
-      <h3>1人あたり、いくら？</h3><p>税金の使われ方を実感する</p>
-      <div class="cat-open"></div>
-    </div>
-    <div class="cat" data-cat="kyuryo" onclick="openCat('kyuryo')">
-      <div class="cat-img" id="catimg-kyuryo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M3 12h18"/><path d="M12 11v2"/></svg></div>
-      <h3>市役所の給料、全公開</h3><p>市長・議員・職員、いくら？</p>
-      <div class="cat-open"></div>
-    </div>
-    <div class="cat" data-cat="hakomono" onclick="openCat('hakomono')">
-      <div class="cat-img" id="catimg-hakomono"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V10l7-4 7 4v11"/><path d="M9 21v-6h6v6"/><path d="M4 10h16"/></svg></div>
-      <h3>金沢のハコモノ</h3><p>その施設、税金いくら？利用は？</p>
-      <div class="cat-open"></div>
-    </div>
-    <div class="cat" data-cat="money" onclick="openCat('money')">
-      <div class="cat-img" id="catimg-money"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><path d="M12 7v10M9.5 10h5M9.5 13h5"/></svg></div>
-      <h3>金沢のお金</h3><p>予算と使い道</p>
-      <div class="cat-open"></div>
-    </div>
-    <div class="cat" data-cat="event" onclick="openCat('event')">
-      <div class="cat-img" id="catimg-event"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M4 4h16v4H4z"/><path d="M6 8v13M18 8v13M6 15h12"/><path d="M9 4V2M15 4V2"/></svg></div>
-      <h3>まつり・マラソンとお金</h3><p>百万石まつり／金沢マラソン</p>
-      <div class="cat-open"></div>
-    </div>
-    <div class="cat" data-cat="gasu" onclick="openCat('gasu')">
-      <div class="cat-img" id="catimg-gasu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M12 3c2.5 3 5 5.6 5 9a5 5 0 0 1-10 0c0-3.4 2.5-6 5-9z"/><path d="M12 11c1 1.2 2 2.2 2 3.5a2 2 0 0 1-4 0c0-1.3 1-2.3 2-3.5z"/></svg></div>
-      <h3>ガスと発電、売った話</h3><p>100年市営やったのに？</p>
-      <div class="cat-open"></div>
-    </div>
-    <div class="cat" data-cat="change" onclick="openCat('change')">
-      <div class="cat-img" id="catimg-change"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M4 7h13l-3-3M20 17H7l3 3"/><path d="M4 7v0M20 17v0"/></svg></div>
-      <h3>税制まるわかり</h3><p>なにが変わった</p>
-      <div class="cat-open"></div>
-    </div>
-    <div class="catg"><span>🔥 いまの金沢</span><small>進行中の議論と暮らしのデータ</small></div>
-    <div class="cat" data-cat="news" onclick="openCat('news')">
-      <div class="cat-img" id="catimg-news"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 9h6M7 13h6M7 16h4M16 9h2M16 13h2"/></svg></div>
-      <h3>金沢のいま</h3><p>毎日のニュース</p>
-      <div class="cat-open"></div>
-    </div>
-    <div class="cat" data-cat="ima" onclick="openCat('ima')">
-      <div class="cat-img" id="catimg-ima"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8"/></svg></div>
-      <h3>いま動いている話</h3><p>進行中の議論・問題</p>
-      <div class="cat-open"></div>
-    </div>
-    <div class="cat" data-cat="saigai" onclick="openCat('saigai')">
-      <div class="cat-img" id="catimg-saigai"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/><circle cx="12" cy="12" r="3.2"/></svg></div>
-      <h3>災害と金沢</h3><p>地震・液状化・支援制度</p>
-      <div class="cat-open"></div>
-    </div>
-    <div class="cat" data-cat="edu" onclick="openCat('edu')">
-      <div class="cat-img" id="catimg-edu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M12 5 2 9l10 4 10-4-10-4z"/><path d="M6 11v4c0 1.5 3 3 6 3s6-1.5 6-3v-4"/></svg></div>
-      <h3>教育と子ども</h3><p>学校といじめ</p>
-      <div class="cat-open"></div>
-    </div>
-    <div class="cat" data-cat="anzen" onclick="openCat('anzen')">
-      <div class="cat-img" id="catimg-anzen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg></div>
-      <h3>犯罪・事故のデータ</h3><p>金沢は安全なまち？</p>
-      <div class="cat-open"></div>
-    </div>
-    <div class="cat" data-cat="koe" onclick="openCat('koe')">
-      <div class="cat-img" id="catimg-koe"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.9 8.9 0 0 1-3.7-.8L3 21l1.9-4.6a8.4 8.4 0 1 1 16.1-4.9z"/><path d="M8 10h.01M12 10h.01M16 10h.01"/></svg></div>
-      <h3>市民のホンネ調査</h3><p>観光客は満足、市民は？</p>
-      <div class="cat-open"></div>
-    </div>
-    <div class="cat" data-cat="global" onclick="openCat('global')">
-      <div class="cat-img" id="catimg-global"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.8 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.8-3.8-9S9.5 5.7 12 3z"/></svg></div>
-      <h3>外国人と金沢</h3><p>実態を数字で見る</p>
-      <div class="cat-open"></div>
-    </div>
-    <div class="catg"><span>🏯 金沢を知る</span><small>歴史・文化・金沢だけの話</small></div>
-    <div class="cat" data-cat="shoku" onclick="openCat('shoku')">
-      <div class="cat-img" id="catimg-shoku"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M4 3v7a3 3 0 0 0 3 3v8"/><path d="M7 3v6"/><path d="M10 3v6"/><path d="M17 3c-1.5 0-3 2-3 5s1 4 3 4v9"/></svg></div>
-      <h3>金沢の食</h3><p>加賀野菜・金沢カレー・郷土料理</p>
-      <div class="cat-open"></div>
-    </div>
-    <div class="cat" data-cat="kouka" onclick="openCat('kouka')">
-      <div class="cat-img" id="catimg-kouka"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M3 21h18"/><path d="M5 21V10l7-6 7 6v11"/><path d="M9 21v-5h6v5"/><path d="M12 4v3"/></svg></div>
-      <h3>校下ってなんや？</h3><p>金沢人のアイデンティティ</p>
-      <div class="cat-open"></div>
-    </div>
-    <div class="cat" data-cat="matsuri" onclick="openCat('matsuri')">
-      <div class="cat-img" id="catimg-matsuri"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16"/><path d="M6 20V9l6-4 6 4v11"/><path d="M9 20v-5h6v5"/><path d="M12 2v3"/></svg></div>
-      <h3>百万石まつりの歴史</h3><p>起源と、その変わりかた</p>
-      <div class="cat-open"></div>
-    </div>
-    <div class="cat" data-cat="maeda" onclick="openCat('maeda')">
-      <div class="cat-img" id="catimg-maeda"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5 4 6v5c0 4.5 3.2 7.8 8 9.5 4.8-1.7 8-5 8-9.5V6z"/><circle cx="12" cy="10" r="2.2"/><path d="M12 12.2v3.5M9.6 13.6l4.8 0"/></svg></div>
-      <h3>前田家ってなにした人？</h3><p>金沢をつくった殿さまたち</p>
-      <div class="cat-open"></div>
-    </div>
-    <div class="cat" data-cat="sports" onclick="openCat('sports')">
-      <div class="cat-img" id="catimg-sports"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3a15 15 0 0 1 0 18M3.5 8.5h17M3.5 15.5h17"/></svg></div>
-      <h3>金沢のスポーツ</h3><p>日本一の王朝が、金沢にある</p>
-      <div class="cat-open"></div>
-    </div>
-    <div class="cat" data-cat="kigyo" onclick="openCat('kigyo')">
-      <div class="cat-img" id="catimg-kigyo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h.01M9 13h.01M9 17h.01M15 9h.01M15 13h.01M15 17h.01"/></svg></div>
-      <h3>金沢の会社</h3><p>世界の寿司は、金沢が回してる</p>
-      <div class="cat-open"></div>
-    </div>
-    <div class="cat" data-cat="jinbutsu" onclick="openCat('jinbutsu')">
-      <div class="cat-img" id="catimg-jinbutsu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-      <h3>金沢の人物</h3><p>総理2人、世界のZEN、Perfumeの音</p>
-      <div class="cat-open"></div>
-    </div>
-    <div class="cat" data-cat="ben" onclick="openCat('ben')">
-      <div class="cat-img" id="catimg-ben"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
-      <h3>金沢弁</h3><p>きんかんなまなま、言えるけ？</p>
-      <div class="cat-open"></div>
-    </div>
-    <div class="cat" data-cat="saka" onclick="openCat('saka')">
-      <div class="cat-img" id="catimg-saka"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M5 20l6-9 4 5 4-7"/></svg></div>
-      <h3>金沢の坂と橋</h3><p>焼けて口開くハマグリ坂</p>
-      <div class="cat-open"></div>
-    </div>
-    <div class="cat" data-cat="mirai" onclick="openCat('mirai')">
-      <div class="cat-img" id="catimg-mirai"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
-      <h3>金沢の未来年表</h3><p>新幹線、大阪はいつ？</p>
-      <div class="cat-open"></div>
-    </div>
-    <div class="cat" data-cat="kakei" onclick="openCat('kakei')">
-      <div class="cat-img" id="catimg-kakei"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M6 15h4"/></svg></div>
-      <h3>金沢の家計簿</h3><p>まちの財布と、私たちの財布</p>
-      <div class="cat-open"></div>
-    </div>
-    <div class="cat" data-cat="kieta" onclick="openCat('kieta')">
-      <div class="cat-img" id="catimg-kieta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 16V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10M4 16h16M4 16l-2 5M20 16l2 5M8 20h8M8 8h8"/></svg></div>
-      <h3>消えた金沢</h3><p>路面電車と、北陸の宝塚</p>
-      <div class="cat-open"></div>
-    </div>
-    <div class="cat" data-cat="ichiban" onclick="openCat('ichiban')">
-      <div class="cat-img" id="catimg-ichiban"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4M17 4H7v5a5 5 0 0 0 10 0V4zM17 6h3a2 2 0 0 1-2 4h-1M7 6H4a2 2 0 0 0 2 4h1"/></svg></div>
-      <h3>金沢の日本一と最下位</h3><p>金箔99%、塩はビリ</p>
-      <div class="cat-open"></div>
-    </div>
-    <div class="cat" data-cat="onsen" onclick="openCat('onsen')">
-      <div class="cat-img" id="catimg-onsen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14c0 4 3.6 6 8 6s8-2 8-6-3.6-6-8-6-8 2-8 6z"/><path d="M8 5c0 1-1 1.5-1 2.5M12 3c0 1-1 1.5-1 2.5M16 5c0 1-1 1.5-1 2.5"/></svg></div>
-      <h3>金沢の温泉</h3><p>アニメが祭りを生んだ湯</p>
-      <div class="cat-open"></div>
-    </div>
-    <div class="cat" data-cat="shinkansen" onclick="openCat('shinkansen')">
-      <div class="cat-img" id="catimg-shinkansen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 15V8a4 4 0 0 1 4-4h7c4 0 7 3 7 7v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M3 11h18M8 4v7"/><circle cx="7.5" cy="19.5" r="1.5"/><circle cx="16.5" cy="19.5" r="1.5"/></svg></div>
-      <h3>北陸新幹線</h3><p>42年越しの一本、全部盛り</p>
-      <div class="cat-open"></div>
-    </div>
-    <div class="cat" data-cat="ashi" onclick="openCat('ashi')">
-      <div class="cat-img" id="catimg-ashi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="13" rx="2.5"/><path d="M4 10h16M8 4v6M16 4v6"/><circle cx="8" cy="19.5" r="1.5"/><circle cx="16" cy="19.5" r="1.5"/></svg></div>
-      <h3>金沢の足</h3><p>バスとまちの400年戦争</p>
-      <div class="cat-open"></div>
-    </div>
-    <div class="cat" data-cat="machiya" onclick="openCat('machiya')">
-      <div class="cat-img" id="catimg-machiya"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/><path d="M9 20v-5h6v5M9 12h6"/></svg></div>
-      <h3>金沢の空き家と町家</h3><p>1年に100軒、消えるまちなみ</p>
-      <div class="cat-open"></div>
-    </div>
-    <div class="cat" data-cat="sekai" onclick="openCat('sekai')">
-      <div class="cat-img" id="catimg-sekai"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14 0 18M12 3c-3 3.5-3 14 0 18"/></svg></div>
-      <h3>金沢と世界</h3><p>焼けなかったまちの7つの握手</p>
-      <div class="cat-open"></div>
-    </div>
-    <div class="cat" data-cat="ichinichi" onclick="openCat('ichinichi')">
-      <div class="cat-img" id="catimg-ichinichi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="13" r="4"/><path d="M12 3v3M4.9 6.9l2.1 2.1M19.1 6.9 17 9M2 13h3M19 13h3M5 21h14"/></svg></div>
-      <h3>金沢の1日</h3><p>今日も救急車は68回走る</p>
-      <div class="cat-open"></div>
-    </div>
-    <div class="cat" data-cat="chigai" onclick="openCat('chigai')">
-      <div class="cat-img" id="catimg-chigai"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M8 21h8M12 17v4"/><path d="M7 4h10v6a5 5 0 0 1-10 0z"/><path d="M7 6H4a2 2 0 0 0 2 4h1M17 6h3a2 2 0 0 1-2 4h-1"/></svg></div>
-      <h3>金沢市民って、トクなん？</h3><p>他の市と、ここが違う</p>
-      <div class="cat-open"></div>
-    </div>
-    <div class="cat" data-cat="bunka" onclick="openCat('bunka')">
-      <div class="cat-img" id="catimg-bunka"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M8 10h.01M16 10h.01"/><path d="M8.5 15c1 1 2.1 1.5 3.5 1.5s2.5-.5 3.5-1.5"/></svg></div>
-      <h3>金沢の文化</h3><p>工芸・芸能・百万石の実力</p>
-      <div class="cat-open"></div>
-    </div>
-    <div class="cat" data-cat="sandai" onclick="openCat('sandai')">
-      <div class="cat-img" id="catimg-sandai"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="6.5" r="3"/><circle cx="6.5" cy="16" r="3"/><circle cx="17.5" cy="16" r="3"/></svg></div>
-      <h3>金沢の三大なんとか</h3><p>三つそろって一人前</p>
-      <div class="cat-open"></div>
-    </div>
-    <div class="cat" data-cat="zekkei" onclick="openCat('zekkei')">
-      <div class="cat-img" id="catimg-zekkei"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 19h18"/><path d="M5 19l5-9 3 5 2-3 4 7"/><circle cx="17.5" cy="6.5" r="2"/></svg></div>
-      <h3>金沢の絶景ポイント</h3><p>市公式「眺望点」15箇所のまち</p>
-      <div class="cat-open"></div>
-    </div>
-    <div class="cat" data-cat="jinja" onclick="openCat('jinja')">
-      <div class="cat-img" id="catimg-jinja"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6c2.5-1.6 13.5-1.6 16 0"/><path d="M5.5 6.4 6 10h12l.5-3.6"/><path d="M6.5 10v9M17.5 10v9M4.5 19h15M10 10v4h4v-4"/></svg></div>
-      <h3>金沢の神社とお寺</h3><p>祈りでできた都市計画</p>
-      <div class="cat-open"></div>
-    </div>
-    <div class="cat" data-cat="symbol" onclick="openCat('symbol')">
-      <div class="cat-img" id="catimg-symbol"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="8" r="5"/><path d="M12 5.5c.6.7 1.2 1.4 1.2 2.2a1.2 1.2 0 0 1-2.4 0c0-.8.6-1.5 1.2-2.2z"/><path d="M8.5 13.5 7 21l5-2.5L17 21l-1.5-7.5"/></svg></div>
-      <h3>金沢のシンボル</h3><p>市の木・市章・市の歌</p>
-      <div class="cat-open"></div>
-    </div>
+    <div class="catg"><span>🎯 金沢の背骨</span><small>まちの理念とデータ</small></div>
     <div class="cat" data-cat="rinen" onclick="openCat('rinen')">
       <div class="cat-img" id="catimg-rinen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polygon points="16 8 10.5 10.5 8 16 13.5 13.5 16 8"/></svg></div>
       <h3>金沢は何を目指してる？</h3><p>都市像と理念・市政の背骨</p>
@@ -1095,15 +882,103 @@
       <h3>金沢方式まるわかり</h3><p>教育にも税金にも出てくる謎の言葉</p>
       <div class="cat-open"></div>
     </div>
-    <div class="catg"><span>🏛 政治と議会</span><small>誰が何を決めてる？</small></div>
+    <div class="cat" data-cat="chigai" onclick="openCat('chigai')">
+      <div class="cat-img" id="catimg-chigai"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M8 21h8M12 17v4"/><path d="M7 4h10v6a5 5 0 0 1-10 0z"/><path d="M7 6H4a2 2 0 0 0 2 4h1M17 6h3a2 2 0 0 1-2 4h-1"/></svg></div>
+      <h3>金沢市民って、トクなん？</h3><p>他の市と、ここが違う</p>
+      <div class="cat-open"></div>
+    </div>
+    <div class="catg"><span>⚔️ まずは、あそんでみる</span><small>クイズと市長体験から</small></div>
+    <div class="cat" data-cat="quiz100" onclick="openCat('quiz100')">
+      <div class="cat-img" id="catimg-quiz100"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.2 9a2.8 2.8 0 0 1 5.5.8c0 1.9-2.8 2.5-2.8 2.5"/><path d="M12 17h.01"/></svg></div>
+      <h3>金沢まるっと10問クイズ</h3><p>毎日10問！めざせ百万石の主</p>
+      <div class="cat-open"></div>
+    </div>
+    <div class="catg"><span>💴 お金の話</span><small>税金はどこへ？何がもらえる？</small></div>
+    <div class="cat" data-cat="money" onclick="openCat('money')">
+      <div class="cat-img" id="catimg-money"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><path d="M12 7v10M9.5 10h5M9.5 13h5"/></svg></div>
+      <h3>金沢のお金</h3><p>予算と使い道</p>
+      <div class="cat-open"></div>
+    </div>
+    <div class="cat" data-cat="sim" onclick="openCat('sim')">
+      <div class="cat-img" id="catimg-sim"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8M8 11h2M12 11h2M16 11h.01M8 15h2M12 15h2M16 15v3"/></svg></div>
+      <h3>税金シミュレーター</h3><p>あなたの手取りは</p>
+      <div class="cat-open"></div>
+    </div>
+    <div class="cat" data-cat="percap" onclick="openCat('percap')">
+      <div class="cat-img" id="catimg-percap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="8" r="3.2"/><path d="M5 20c0-3.6 3.1-6 7-6s7 2.4 7 6"/><path d="M12 11.5v2"/></svg></div>
+      <h3>1人あたり、いくら？</h3><p>税金の使われ方を実感する</p>
+      <div class="cat-open"></div>
+    </div>
+    <div class="cat" data-cat="kakei" onclick="openCat('kakei')">
+      <div class="cat-img" id="catimg-kakei"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M6 15h4"/></svg></div>
+      <h3>金沢の家計簿</h3><p>まちの財布と、私たちの財布</p>
+      <div class="cat-open"></div>
+    </div>
+    <div class="cat" data-cat="kyuryo" onclick="openCat('kyuryo')">
+      <div class="cat-img" id="catimg-kyuryo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M3 12h18"/><path d="M12 11v2"/></svg></div>
+      <h3>市役所の給料、全公開</h3><p>市長・議員・職員、いくら？</p>
+      <div class="cat-open"></div>
+    </div>
+    <div class="cat" data-cat="hakomono" onclick="openCat('hakomono')">
+      <div class="cat-img" id="catimg-hakomono"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V10l7-4 7 4v11"/><path d="M9 21v-6h6v6"/><path d="M4 10h16"/></svg></div>
+      <h3>金沢のハコモノ</h3><p>その施設、税金いくら？利用は？</p>
+      <div class="cat-open"></div>
+    </div>
+    <div class="cat" data-cat="gasu" onclick="openCat('gasu')">
+      <div class="cat-img" id="catimg-gasu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M12 3c2.5 3 5 5.6 5 9a5 5 0 0 1-10 0c0-3.4 2.5-6 5-9z"/><path d="M12 11c1 1.2 2 2.2 2 3.5a2 2 0 0 1-4 0c0-1.3 1-2.3 2-3.5z"/></svg></div>
+      <h3>ガスと発電、売った話</h3><p>100年市営やったのに？</p>
+      <div class="cat-open"></div>
+    </div>
+    <div class="cat" data-cat="event" onclick="openCat('event')">
+      <div class="cat-img" id="catimg-event"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M4 4h16v4H4z"/><path d="M6 8v13M18 8v13M6 15h12"/><path d="M9 4V2M15 4V2"/></svg></div>
+      <h3>まつり・マラソンとお金</h3><p>百万石まつり／金沢マラソン</p>
+      <div class="cat-open"></div>
+    </div>
+    <div class="cat" data-cat="change" onclick="openCat('change')">
+      <div class="cat-img" id="catimg-change"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M4 7h13l-3-3M20 17H7l3 3"/><path d="M4 7v0M20 17v0"/></svg></div>
+      <h3>税制まるわかり</h3><p>なにが変わった</p>
+      <div class="cat-open"></div>
+    </div>
+    <div class="cat" data-cat="otoku" onclick="openCat('otoku')">
+      <div class="cat-img" id="catimg-otoku"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M9 9.5c0-1.4 1.3-2.5 3-2.5s3 1.1 3 2.5-1.3 2.2-3 2.5-3 1.1-3 2.5 1.3 2.5 3 2.5 3-1.1 3-2.5"/><path d="M12 5.5v13"/></svg></div>
+      <h3>知らんと損する制度</h3><p>申請しないと、もらえない</p>
+      <div class="cat-open"></div>
+    </div>
+    <div class="catg"><span>🔥 いまの金沢</span><small>ニュースと今の姿</small></div>
+    <div class="cat" data-cat="news" onclick="openCat('news')">
+      <div class="cat-img" id="catimg-news"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 9h6M7 13h6M7 16h4M16 9h2M16 13h2"/></svg></div>
+      <h3>金沢のいま</h3><p>毎日のニュース</p>
+      <div class="cat-open"></div>
+    </div>
+    <div class="cat" data-cat="ima" onclick="openCat('ima')">
+      <div class="cat-img" id="catimg-ima"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8"/></svg></div>
+      <h3>いま動いている話</h3><p>進行中の議論・問題</p>
+      <div class="cat-open"></div>
+    </div>
+    <div class="cat" data-cat="saigai" onclick="openCat('saigai')">
+      <div class="cat-img" id="catimg-saigai"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/><circle cx="12" cy="12" r="3.2"/></svg></div>
+      <h3>災害と金沢</h3><p>地震・液状化・支援制度</p>
+      <div class="cat-open"></div>
+    </div>
+    <div class="cat" data-cat="anzen" onclick="openCat('anzen')">
+      <div class="cat-img" id="catimg-anzen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg></div>
+      <h3>犯罪・事故のデータ</h3><p>金沢は安全なまち？</p>
+      <div class="cat-open"></div>
+    </div>
+    <div class="cat" data-cat="edu" onclick="openCat('edu')">
+      <div class="cat-img" id="catimg-edu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M12 5 2 9l10 4 10-4-10-4z"/><path d="M6 11v4c0 1.5 3 3 6 3s6-1.5 6-3v-4"/></svg></div>
+      <h3>教育と子ども</h3><p>学校といじめ</p>
+      <div class="cat-open"></div>
+    </div>
+    <div class="cat" data-cat="global" onclick="openCat('global')">
+      <div class="cat-img" id="catimg-global"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.8 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.8-3.8-9S9.5 5.7 12 3z"/></svg></div>
+      <h3>外国人と金沢</h3><p>実態を数字で見る</p>
+      <div class="cat-open"></div>
+    </div>
+    <div class="catg"><span>🏛 政治と議会</span><small>決める人と、決めかた</small></div>
     <div class="cat" data-cat="kouyaku" onclick="openCat('kouyaku')">
       <div class="cat-img" id="catimg-kouyaku"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></svg></div>
       <h3>市長公約トラッカー</h3><p>約束、どこまで進んだ？</p>
-      <div class="cat-open"></div>
-    </div>
-    <div class="cat" data-cat="meikan" onclick="openCat('meikan')">
-      <div class="cat-img" id="catimg-meikan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="9" cy="8.5" r="3.2"/><path d="M3.5 19c.8-3.2 3-4.8 5.5-4.8s4.7 1.6 5.5 4.8"/><path d="M16 4.5h5M16 8.5h5M16 12.5h4"/></svg></div>
-      <h3>議員名鑑</h3><p>38人、誰がどう投票した？</p>
       <div class="cat-open"></div>
     </div>
     <div class="cat" data-cat="shinchoku" onclick="openCat('shinchoku')">
@@ -1111,44 +986,9 @@
       <h3>市政の進捗トラッカー</h3><p>あの事業、今どこまで進んでる？</p>
       <div class="cat-open"></div>
     </div>
-    <div class="cat" data-cat="honne" onclick="openCat('honne')">
-      <div class="cat-img" id="catimg-honne"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.9 8.9 0 0 1-3.8-.8L3 20l1-4.1a8.4 8.4 0 1 1 17-4.4z"/><path d="M8 10h8M8 13.5h5"/></svg></div>
-      <h3>金沢市民の本音</h3><p>市の公式文書に残る、生の声</p>
-      <div class="cat-open"></div>
-    </div>
-    <div class="cat" data-cat="jorei" onclick="openCat('jorei')">
-      <div class="cat-img" id="catimg-jorei"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M5 6h5a2 2 0 0 1 2 2 2 2 0 0 1 2-2h5"/><path d="M5 6l-2 6a3 3 0 0 0 6 0L7 6M19 6l-2 6a3 3 0 0 0 6 0l-2-6"/><path d="M8 21h8"/></svg></div>
-      <h3>金沢の条例</h3><p>国が守らないなら、自分で守る</p>
-      <div class="cat-open"></div>
-    </div>
-    <div class="cat" data-cat="gomi" onclick="openCat('gomi')">
-      <div class="cat-img" id="catimg-gomi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/><path d="M10 10v6M14 10v6"/></svg></div>
-      <h3>金沢のゴミ</h3><p>燃やして、埋めて、あと何年？</p>
-      <div class="cat-open"></div>
-    </div>
-    <div class="cat" data-cat="suido" onclick="openCat('suido')">
-      <div class="cat-img" id="catimg-suido"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/><path d="M9.5 13a2.5 2.5 0 0 0 2.5 2.5"/></svg></div>
-      <h3>金沢の水道</h3><p>蛇口の裏の、見えない時限爆弾</p>
-      <div class="cat-open"></div>
-    </div>
-    <div class="cat" data-cat="kaigo" onclick="openCat('kaigo')">
-      <div class="cat-img" id="catimg-kaigo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="3.2"/><path d="M6 21c0-3.5 2.7-6 6-6s6 2.5 6 6"/><path d="M12 11.5v3M10.5 13h3" opacity="0"/><path d="M18.5 8.5c1.2 0 2 .9 2 2s-2 2.5-2 2.5-2-1.3-2-2.5.8-2 2-2z"/></svg></div>
-      <h3>金沢の介護と高齢化</h3><p>3人に1人が高齢者になる日</p>
-      <div class="cat-open"></div>
-    </div>
-    <div class="cat" data-cat="machinaka" onclick="openCat('machinaka')">
-      <div class="cat-img" id="catimg-machinaka"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V8l5-3 5 3v13M14 21V11l5-2v12"/><path d="M3 21h18M7 10v0M7 13v0M7 16v0"/></svg></div>
-      <h3>金沢のまちなか</h3><p>片町に行かなくなった、あなたへ</p>
-      <div class="cat-open"></div>
-    </div>
-    <div class="cat" data-cat="nogyo" onclick="openCat('nogyo')">
-      <div class="cat-img" id="catimg-nogyo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c0-5 2-9 7-11-1 5-3 8-7 9zM12 21c0-4-2-7-6-8 1 4 3 6 6 7z"/><path d="M12 21v-6"/></svg></div>
-      <h3>加賀野菜と金沢の農業</h3><p>ブランドは絶滅寸前から生まれた</p>
-      <div class="cat-open"></div>
-    </div>
-    <div class="cat" data-cat="iryohi" onclick="openCat('iryohi')">
-      <div class="cat-img" id="catimg-iryohi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16v13H4zM9 7V4h6v3"/><path d="M12 11v5M9.5 13.5h5"/></svg></div>
-      <h3>医療費のしくみ</h3><p>保険料は、どこへ行くのか</p>
+    <div class="cat" data-cat="gikai" onclick="openCat('gikai')">
+      <div class="cat-img" id="catimg-gikai"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M3 9.5 12 4l9 5.5"/><path d="M5 10v8M9.5 10v8M14.5 10v8M19 10v8"/><path d="M3 19h18"/></svg></div>
+      <h3>議会の動き</h3><p>だれが何を話したか</p>
       <div class="cat-open"></div>
     </div>
     <div class="cat" data-cat="sanpi" onclick="openCat('sanpi')">
@@ -1156,14 +996,14 @@
       <h3>議会の賛否まるわかり</h3><p>誰が賛成？なぜ反対？</p>
       <div class="cat-open"></div>
     </div>
-    <div class="cat" data-cat="gikai" onclick="openCat('gikai')">
-      <div class="cat-img" id="catimg-gikai"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M3 9.5 12 4l9 5.5"/><path d="M5 10v8M9.5 10v8M14.5 10v8M19 10v8"/><path d="M3 19h18"/></svg></div>
-      <h3>議会の動き</h3><p>だれが何を話したか</p>
-      <div class="cat-open"></div>
-    </div>
     <div class="cat" data-cat="senkyo" onclick="openCat('senkyo')">
       <div class="cat-img" id="catimg-senkyo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M4 11h16v9H4z"/><path d="M9 11l2.5-6 6 2.5-1.5 3.5"/><path d="M12 15v2"/></svg></div>
       <h3>かなざわ選挙ガイド</h3><p>半分の市民が選んでいない</p>
+      <div class="cat-open"></div>
+    </div>
+    <div class="cat" data-cat="meikan" onclick="openCat('meikan')">
+      <div class="cat-img" id="catimg-meikan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="9" cy="8.5" r="3.2"/><path d="M3.5 19c.8-3.2 3-4.8 5.5-4.8s4.7 1.6 5.5 4.8"/><path d="M16 4.5h5M16 8.5h5M16 12.5h4"/></svg></div>
+      <h3>議員名鑑</h3><p>38人、誰がどう投票した？</p>
       <div class="cat-open"></div>
     </div>
     <div class="cat" data-cat="shigoto" onclick="openCat('shigoto')">
@@ -1171,7 +1011,174 @@
       <h3>議員のお仕事</h3><p>市議って、何してるん？</p>
       <div class="cat-open"></div>
     </div>
-    <div class="catg"><span>🧭 調べる・動く</span><small>あなたの番</small></div>
+    <div class="cat" data-cat="jorei" onclick="openCat('jorei')">
+      <div class="cat-img" id="catimg-jorei"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M5 6h5a2 2 0 0 1 2 2 2 2 0 0 1 2-2h5"/><path d="M5 6l-2 6a3 3 0 0 0 6 0L7 6M19 6l-2 6a3 3 0 0 0 6 0l-2-6"/><path d="M8 21h8"/></svg></div>
+      <h3>金沢の条例</h3><p>国が守らないなら、自分で守る</p>
+      <div class="cat-open"></div>
+    </div>
+    <div class="cat" data-cat="honne" onclick="openCat('honne')">
+      <div class="cat-img" id="catimg-honne"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.9 8.9 0 0 1-3.8-.8L3 20l1-4.1a8.4 8.4 0 1 1 17-4.4z"/><path d="M8 10h8M8 13.5h5"/></svg></div>
+      <h3>金沢市民の本音</h3><p>市の公式文書に残る、生の声</p>
+      <div class="cat-open"></div>
+    </div>
+    <div class="cat" data-cat="koe" onclick="openCat('koe')">
+      <div class="cat-img" id="catimg-koe"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.9 8.9 0 0 1-3.7-.8L3 21l1.9-4.6a8.4 8.4 0 1 1 16.1-4.9z"/><path d="M8 10h.01M12 10h.01M16 10h.01"/></svg></div>
+      <h3>市民のホンネ調査</h3><p>観光客は満足、市民は？</p>
+      <div class="cat-open"></div>
+    </div>
+    <div class="catg"><span>🏗 くらしと仕事</span><small>毎日の暮らしを支える</small></div>
+    <div class="cat" data-cat="suido" onclick="openCat('suido')">
+      <div class="cat-img" id="catimg-suido"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/><path d="M9.5 13a2.5 2.5 0 0 0 2.5 2.5"/></svg></div>
+      <h3>金沢の水道</h3><p>蛇口の裏の、見えない時限爆弾</p>
+      <div class="cat-open"></div>
+    </div>
+    <div class="cat" data-cat="gomi" onclick="openCat('gomi')">
+      <div class="cat-img" id="catimg-gomi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/><path d="M10 10v6M14 10v6"/></svg></div>
+      <h3>金沢のゴミ</h3><p>燃やして、埋めて、あと何年？</p>
+      <div class="cat-open"></div>
+    </div>
+    <div class="cat" data-cat="kaigo" onclick="openCat('kaigo')">
+      <div class="cat-img" id="catimg-kaigo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="3.2"/><path d="M6 21c0-3.5 2.7-6 6-6s6 2.5 6 6"/><path d="M12 11.5v3M10.5 13h3" opacity="0"/><path d="M18.5 8.5c1.2 0 2 .9 2 2s-2 2.5-2 2.5-2-1.3-2-2.5.8-2 2-2z"/></svg></div>
+      <h3>金沢の介護と高齢化</h3><p>3人に1人が高齢者になる日</p>
+      <div class="cat-open"></div>
+    </div>
+    <div class="cat" data-cat="iryohi" onclick="openCat('iryohi')">
+      <div class="cat-img" id="catimg-iryohi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16v13H4zM9 7V4h6v3"/><path d="M12 11v5M9.5 13.5h5"/></svg></div>
+      <h3>医療費のしくみ</h3><p>保険料は、どこへ行くのか</p>
+      <div class="cat-open"></div>
+    </div>
+    <div class="cat" data-cat="ashi" onclick="openCat('ashi')">
+      <div class="cat-img" id="catimg-ashi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="13" rx="2.5"/><path d="M4 10h16M8 4v6M16 4v6"/><circle cx="8" cy="19.5" r="1.5"/><circle cx="16" cy="19.5" r="1.5"/></svg></div>
+      <h3>金沢の足</h3><p>バスとまちの400年戦争</p>
+      <div class="cat-open"></div>
+    </div>
+    <div class="cat" data-cat="machinaka" onclick="openCat('machinaka')">
+      <div class="cat-img" id="catimg-machinaka"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V8l5-3 5 3v13M14 21V11l5-2v12"/><path d="M3 21h18M7 10v0M7 13v0M7 16v0"/></svg></div>
+      <h3>金沢のまちなか</h3><p>片町に行かなくなった、あなたへ</p>
+      <div class="cat-open"></div>
+    </div>
+    <div class="cat" data-cat="machiya" onclick="openCat('machiya')">
+      <div class="cat-img" id="catimg-machiya"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/><path d="M9 20v-5h6v5M9 12h6"/></svg></div>
+      <h3>金沢の空き家と町家</h3><p>1年に100軒、消えるまちなみ</p>
+      <div class="cat-open"></div>
+    </div>
+    <div class="cat" data-cat="nogyo" onclick="openCat('nogyo')">
+      <div class="cat-img" id="catimg-nogyo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c0-5 2-9 7-11-1 5-3 8-7 9zM12 21c0-4-2-7-6-8 1 4 3 6 6 7z"/><path d="M12 21v-6"/></svg></div>
+      <h3>加賀野菜と金沢の農業</h3><p>ブランドは絶滅寸前から生まれた</p>
+      <div class="cat-open"></div>
+    </div>
+    <div class="cat" data-cat="kigyo" onclick="openCat('kigyo')">
+      <div class="cat-img" id="catimg-kigyo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h.01M9 13h.01M9 17h.01M15 9h.01M15 13h.01M15 17h.01"/></svg></div>
+      <h3>金沢の会社</h3><p>世界の寿司は、金沢が回してる</p>
+      <div class="cat-open"></div>
+    </div>
+    <div class="cat" data-cat="sports" onclick="openCat('sports')">
+      <div class="cat-img" id="catimg-sports"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3a15 15 0 0 1 0 18M3.5 8.5h17M3.5 15.5h17"/></svg></div>
+      <h3>金沢のスポーツ</h3><p>日本一の王朝が、金沢にある</p>
+      <div class="cat-open"></div>
+    </div>
+    <div class="catg"><span>🏯 金沢を知る</span><small>歴史・文化・地理</small></div>
+    <div class="cat" data-cat="shoku" onclick="openCat('shoku')">
+      <div class="cat-img" id="catimg-shoku"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M4 3v7a3 3 0 0 0 3 3v8"/><path d="M7 3v6"/><path d="M10 3v6"/><path d="M17 3c-1.5 0-3 2-3 5s1 4 3 4v9"/></svg></div>
+      <h3>金沢の食</h3><p>加賀野菜・金沢カレー・郷土料理</p>
+      <div class="cat-open"></div>
+    </div>
+    <div class="cat" data-cat="bunka" onclick="openCat('bunka')">
+      <div class="cat-img" id="catimg-bunka"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M8 10h.01M16 10h.01"/><path d="M8.5 15c1 1 2.1 1.5 3.5 1.5s2.5-.5 3.5-1.5"/></svg></div>
+      <h3>金沢の文化</h3><p>工芸・芸能・百万石の実力</p>
+      <div class="cat-open"></div>
+    </div>
+    <div class="cat" data-cat="matsuri" onclick="openCat('matsuri')">
+      <div class="cat-img" id="catimg-matsuri"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16"/><path d="M6 20V9l6-4 6 4v11"/><path d="M9 20v-5h6v5"/><path d="M12 2v3"/></svg></div>
+      <h3>百万石まつりの歴史</h3><p>起源と、その変わりかた</p>
+      <div class="cat-open"></div>
+    </div>
+    <div class="cat" data-cat="maeda" onclick="openCat('maeda')">
+      <div class="cat-img" id="catimg-maeda"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5 4 6v5c0 4.5 3.2 7.8 8 9.5 4.8-1.7 8-5 8-9.5V6z"/><circle cx="12" cy="10" r="2.2"/><path d="M12 12.2v3.5M9.6 13.6l4.8 0"/></svg></div>
+      <h3>前田家ってなにした人？</h3><p>金沢をつくった殿さまたち</p>
+      <div class="cat-open"></div>
+    </div>
+    <div class="cat" data-cat="jinbutsu" onclick="openCat('jinbutsu')">
+      <div class="cat-img" id="catimg-jinbutsu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+      <h3>金沢の人物</h3><p>総理2人、世界のZEN、Perfumeの音</p>
+      <div class="cat-open"></div>
+    </div>
+    <div class="cat" data-cat="kouka" onclick="openCat('kouka')">
+      <div class="cat-img" id="catimg-kouka"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M3 21h18"/><path d="M5 21V10l7-6 7 6v11"/><path d="M9 21v-5h6v5"/><path d="M12 4v3"/></svg></div>
+      <h3>校下ってなんや？</h3><p>金沢人のアイデンティティ</p>
+      <div class="cat-open"></div>
+    </div>
+    <div class="cat" data-cat="ben" onclick="openCat('ben')">
+      <div class="cat-img" id="catimg-ben"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+      <h3>金沢弁</h3><p>きんかんなまなま、言えるけ？</p>
+      <div class="cat-open"></div>
+    </div>
+    <div class="cat" data-cat="saka" onclick="openCat('saka')">
+      <div class="cat-img" id="catimg-saka"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M5 20l6-9 4 5 4-7"/></svg></div>
+      <h3>金沢の坂と橋</h3><p>焼けて口開くハマグリ坂</p>
+      <div class="cat-open"></div>
+    </div>
+    <div class="cat" data-cat="jinja" onclick="openCat('jinja')">
+      <div class="cat-img" id="catimg-jinja"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6c2.5-1.6 13.5-1.6 16 0"/><path d="M5.5 6.4 6 10h12l.5-3.6"/><path d="M6.5 10v9M17.5 10v9M4.5 19h15M10 10v4h4v-4"/></svg></div>
+      <h3>金沢の神社とお寺</h3><p>祈りでできた都市計画</p>
+      <div class="cat-open"></div>
+    </div>
+    <div class="cat" data-cat="symbol" onclick="openCat('symbol')">
+      <div class="cat-img" id="catimg-symbol"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="8" r="5"/><path d="M12 5.5c.6.7 1.2 1.4 1.2 2.2a1.2 1.2 0 0 1-2.4 0c0-.8.6-1.5 1.2-2.2z"/><path d="M8.5 13.5 7 21l5-2.5L17 21l-1.5-7.5"/></svg></div>
+      <h3>金沢のシンボル</h3><p>市の木・市章・市の歌</p>
+      <div class="cat-open"></div>
+    </div>
+    <div class="cat" data-cat="sandai" onclick="openCat('sandai')">
+      <div class="cat-img" id="catimg-sandai"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="6.5" r="3"/><circle cx="6.5" cy="16" r="3"/><circle cx="17.5" cy="16" r="3"/></svg></div>
+      <h3>金沢の三大なんとか</h3><p>三つそろって一人前</p>
+      <div class="cat-open"></div>
+    </div>
+    <div class="cat" data-cat="zekkei" onclick="openCat('zekkei')">
+      <div class="cat-img" id="catimg-zekkei"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 19h18"/><path d="M5 19l5-9 3 5 2-3 4 7"/><circle cx="17.5" cy="6.5" r="2"/></svg></div>
+      <h3>金沢の絶景ポイント</h3><p>市公式「眺望点」15箇所のまち</p>
+      <div class="cat-open"></div>
+    </div>
+    <div class="cat" data-cat="onsen" onclick="openCat('onsen')">
+      <div class="cat-img" id="catimg-onsen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14c0 4 3.6 6 8 6s8-2 8-6-3.6-6-8-6-8 2-8 6z"/><path d="M8 5c0 1-1 1.5-1 2.5M12 3c0 1-1 1.5-1 2.5M16 5c0 1-1 1.5-1 2.5"/></svg></div>
+      <h3>金沢の温泉</h3><p>アニメが祭りを生んだ湯</p>
+      <div class="cat-open"></div>
+    </div>
+    <div class="cat" data-cat="shinkansen" onclick="openCat('shinkansen')">
+      <div class="cat-img" id="catimg-shinkansen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 15V8a4 4 0 0 1 4-4h7c4 0 7 3 7 7v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M3 11h18M8 4v7"/><circle cx="7.5" cy="19.5" r="1.5"/><circle cx="16.5" cy="19.5" r="1.5"/></svg></div>
+      <h3>北陸新幹線</h3><p>42年越しの一本、全部盛り</p>
+      <div class="cat-open"></div>
+    </div>
+    <div class="cat" data-cat="sekai" onclick="openCat('sekai')">
+      <div class="cat-img" id="catimg-sekai"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14 0 18M12 3c-3 3.5-3 14 0 18"/></svg></div>
+      <h3>金沢と世界</h3><p>焼けなかったまちの7つの握手</p>
+      <div class="cat-open"></div>
+    </div>
+    <div class="cat" data-cat="kieta" onclick="openCat('kieta')">
+      <div class="cat-img" id="catimg-kieta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 16V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10M4 16h16M4 16l-2 5M20 16l2 5M8 20h8M8 8h8"/></svg></div>
+      <h3>消えた金沢</h3><p>路面電車と、北陸の宝塚</p>
+      <div class="cat-open"></div>
+    </div>
+    <div class="cat" data-cat="ichiban" onclick="openCat('ichiban')">
+      <div class="cat-img" id="catimg-ichiban"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4M17 4H7v5a5 5 0 0 0 10 0V4zM17 6h3a2 2 0 0 1-2 4h-1M7 6H4a2 2 0 0 0 2 4h1"/></svg></div>
+      <h3>金沢の日本一と最下位</h3><p>金箔99%、塩はビリ</p>
+      <div class="cat-open"></div>
+    </div>
+    <div class="cat" data-cat="mirai" onclick="openCat('mirai')">
+      <div class="cat-img" id="catimg-mirai"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
+      <h3>金沢の未来年表</h3><p>新幹線、大阪はいつ？</p>
+      <div class="cat-open"></div>
+    </div>
+    <div class="cat" data-cat="ichinichi" onclick="openCat('ichinichi')">
+      <div class="cat-img" id="catimg-ichinichi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="13" r="4"/><path d="M12 3v3M4.9 6.9l2.1 2.1M19.1 6.9 17 9M2 13h3M19 13h3M5 21h14"/></svg></div>
+      <h3>金沢の1日</h3><p>今日も救急車は68回走る</p>
+      <div class="cat-open"></div>
+    </div>
+    <div class="cat" data-cat="calendar" onclick="openCat('calendar')">
+      <div class="cat-img" id="catimg-calendar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg></div>
+      <h3>金沢の年間カレンダー</h3><p>市政は1年でこう動く</p>
+      <div class="cat-open"></div>
+    </div>
+    <div class="catg"><span>🧭 調べる・動く</span><small>市役所と市民の道具</small></div>
     <div class="cat" data-cat="soshiki" onclick="openCat('soshiki')">
       <div class="cat-img" id="catimg-soshiki"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="4" y="3" width="16" height="18" rx="1.5"/><path d="M8 7h3M8 11h3M8 15h3M14 7h2M14 11h2M14 15h2"/><path d="M10 21v-3h4v3"/></svg></div>
       <h3>市役所どこに聞く？</h3><p>用事から逆引き</p>
@@ -1182,19 +1189,14 @@
       <h3>市民の権利・使えるお金</h3><p>権利と補助金・助成金</p>
       <div class="cat-open"></div>
     </div>
-    <div class="cat" data-cat="jiten" onclick="openCat('jiten')">
-      <div class="cat-img" id="catimg-jiten"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5V5.5z"/><path d="M4 20.5A2.5 2.5 0 0 1 6.5 18H20"/><path d="M9 8h7M9 11.5h5"/></svg></div>
-      <h3>ことば辞典</h3><p>むずかしい言葉をやさしく</p>
-      <div class="cat-open"></div>
-    </div>
     <div class="cat" data-cat="kobunsho" onclick="openCat('kobunsho')">
       <div class="cat-img" id="catimg-kobunsho"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4"/><path d="M9 11h7M9 14h7M9 17h4"/><circle cx="7" cy="7" r="0.1"/></svg></div>
       <h3>公文書ツアー</h3><p>実は、宝の山や</p>
       <div class="cat-open"></div>
     </div>
-    <div class="cat" data-cat="calendar" onclick="openCat('calendar')">
-      <div class="cat-img" id="catimg-calendar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg></div>
-      <h3>金沢の年間カレンダー</h3><p>市政は1年でこう動く</p>
+    <div class="cat" data-cat="jiten" onclick="openCat('jiten')">
+      <div class="cat-img" id="catimg-jiten"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5V5.5z"/><path d="M4 20.5A2.5 2.5 0 0 1 6.5 18H20"/><path d="M9 8h7M9 11.5h5"/></svg></div>
+      <h3>ことば辞典</h3><p>むずかしい言葉をやさしく</p>
       <div class="cat-open"></div>
     </div>
     <div class="cat" data-cat="search" onclick="openCat('search')">
@@ -10560,14 +10562,14 @@
   // 画像が無いカードは従来の丸アイコンのまま表示される(フォールバック)。
   // ===== コーナー別カラー(下辺ライン・アイコン縁取り用) =====
   const CORNER={
-    honebone:['#c9a24b', ['rinen','kdata','hoshiki','chigai']],
-    asobu:   ['#8e6bd6', ['quiz100']],
-    okane:   ['#2f8f6b', ['money','sim','percap','kakei','kyuryo','hakomono','gasu','event','change','otoku']],
-    ima:     ['#d0454c', ['news','ima','saigai','anzen','edu','global']],
-    seiji:   ['#123a5c', ['kouyaku','shinchoku','gikai','sanpi','senkyo','meikan','shigoto','jorei','honne','koe']],
-    kurashi: ['#2b7a9e', ['suido','gomi','kaigo','iryohi','ashi','machinaka','machiya','nogyo','kigyo','sports']],
-    shiru:   ['#c76a2a', ['shoku','bunka','matsuri','maeda','jinbutsu','kouka','ben','saka','jinja','symbol','sandai','zekkei','onsen','shinkansen','sekai','kieta','ichiban','mirai','ichinichi','calendar']],
-    shiraberu:['#5a6b7a', ['soshiki','power','kobunsho','jiten','search','shukudai','about']]
+    honebone:['#f2b807', ['rinen','kdata','hoshiki','chigai']],
+    asobu:   ['#9b30ff', ['quiz100']],
+    okane:   ['#00a86b', ['money','sim','percap','kakei','kyuryo','hakomono','gasu','event','change','otoku']],
+    ima:     ['#e60026', ['news','ima','saigai','anzen','edu','global']],
+    seiji:   ['#0033a0', ['kouyaku','shinchoku','gikai','sanpi','senkyo','meikan','shigoto','jorei','honne','koe']],
+    kurashi: ['#00b5d8', ['suido','gomi','kaigo','iryohi','ashi','machinaka','machiya','nogyo','kigyo','sports']],
+    shiru:   ['#ff7300', ['shoku','bunka','matsuri','maeda','jinbutsu','kouka','ben','saka','jinja','symbol','sandai','zekkei','onsen','shinkansen','sekai','kieta','ichiban','mirai','ichinichi','calendar']],
+    shiraberu:['#6b7684', ['soshiki','power','kobunsho','jiten','search','shukudai','about']]
   };
   const CORNER_COLOR={};
   Object.values(CORNER).forEach(([col,ids])=>ids.forEach(id=>CORNER_COLOR[id]=col));
