@@ -702,6 +702,14 @@ body.dark .cat-print{background:#232833;}
 .kfold[open]>summary::before{content:'▾ ';}
 .kfold[open]>summary{border-radius:10px 10px 0 0;border-bottom:none;}
 .kfold>.flow-panel{margin-top:0;border-radius:0 0 10px 10px;}
+
+.catg{cursor:pointer;user-select:none;}
+.catg>span::before{content:'▸ ';color:var(--gold,#c9a24b);}
+.catg.cg-open>span::before{content:'▾ ';}
+.catg .catg-n{margin-left:8px;font-style:normal;font-size:11.5px;color:var(--ink-soft,#666);background:var(--paper-warm,#f3f0ea);border:1px solid var(--line,#ddd);border-radius:12px;padding:1px 9px;vertical-align:middle;}
+.cat.cfold-hide{display:none!important;}
+#cgAllBtn{display:block;margin:4px auto 10px;padding:6px 22px;border-radius:20px;border:1.5px solid var(--gold,#c9a24b);background:transparent;color:var(--navy,#123a5c);font-weight:700;font-size:13px;cursor:pointer;font-family:inherit;}
+#cgAllBtn:hover{background:rgba(201,162,75,.12);}
 </style>
 </head>
 <body>
@@ -13051,11 +13059,11 @@ body.dark .cat-print{background:#232833;}
   const CORNER={
     honebone:['#f2b807', ['rinen','kdata','hoshiki','chigai']],
     asobu:   ['#9b30ff', ['quiz100']],
-    okane:   ['#00a86b', ['money','sim','percap','kakei','kyuryo','hakomono','gasu','event','change','otoku']],
+    okane:   ['#00a86b', ['money','sim','percap','kakei','kyuryo','hakomono','gasu','event','change','otoku','kodomocost']],
     ima:     ['#e60026', ['news','ima','saigai','anzen','edu','global']],
     seiji:   ['#0033a0', ['kouyaku','shinchoku','gikai','sanpi','senkyo','meikan','shigoto','jorei','honne','koe','kane']],
-    kurashi: ['#00b5d8', ['suido','gomi','kaigo','iryohi','ashi','machinaka','machiya','nogyo','kigyo','sports','chika']],
-    shiru:   ['#ff7300', ['shoku','bunka','matsuri','maeda','jinbutsu','kouka','ben','saka','jinja','symbol','sandai','zekkei','onsen','shinkansen','sekai','kieta','ichiban','mirai','ichinichi','calendar','zatsu']],
+    kurashi: ['#00b5d8', ['suido','gomi','kaigo','iryohi','ashi','machinaka','machiya','nogyo','kigyo','sports']],
+    shiru:   ['#ff7300', ['shoku','bunka','matsuri','maeda','jinbutsu','kouka','ben','saka','jinja','symbol','sandai','zekkei','onsen','shinkansen','sekai','kieta','ichiban','mirai','ichinichi','calendar','zatsu','chika']],
     shiraberu:['#6b7684', ['soshiki','power','kobunsho','jiten','search','shukudai','about']]
   };
   const CORNER_COLOR={};
@@ -13079,6 +13087,34 @@ body.dark .cat-print{background:#232833;}
     });
   }
   applyCatImages();
+
+  // ===== コーナー・アコーディオン(4層構造の第1層) =====
+  function initCornerFold(){
+    const grid=document.querySelector('.cat-grid');
+    if(!grid) return;
+    const groups=[]; let cur=null;
+    [...grid.children].forEach(el=>{
+      if(el.classList.contains('catg')){cur={head:el,cards:[],open:false};groups.push(cur);}
+      else if(cur&&el.classList.contains('cat')){cur.cards.push(el);}
+    });
+    if(groups.length<2) return;
+    const OPEN_DEFAULT=['🎯','⚔️'];
+    groups.forEach(g=>{
+      const sp=g.head.querySelector('span');
+      const label=sp?sp.textContent:'';
+      const em=document.createElement('em'); em.className='catg-n'; em.textContent=g.cards.length+'枚';
+      (sp||g.head).appendChild(em);
+      g.set=(o)=>{g.open=o; g.cards.forEach(c=>c.classList.toggle('cfold-hide',!o)); g.head.classList.toggle('cg-open',o);};
+      g.set(OPEN_DEFAULT.some(e=>label.indexOf(e)===0));
+      g.head.addEventListener('click',()=>g.set(!g.open));
+    });
+    const btn=document.createElement('button'); btn.id='cgAllBtn'; btn.type='button'; btn.textContent='▾ ぜんぶひらく';
+    let all=false;
+    btn.addEventListener('click',()=>{all=!all; groups.forEach(g=>g.set(all)); btn.textContent=all?'▴ ぜんぶとじる':'▾ ぜんぶひらく';});
+    grid.parentNode.insertBefore(btn, grid);
+  }
+  initCornerFold();
+
 
   // ===== カテゴリー開閉 =====
   function openCat(id){
