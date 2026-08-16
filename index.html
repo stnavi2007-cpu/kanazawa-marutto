@@ -886,8 +886,8 @@ body.dark .cat-print{background:#232833;}
 
 /* 実機フィードバック修正2 2026-08-16 */
 #rinen{-webkit-text-size-adjust:100%;text-size-adjust:100%;overflow-wrap:normal;word-break:normal;line-break:strict;max-width:100%;box-sizing:border-box;overflow-x:hidden;}
-#rinen ruby{vertical-align:baseline;line-height:1.05;margin:0;}
-#rinen rt{line-height:1;font-size:.44em;letter-spacing:-.02em;}
+#rinen ruby{display:inline-flex;flex-direction:column-reverse;vertical-align:baseline;line-height:1;margin:0;text-align:center;}
+#rinen rt{display:block;line-height:1;font-size:.42em;letter-spacing:-.02em;margin-bottom:-.12em;}
 /* クイズ見出し: flex解除して問題文を普通に折り返す(1文字改行を止める) */
 #rinen .rn-quiz .rn-qh{display:block;}
 #rinen .rn-quiz .rn-qh .rn-qd{float:left;margin:2px 9px 0 0;}
