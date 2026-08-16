@@ -887,7 +887,7 @@ body.dark .cat-print{background:#232833;}
 #rinen{-webkit-text-size-adjust:100%;text-size-adjust:100%;overflow-wrap:normal;word-break:normal;line-break:strict;max-width:100%;box-sizing:border-box;overflow-x:hidden;}
 #rinen ruby{ruby-align:center;ruby-position:over;-webkit-ruby-position:before;vertical-align:baseline;line-height:1!important;}
 #rinen ruby rt{font-family:'Zen Kaku Gothic New',sans-serif;font-weight:700;font-size:.52em!important;line-height:1!important;letter-spacing:0;color:var(--muted);white-space:nowrap;user-select:none;pointer-events:none;vertical-align:baseline;}
-@supports (text-box-trim: both){#rinen ruby rt{text-box-trim:both;text-box-edge:cap alphabetic;}}
+@supports (text-box-edge: cap alphabetic){#rinen ruby rt{text-box-trim:trim-both;text-box-edge:cap alphabetic;}}
 body:not(.furigana) #rinen ruby rt{display:none!important;}
 #rinen p,#rinen .rn-intro,#rinen .rn-qh,#rinen .rn-opt,#rinen .rn-tx,#rinen .rn-use-body,#rinen .rn-pd,#rinen .rn-bld-note{line-height:2.1!important;}
 /* クイズ見出し: flex解除して問題文を普通に折り返す(1文字改行を止める) */
