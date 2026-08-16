@@ -375,10 +375,12 @@
    section.block{padding:22px 12px;}
    .flow-panel{padding:16px 14px;}
    .insight{padding:12px 14px;}
-   /* 小見出しの横並びをやめ、ラベルを全幅で上・本文を下に素直に積む（スマホ） */
-   .gikai-item{flex-direction:column;align-items:stretch;gap:3px;}
-   .gikai-item .d{font-weight:800;}
-   .gikai-item:hover{padding-left:4px;}
+   /* 小見出し：横並びをやめ、全幅の囲みラベルを上・本文を下に（スマホ）。
+      ※.dは元がflex:0 0 autoで、縦積みだと横幅が内容まで縮み日本語が数文字で折れる→width:100%を明示してflexの幅決定に頼らない */
+   .gikai-item{flex-direction:column;align-items:stretch;gap:5px;}
+   .gikai-item .d{display:block;width:100%;box-sizing:border-box;border:1.5px solid var(--line);border-radius:8px;padding:3px 11px;font-weight:800;line-height:1.55;}
+   .gikai-item .d br{display:none;}
+   .gikai-item:hover{padding-left:0;}
  }
  /* データの範囲バッジ */
  .scope{display:inline-flex;align-items:center;gap:4px;font-size:10.5px;font-weight:800;padding:3px 9px;border-radius:20px;vertical-align:middle;margin-left:6px;letter-spacing:.02em;white-space:nowrap;}
