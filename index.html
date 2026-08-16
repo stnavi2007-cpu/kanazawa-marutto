@@ -773,7 +773,7 @@ body.dark .cat-print{background:#232833;}
 .rn-headline .rn-hl{background:linear-gradient(transparent 60%,var(--gold) 60%);padding:0 3px;border-radius:3px;}
 .rn-intro{margin-top:14px;font-size:clamp(14.5px,2.6vw,16px);color:var(--ink-2);line-height:1.9;}
 
-.rn-tabs{display:flex;gap:8px;overflow-x:auto;margin:26px -18px 0;padding:0 18px 4px;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+.rn-tabs{display:flex;gap:8px;overflow-x:auto;margin:26px -20px 0;padding:0 20px 4px;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
 .rn-tabs::-webkit-scrollbar{display:none;}
 .rn-tab{flex:0 0 auto;font-family:'Zen Maru Gothic',sans-serif;font-weight:900;font-size:14px;color:var(--ink-2);background:var(--card);border:2px solid var(--line);border-radius:30px;padding:9px 16px;cursor:pointer;white-space:nowrap;transition:.15s;}
 .rn-tab:hover{border-color:var(--navy);}
@@ -885,8 +885,8 @@ body.dark .cat-print{background:#232833;}
 
 
 /* 実機フィードバック修正2 2026-08-16 */
-#rinen{-webkit-text-size-adjust:100%;text-size-adjust:100%;overflow-wrap:normal;word-break:normal;line-break:strict;}
-#rinen ruby{vertical-align:baseline;line-height:1.25;margin:0;}
+#rinen{-webkit-text-size-adjust:100%;text-size-adjust:100%;overflow-wrap:normal;word-break:normal;line-break:strict;max-width:100%;box-sizing:border-box;overflow-x:hidden;}
+#rinen ruby{vertical-align:baseline;line-height:1.05;margin:0;}
 #rinen rt{line-height:1;font-size:.44em;letter-spacing:-.02em;}
 /* クイズ見出し: flex解除して問題文を普通に折り返す(1文字改行を止める) */
 #rinen .rn-quiz .rn-qh{display:block;}
@@ -896,7 +896,7 @@ body.dark .cat-print{background:#232833;}
 #rinen .rn-opt{display:block;}
 #rinen .rn-opt .rn-k{float:left;margin:1px 12px 0 0;}
 #rinen .rn-opt::after{content:"";display:table;clear:both;}
-#rinen>h2.rn-maru,#rinen>h2.maru{font-size:clamp(30px,8.5vw,44px)!important;line-height:1.24;margin:6px 0 2px;color:var(--ink);}
+#rinen>h2.rn-maru,#rinen>h2.maru{font-size:clamp(30px,7.5vw,42px)!important;line-height:1.2;margin:6px 0 2px;color:var(--ink);white-space:normal;overflow-wrap:break-word;word-break:normal;max-width:100%;}
 #rinen .rn-intro{font-size:15px;}
 /* 精査2巡目: 残りのflex箇所もルビ長文で縮まず崩れる→対処 */
 #rinen .rn-use-head .rn-nm{min-width:0;}
