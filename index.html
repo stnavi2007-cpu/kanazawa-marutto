@@ -875,7 +875,6 @@ body.dark .cat-print{background:#232833;}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;}}
 
 
-#rinen ruby rt{font-family:'Zen Kaku Gothic New',sans-serif;font-weight:500;font-size:.5em;color:var(--muted);letter-spacing:0;line-height:1;}
 .rn-headline ruby rt,.rn-answer .rn-title ruby rt,.rn-phero .rn-pt ruby rt,.rn-floor.rn-up .rn-big ruby rt{color:color-mix(in srgb,var(--gold-d) 80%,var(--ink));}
 .rn-term{border-bottom:2px dotted var(--gold-d);cursor:pointer;}
 .rn-term-pop{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);max-width:min(92vw,440px);background:var(--navy);color:#fff;border-radius:14px;padding:14px 16px 15px;box-shadow:0 12px 40px rgba(0,0,0,.3);z-index:200;font-size:14px;line-height:1.8;animation:rn-pop .3s ease;}
@@ -886,8 +885,11 @@ body.dark .cat-print{background:#232833;}
 
 /* 実機フィードバック修正2 2026-08-16 */
 #rinen{-webkit-text-size-adjust:100%;text-size-adjust:100%;overflow-wrap:normal;word-break:normal;line-break:strict;max-width:100%;box-sizing:border-box;overflow-x:hidden;}
-#rinen ruby{display:inline-block;position:relative;white-space:nowrap;vertical-align:baseline;line-height:1;}
-#rinen rt{display:block;position:absolute;left:50%;bottom:100%;transform:translateX(-50%);font-size:.52em;line-height:1;font-weight:700;color:var(--navy);white-space:nowrap;pointer-events:none;margin-bottom:0px;}
+#rinen ruby{ruby-align:center;ruby-position:over;-webkit-ruby-position:before;vertical-align:baseline;line-height:1!important;}
+#rinen ruby rt{font-family:'Zen Kaku Gothic New',sans-serif;font-weight:700;font-size:.52em!important;line-height:1!important;letter-spacing:0;color:var(--muted);white-space:nowrap;user-select:none;pointer-events:none;vertical-align:baseline;}
+@supports (text-box-trim: both){#rinen ruby rt{text-box-trim:both;text-box-edge:cap alphabetic;}}
+body:not(.furigana) #rinen ruby rt{display:none!important;}
+#rinen p,#rinen .rn-intro,#rinen .rn-qh,#rinen .rn-opt,#rinen .rn-tx,#rinen .rn-use-body,#rinen .rn-pd,#rinen .rn-bld-note{line-height:2.1!important;}
 /* クイズ見出し: flex解除して問題文を普通に折り返す(1文字改行を止める) */
 #rinen .rn-quiz .rn-qh{display:block;}
 #rinen .rn-quiz .rn-qh .rn-qd{float:left;margin:2px 9px 0 0;}
@@ -898,7 +900,7 @@ body.dark .cat-print{background:#232833;}
 #rinen .rn-opt::after{content:"";display:table;clear:both;}
 #rinen>h2.rn-maru,#rinen>h2.maru{font-size:clamp(30px,7.5vw,42px)!important;line-height:1.2;margin:6px 0 2px;color:var(--ink);white-space:normal;overflow-wrap:break-word;word-break:normal;max-width:100%;}
 #rinen .rn-intro{font-size:15px;}
-#rinen .rn-opt,#rinen .rn-qh,#rinen .rn-use-head,#rinen .rn-talk1,#rinen .rn-plan .rn-pd,#rinen .rn-answer,#rinen .rn-floor,#rinen .rn-region,#rinen p,#rinen .rn-mini .rn-m,#rinen .rn-intro{line-height:2.1!important;}
+
 /* 精査2巡目: 残りのflex箇所もルビ長文で縮まず崩れる→対処 */
 #rinen .rn-use-head .rn-nm{min-width:0;}
 #rinen .rn-talk1 .rn-tx{min-width:0;}
