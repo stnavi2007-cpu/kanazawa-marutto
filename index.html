@@ -26,7 +26,9 @@
  /* オフのときrubyはただの文字と同じ挙動にする */
  ruby{ruby-align:center;}
  body:not(.furigana) ruby{display:inline;}
- body.furigana ruby{white-space:nowrap;}
+ body.furigana ruby{white-space:nowrap;line-height:1.15;}
+ /* ふりがなオン時は本文の行の高さを一定にし、ルビが乗る行だけ広がる“ガタつき”を防ぐ */
+ body.furigana{line-height:2.0;}
  /* 日本語の自然な行分割にまかせる（ルビ境界で切らない） */
  body{line-break:strict;word-break:normal;overflow-wrap:break-word;overflow-x:hidden;}
  p,li,h1,h2,h3,h4,.fi-detail,.insight,.sub,.lead,.hero p{line-break:strict;word-break:normal;overflow-wrap:normal;}
@@ -373,9 +375,9 @@
    section.block{padding:22px 12px;}
    .flow-panel{padding:16px 14px;}
    .insight{padding:12px 14px;}
-   /* 小見出しの横並びをやめ、枠付きラベルを上・本文を下に（スマホ） */
-   .gikai-item{flex-direction:column;align-items:flex-start;gap:5px;}
-   .gikai-item .d{align-self:flex-start;border:1px solid var(--line);border-radius:20px;padding:1px 10px;line-height:1.7;}
+   /* 小見出しの横並びをやめ、ラベルを全幅で上・本文を下に素直に積む（スマホ） */
+   .gikai-item{flex-direction:column;align-items:stretch;gap:3px;}
+   .gikai-item .d{font-weight:800;}
    .gikai-item:hover{padding-left:4px;}
  }
  /* データの範囲バッジ */
@@ -667,6 +669,7 @@ body.dark{--paper:#15171d;--paper-warm:#1d2027;--ink:#e8e6e1;--ink-soft:#a9a49b;
 body.dark .burger,body.dark .cat,body.dark .chip,body.dark .drawer-inner a:active,body.dark .furi-btn,body.dark .hero-eyebrow,body.dark .inc-input input,body.dark .insight,body.dark .jsearch,body.dark .jtab,body.dark .layer-row,body.dark .money-tabs button,body.dark .num2,body.dark .pillar,body.dark .qc,body.dark .qz-btn-rankview,body.dark .qz-opt,body.dark .qz-rank-row,body.dark .receive-box,body.dark .search-box input,body.dark .seg,body.dark .soudan-card,body.dark .step-box,body.dark .stepper button,body.dark .sub-item,body.dark .to-kanazawa,body.dark .vchip,body.dark .why-box,body.dark details.acc,body.dark details.jgo[open]{background:#232833;}
 body.dark [style*="background:#fff"]{background:#232833!important;}
 body.dark img{opacity:.88;}
+body.dark .cat.has-thumb{background:var(--thumb) center/cover no-repeat;}
 .diag-wrap{background:#fff;border:1.5px solid var(--line);border-radius:18px;padding:16px 16px 12px;margin:14px 0;}
 body.dark .diag-wrap{background:#232833;}
 .diag-wrap h3{font-size:15.5px;color:var(--navy);margin-bottom:2px;}
@@ -707,6 +710,7 @@ body.dark .cat-print{background:#232833;}
   body.printing .print-target .print-head-x{display:block!important;border-bottom:3px double #000;padding-bottom:6px;margin-bottom:10px;font-size:11pt;}
 }
 @media(max-width:430px){.vb2{padding:6px 8px;font-size:11px;}}
+@media(max-width:700px){#fsBtn{display:none;}}
 
 .kfold{margin-top:12px;}
 .kfold>summary{cursor:pointer;list-style:none;padding:12px 14px;background:var(--paper-warm);border:1px solid var(--line);border-radius:10px;font-weight:700;font-size:15px;color:var(--navy);}
