@@ -747,6 +747,143 @@ body.dark .cat-print{background:#232833;}
   <meta name="twitter:image" content="https://kanazawa-marutto.jp/marutto.jpg">
   <!-- ▼favicon(外部ファイル不要のインラインSVG・タブに紺地×金の「ま」) -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%23123a5c'/><text x='32' y='47' font-size='40' text-anchor='middle' fill='%23e6c877' font-family='sans-serif' font-weight='bold'>%E3%81%BE</text></svg>">
+<style id="rinen-wy-css">
+
+#rinen{
+  --paper:#FBF5E9; --card:#FFFFFF; --ink:#22344F; --ink-2:#465b78; --muted:#7c8698;
+  --navy:#1f3a63; --gold:#E0A93E; --gold-d:#b07c1c; --line:#ece3d2; --sky:#eaf3fc; --green:#2f8f6b;
+  --r1:#2E6DB4; --r2:#2f8f6b; --r3:#d99a2b;
+  --m1:#C2542F; --m2:#2E6DB4; --m3:#6E8B3D; --m4:#A379CE; --m5:#37A9A0;
+}
+
+  body.dark #rinen{
+    --paper:#12151c; --card:#1b1f29; --ink:#ece4d6; --ink-2:#c3bcae; --muted:#8b8577;
+    --navy:#9dc0e8; --gold:#eac266; --gold-d:#eac266; --line:#2c313d; --sky:#1e2836; --green:#57b892;
+    --r1:#4E86B6; --r2:#57b892; --r3:#e0b25a;
+    --m1:#db6e45; --m2:#4E86B6; --m3:#8caa55; --m4:#8e77a7; --m5:#5fa69f;
+  }
+*{box-sizing:border-box;margin:0;padding:0;}
+#rinen{background:var(--paper);color:var(--ink);font-family:'Zen Kaku Gothic New',sans-serif;line-height:1.85;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+.rn-maru{font-family:'Zen Maru Gothic',sans-serif;}
+.rn-wrap{max-width:680px;margin:0 auto;padding:0 18px 60px;}
+
+
+.rn-badge{display:inline-flex;align-items:center;gap:7px;font-family:'Zen Maru Gothic',sans-serif;font-weight:900;font-size:14px;color:#fff;background:var(--navy);border-radius:30px;padding:7px 16px;margin-top:26px;}
+.rn-headline{margin-top:16px;font-family:'Zen Maru Gothic',sans-serif;font-weight:900;font-size:clamp(28px,7.5vw,42px);line-height:1.3;}
+.rn-headline .rn-hl{background:linear-gradient(transparent 60%,var(--gold) 60%);padding:0 3px;border-radius:3px;}
+.rn-intro{margin-top:14px;font-size:clamp(14.5px,2.6vw,16px);color:var(--ink-2);line-height:1.9;}
+
+.rn-tabs{display:flex;gap:8px;overflow-x:auto;margin:26px -18px 0;padding:0 18px 4px;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+.rn-tabs::-webkit-scrollbar{display:none;}
+.rn-tab{flex:0 0 auto;font-family:'Zen Maru Gothic',sans-serif;font-weight:900;font-size:14px;color:var(--ink-2);background:var(--card);border:2px solid var(--line);border-radius:30px;padding:9px 16px;cursor:pointer;white-space:nowrap;transition:.15s;}
+.rn-tab:hover{border-color:var(--navy);}
+.rn-tab.rn-on{background:var(--navy);color:#fff;border-color:var(--navy);}
+
+.rn-panel{display:none;animation:rn-fade .35s ease;}
+.rn-panel.rn-on{display:block;}
+@keyframes rn-fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* クイズ（各タブの先頭） */
+.rn-quiz{margin-top:22px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:0 8px 24px rgba(31,58,99,.08);}
+.rn-quiz .rn-qh{font-family:'Zen Maru Gothic',sans-serif;font-weight:900;font-size:16px;margin-bottom:12px;display:flex;gap:8px;align-items:flex-start;line-height:1.45;}
+.rn-quiz .rn-qh .rn-qd{flex:0 0 24px;width:24px;height:24px;border-radius:50%;background:var(--gold);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;margin-top:1px;}
+.rn-opts{display:flex;flex-direction:column;gap:10px;}
+.rn-opt{display:flex;align-items:center;gap:12px;font-family:'Zen Maru Gothic',sans-serif;font-weight:900;font-size:16px;color:var(--ink);background:var(--paper);border:2px solid var(--line);border-radius:14px;padding:13px 15px;cursor:pointer;transition:.15s;text-align:left;}
+.rn-opt:hover:not(:disabled){border-color:var(--navy);transform:translateY(-1px);}
+.rn-opt .rn-k{flex:0 0 28px;width:28px;height:28px;border-radius:50%;background:var(--sky);color:var(--navy);display:flex;align-items:center;justify-content:center;font-size:14px;}
+.rn-opt.rn-correct{border-color:var(--green);background:color-mix(in srgb,var(--green) 12%,var(--card));}
+.rn-opt.rn-correct .rn-k{background:var(--green);color:#fff;}
+.rn-opt.rn-wrong{border-color:#E56A6A;background:color-mix(in srgb,#E56A6A 10%,var(--card));opacity:.75;}
+.rn-opt:disabled{cursor:default;}
+.rn-answer{display:none;margin-top:14px;padding:18px 16px;background:var(--sky);border-radius:14px;text-align:center;}
+.rn-answer.rn-show{display:block;animation:rn-pop .4s ease;}
+@keyframes rn-pop{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:scale(1)}}
+.rn-answer .rn-rc{font-family:'Zen Maru Gothic',sans-serif;font-weight:900;font-size:14px;color:var(--green);margin-bottom:8px;}
+.rn-answer .rn-title{font-family:'Zen Maru Gothic',sans-serif;font-weight:900;font-size:clamp(19px,4.8vw,25px);line-height:1.45;color:var(--navy);}
+.rn-answer .rn-title .rn-k{color:var(--gold-d);}
+.rn-answer .rn-subttl{font-size:13px;color:var(--ink-2);margin-top:8px;}
+.rn-answer .rn-lab{font-size:12.5px;color:var(--muted);margin-top:10px;line-height:1.75;}
+.rn-answer .rn-lab b{color:var(--ink-2);}
+
+.rn-qsub{font-family:'Zen Maru Gothic',sans-serif;font-weight:900;font-size:clamp(17px,4.4vw,20px);margin:26px 0 12px;line-height:1.4;}
+.rn-hint{font-size:12.5px;color:var(--muted);margin:-4px 0 14px;}
+
+.rn-uses{display:flex;flex-direction:column;gap:10px;}
+.rn-use{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;}
+.rn-use-head{display:flex;align-items:center;gap:11px;padding:13px 14px;cursor:pointer;list-style:none;}
+.rn-use-head::-webkit-details-marker{display:none;}
+.rn-use-head .rn-em{flex:0 0 34px;width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:17px;background:var(--sky);}
+.rn-use-head .rn-nm{font-weight:700;font-size:15px;}
+.rn-use-head .rn-arw{margin-left:auto;flex:0 0 auto;color:var(--muted);font-size:14px;transition:.2s;}
+.rn-use[open] .rn-use-head .rn-arw{transform:rotate(90deg);}
+.rn-use-body{padding:0 14px 15px 59px;font-size:13.5px;color:var(--ink-2);line-height:1.85;}
+.rn-use-body b{color:var(--ink);}
+.rn-lk{color:var(--navy);font-weight:700;}
+.rn-mini{margin-top:8px;display:flex;flex-direction:column;gap:5px;}
+.rn-mini .rn-m{display:flex;gap:8px;font-size:13px;}
+.rn-mini .rn-m .rn-mk{flex:0 0 auto;font-weight:900;color:var(--gold-d);}
+
+.rn-insight{margin-top:16px;background:var(--card);border:1px solid var(--line);border-left:5px solid var(--gold);border-radius:0 14px 14px 0;padding:15px 16px;font-size:13.5px;color:var(--ink-2);line-height:1.85;}
+.rn-insight b{color:var(--ink);}
+
+.rn-plans{display:flex;flex-direction:column;gap:11px;margin-top:6px;}
+.rn-plan{background:var(--card);border:1px solid var(--line);border-radius:14px;border-left:5px solid var(--pc);padding:14px 16px;}
+.rn-plan .rn-ph{display:flex;align-items:center;gap:10px;margin-bottom:5px;}
+.rn-plan .rn-pn{flex:0 0 30px;width:30px;height:30px;border-radius:50%;background:var(--pc);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Zen Maru Gothic',sans-serif;font-weight:900;font-size:15px;}
+.rn-plan .rn-pl{font-family:'Zen Maru Gothic',sans-serif;font-weight:900;font-size:16px;}
+.rn-plan .rn-pd{font-size:13px;color:var(--ink-2);line-height:1.8;}
+.rn-plan .rn-pd b{color:var(--ink);}
+.rn-kushi{margin-top:14px;display:flex;flex-wrap:wrap;gap:8px;justify-content:center;}
+.rn-kushi .rn-kc{font-size:12.5px;font-weight:700;color:var(--navy);background:var(--sky);border-radius:30px;padding:6px 13px;}
+
+.rn-bld{margin-top:6px;}
+.rn-floor{border-radius:14px;padding:16px;margin-bottom:8px;}
+.rn-floor .rn-ft{font-family:'Zen Maru Gothic',sans-serif;font-weight:900;font-size:13px;margin-bottom:8px;}
+.rn-floor.rn-up{background:color-mix(in srgb,var(--gold) 16%,var(--card));border:2px solid var(--gold);}
+.rn-floor.rn-up .rn-ft{color:var(--gold-d);}
+.rn-floor.rn-up .rn-big{font-family:'Zen Maru Gothic',sans-serif;font-weight:900;font-size:clamp(16px,4.2vw,20px);color:var(--ink);line-height:1.4;}
+.rn-floor.rn-up .rn-small{font-size:12.5px;color:var(--muted);margin-top:4px;}
+.rn-pillars{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
+.rn-pil{border-radius:12px;padding:14px 8px;text-align:center;color:#fff;}
+.rn-pil .rn-pn2{font-family:'Zen Maru Gothic',sans-serif;font-weight:900;font-size:14px;line-height:1.35;}
+.rn-pil .rn-ps2{font-size:10.5px;opacity:.92;margin-top:4px;}
+.rn-floor.rn-base{background:var(--card);border:1px dashed var(--navy);}
+.rn-floor.rn-base .rn-ft{color:var(--navy);}
+.rn-bld-note{font-size:12.5px;color:var(--ink-2);margin-top:8px;line-height:1.8;text-align:center;}
+.rn-bld-note b{color:var(--ink);}
+@media(max-width:420px){.rn-pillars{grid-template-columns:1fr;}.rn-pil{padding:11px 13px;text-align:left;display:flex;align-items:baseline;gap:8px;}.rn-pil .rn-ps2{margin-top:0;}}
+
+.rn-region{margin-top:6px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;}
+.rn-region .rn-rc-center{text-align:center;font-family:'Zen Maru Gothic',sans-serif;font-weight:900;font-size:17px;color:var(--navy);}
+.rn-region .rn-rc-town{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:14px;}
+.rn-region .rn-tw{font-size:13px;font-weight:700;background:var(--sky);border-radius:12px;padding:8px 13px;}
+.rn-region .rn-tw.rn-c{background:var(--navy);color:#fff;}
+.rn-rstats{display:flex;gap:10px;margin-top:14px;}
+.rn-rstat{flex:1;text-align:center;background:var(--paper);border-radius:12px;padding:12px 8px;}
+.rn-rstat .rn-rn{font-family:'Zen Maru Gothic',sans-serif;font-weight:900;font-size:19px;color:var(--gold-d);}
+.rn-rstat .rn-rl{font-size:11px;color:var(--muted);margin-top:2px;}
+
+/* タブ専用の問いかけ（各タブ末尾に1つ） */
+.rn-talk1{margin-top:26px;background:var(--card);border:1px solid var(--line);border-left:5px solid var(--gold);border-radius:0 16px 16px 0;padding:16px 16px 16px 18px;display:flex;gap:12px;align-items:flex-start;}
+.rn-talk1 .rn-ic{flex:0 0 auto;font-size:24px;}
+.rn-talk1 .rn-tx{font-size:14.5px;color:var(--ink);line-height:1.75;}
+.rn-talk1 .rn-tx .rn-lb{font-family:'Zen Maru Gothic',sans-serif;font-weight:900;color:var(--gold-d);font-size:13px;display:block;margin-bottom:3px;}
+.rn-talk1 .rn-tx b{font-weight:700;}
+
+.rn-src{margin-top:26px;font-size:11.5px;color:var(--muted);line-height:1.7;}
+.rn-sign{margin-top:22px;text-align:center;font-size:12.5px;color:var(--muted);}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;}}
+
+
+ruby rt{font-family:'Zen Kaku Gothic New',sans-serif;font-weight:500;font-size:.56em;color:var(--muted);letter-spacing:0;line-height:1;}
+.rn-headline ruby rt,.rn-answer .rn-title ruby rt,.rn-phero .rn-pt ruby rt,.rn-floor.rn-up .rn-big ruby rt{color:color-mix(in srgb,var(--gold-d) 80%,var(--ink));}
+.rn-term{border-bottom:2px dotted var(--gold-d);cursor:pointer;}
+.rn-term-pop{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);max-width:min(92vw,440px);background:var(--navy);color:#fff;border-radius:14px;padding:14px 16px 15px;box-shadow:0 12px 40px rgba(0,0,0,.3);z-index:200;font-size:14px;line-height:1.8;animation:rn-pop .3s ease;}
+.rn-term-pop .rn-tw{font-family:'Zen Maru Gothic',sans-serif;font-weight:900;font-size:15px;margin-bottom:4px;display:block;}
+.rn-term-pop .rn-tw ruby rt{color:rgba(255,255,255,.7);}
+.rn-term-pop .rn-cl{position:absolute;top:8px;right:12px;cursor:pointer;font-size:18px;opacity:.8;}
+
+</style>
 </head>
 <body>
 
@@ -7654,85 +7791,177 @@ body.dark .cat-print{background:#232833;}
 </section>
 
 <!-- 金沢の理念・都市像 -->
-<section class="block cat-panel" id="rinen" data-checked="2026-08">
-  <div class="sec-head"><span class="en">City Vision</span><h2 class="maru">金沢は何を目指してる？</h2><span class="note">都市像と理念・市政の背骨</span></div>
-  <p class="sub" style="margin:8px 2px 14px;">このサイトには金沢の話が山ほど載っています。でも、そもそも<b>金沢市は「どんなまちを目指す」と決めているのか</b>——その一番おおもとの答えが、ここにあります。市長の思いつきではなく、<b>市議会が正式に議決した公式の「都市像」</b>です。</p>
+<section class="block cat-panel no-ruby" id="rinen" data-checked="2026-08">
+<h2 class="maru">金沢は何を目指してる？</h2>
+<p class="rn-intro"><ruby>金沢<rp>(</rp><rt>かなざわ</rt><rp>)</rp></ruby>のことは<ruby>山<rp>(</rp><rt>やま</rt><rp>)</rp></ruby>ほどあるけど…そもそも「どんなまちを<ruby>目<rp>(</rp><rt>め</rt><rp>)</rp></ruby>ざす」って<ruby>決<rp>(</rp><rt>き</rt><rp>)</rp></ruby>めてるの？　4つのタブを、ぜんぶクイズから<ruby>始<rp>(</rp><rt>はじ</rt><rp>)</rp></ruby>めてみよう👇</p>
 
-  <div class="money-tabs" style="margin-top:6px;">
-    <button class="on" onclick="ptab('rinen','vision',this)">🎯 いまの都市像<span class="scope kz">金沢</span></button>
-    <button onclick="ptab('rinen','five',this)">🖐 5つの方針<span class="scope kz">金沢</span></button>
-    <button onclick="ptab('rinen','root',this)">🌳 40年の理念<span class="scope kz">金沢</span></button>
-    <button onclick="ptab('rinen','ken',this)">🤝 圏域の中の金沢<span class="scope kz">金沢</span></button>
+  <div class="rn-tabs" id="rn-tabs">
+    <button class="rn-tab rn-on" data-p="rn-p1">🎯 いまの<ruby>目標<rp>(</rp><rt>もくひょう</rt><rp>)</rp></ruby></button>
+    <button class="rn-tab" data-p="rn-p2">🖐 5つの<ruby>方針<rp>(</rp><rt>ほうしん</rt><rp>)</rp></ruby></button>
+    <button class="rn-tab" data-p="rn-p3">🌳 40<ruby>年<rp>(</rp><rt>ねん</rt><rp>)</rp></ruby>の<span class="rn-term" data-def="大切にしたい、おおもとの考え方。"><ruby>理念<rp>(</rp><rt>りねん</rt><rp>)</rp></ruby></span></button>
+    <button class="rn-tab" data-p="rn-p4">🤝 まわりのまち</button>
   </div>
 
-  <div class="money-panel on" id="rinen-vision">
-    <div class="flow-panel">
-      <h4>🎯 「未来を拓く世界の共創文化都市・金沢」<span class="scope kz">金沢市</span></h4>
-      <p class="sub" style="margin:8px 0 10px;"><b>令和5年（2023年）12月15日、金沢市議会が議決</b>した、いまの金沢の目標像です。目標年次は<b>令和16年（2034年）</b>——約10年先を見すえた、まちづくりの一番上の看板。サブタイトルはこうです。</p>
-      <div class="insight" style="border-left-color:var(--gold);text-align:center;font-size:1.05em;">
-        <b style="color:var(--gold);font-size:1.15em;">未来を拓く世界の共創文化都市・金沢</b><br>
-        <span style="color:var(--navy);">〜 すべての人々と共に、心豊かで活力ある未来を創る 〜</span>
+  <!-- タブ1 -->
+  <section class="rn-panel rn-on" id="rn-p1">
+    <div class="rn-quiz" data-correct="bunka">
+      <div class="rn-qh rn-maru"><span class="rn-qd">?</span><ruby>金沢<rp>(</rp><rt>かなざわ</rt><rp>)</rp></ruby>が「うちの"らしさ"はコレ！」と<ruby>決<rp>(</rp><rt>き</rt><rp>)</rp></ruby>めてるのは？</div>
+      <div class="rn-opts">
+        <button class="rn-opt rn-maru" data-v="food"><span class="rn-k">A</span>おいしい<ruby>食<rp>(</rp><rt>た</rt><rp>)</rp></ruby>べもの</button>
+        <button class="rn-opt rn-maru" data-v="biru"><span class="rn-k">B</span><ruby>大<rp>(</rp><rt>おお</rt><rp>)</rp></ruby>きなビルとお<ruby>金<rp>(</rp><rt>かね</rt><rp>)</rp></ruby></button>
+        <button class="rn-opt rn-maru" data-v="bunka"><span class="rn-k">C</span><ruby>文化<rp>(</rp><rt>ぶんか</rt><rp>)</rp></ruby>（ぶんか）</button>
       </div>
-      <p class="sub" style="margin:12px 0 6px;">難しい言葉ですが、芯は<b>一点</b>です——<b>「金沢の個性は"文化"にある」</b>。都市像の本文が、はっきりそう言い切っています。</p>
-      <div class="gikai-list" style="margin-top:10px;">
-        <div class="gikai-item" style="cursor:default;"><span class="d" style="color:var(--gold)">文化の<br>定義が<br>広い</span><span class="t">ここでいう「文化」は、芸能・工芸・食だけではありません。都市像は文化を<b>「年月を経て形成される、人と暮らしに関わるすべてのもの」</b>と広くとらえています。だから<b>「金沢方式」も「金沢しぐさ」も"まちづくりの文化"</b>——善隣館や義勇消防を起源とする地域の連帯、公私協働を重んじる市民の精神性まで、金沢の文化に含めています。（→<b>金沢方式</b>）</span></div>
-        <div class="gikai-item" style="cursor:default;"><span class="d" style="color:var(--navy)">なぜ<br>いま<br>作った</span><span class="t">都市像は、5つの環境変化を理由に挙げています——<b>①人口減少・少子高齢化 ②コロナで変わった価値観 ③SDGs・脱炭素 ④北陸新幹線敦賀延伸という「第二の開業」 ⑤地震・豪雨への備え</b>。特に新幹線延伸を好機ととらえ、「都市間競争が激しさを増すなか、金沢は日本海側のリーダーであれ」という気概がにじんでいます。</span></div>
-        <div class="gikai-item" style="cursor:default;"><span class="d" style="color:var(--green)">合言葉は<br>「共創」</span><span class="t">タイトルの<b>「共創」</b>がキーワードです。行政だけでなく、<b>若い世代・民間事業者・移住者・大学など「地域に関わる多様な人々」と一緒に創る</b>という宣言。都市像づくり自体も、市民ワークショップ・地域との意見交換13回・大学生の「未来へつなぐ金沢行動会議」など、多くの市民の声を集めて作られました。</span></div>
+      <div class="rn-answer">
+        <div class="rn-rc rn-maru">せいかい！🎉</div>
+        <div class="rn-title rn-maru">「<ruby>未来<rp>(</rp><rt>みらい</rt><rp>)</rp></ruby>を<ruby>拓<rp>(</rp><rt>ひら</rt><rp>)</rp></ruby>く<ruby>世界<rp>(</rp><rt>せかい</rt><rp>)</rp></ruby>の<br><span class="rn-k"><span class="rn-term" data-def="みんなで力を合わせて、いっしょに創ること。"><ruby>共<rp>(</rp><rt>きょう</rt><rp>)</rp></ruby><ruby>創<rp>(</rp><rt>そう</rt><rp>)</rp></ruby></span>（きょうそう）</span><ruby>文化<rp>(</rp><rt>ぶんか</rt><rp>)</rp></ruby><ruby>都市<rp>(</rp><rt>とし</rt><rp>)</rp></ruby>・<ruby>金沢<rp>(</rp><rt>かなざわ</rt><rp>)</rp></ruby>」</div>
+        <div class="rn-subttl">〜 すべての<ruby>人々<rp>(</rp><rt>ひとびと</rt><rp>)</rp></ruby>と<ruby>共<rp>(</rp><rt>とも</rt><rp>)</rp></ruby>に、<ruby>心<rp>(</rp><rt>こころ</rt><rp>)</rp></ruby><ruby>豊<rp>(</rp><rt>ゆた</rt><rp>)</rp></ruby>かで<ruby>活力<rp>(</rp><rt>かつりょく</rt><rp>)</rp></ruby>ある<ruby>未来<rp>(</rp><rt>みらい</rt><rp>)</rp></ruby>を<ruby>創<rp>(</rp><rt>つく</rt><rp>)</rp></ruby>る 〜</div>
+        <div class="rn-lab">これが<ruby>金沢<rp>(</rp><rt>かなざわ</rt><rp>)</rp></ruby>の「まちの<ruby>目標<rp>(</rp><rt>もくひょう</rt><rp>)</rp></ruby>（<span class="rn-term" data-def="まちが「こうなりたい」と決めた、目ざすすがた。"><ruby>都市<rp>(</rp><rt>とし</rt><rp>)</rp></ruby><ruby>像<rp>(</rp><rt>ぞう</rt><rp>)</rp></ruby></span>）」。<ruby>芯<rp>(</rp><rt>しん</rt><rp>)</rp></ruby>は<b>「<ruby>金沢<rp>(</rp><rt>かなざわ</rt><rp>)</rp></ruby>の"らしさ"は<ruby>文化<rp>(</rp><rt>ぶんか</rt><rp>)</rp></ruby>にある」</b>。<ruby>令<rp>(</rp><rt>れい</rt><rp>)</rp></ruby><ruby>和<rp>(</rp><rt>わ</rt><rp>)</rp></ruby>5<ruby>年<rp>(</rp><rt>ねん</rt><rp>)</rp></ruby>（2023<ruby>年<rp>(</rp><rt>ねん</rt><rp>)</rp></ruby>）に<ruby>市議会<rp>(</rp><rt>しぎかい</rt><rp>)</rp></ruby>が<ruby>決定<rp>(</rp><rt>けってい</rt><rp>)</rp></ruby>・<ruby>約<rp>(</rp><rt>やく</rt><rp>)</rp></ruby>10<ruby>年<rp>(</rp><rt>ねん</rt><rp>)</rp></ruby><ruby>先<rp>(</rp><rt>さき</rt><rp>)</rp></ruby>の<ruby>令<rp>(</rp><rt>れい</rt><rp>)</rp></ruby><ruby>和<rp>(</rp><rt>わ</rt><rp>)</rp></ruby>16<ruby>年<rp>(</rp><rt>ねん</rt><rp>)</rp></ruby>（2034<ruby>年<rp>(</rp><rt>ねん</rt><rp>)</rp></ruby>）を<ruby>目<rp>(</rp><rt>め</rt><rp>)</rp></ruby>ざす、まちづくりの<ruby>一番<rp>(</rp><rt>いちばん</rt><rp>)</rp></ruby><ruby>上<rp>(</rp><rt>じょう</rt><rp>)</rp></ruby>の<ruby>看板<rp>(</rp><rt>かんばん</rt><rp>)</rp></ruby>。</div>
       </div>
-      <div class="insight blue"><b>🧭 なぜ知っておくと得か：</b> この都市像は、市の<b>予算・計画・事業すべての大もと</b>です。「未来共創計画」（令和6〜15年度）という最上位の行動計画がこの下にぶら下がり、さらにその下に各分野の個別計画が連なります。<b>市が何かをやる／やらない理由は、たいていここに遡れます</b>。市政の議論をするときの"憲法"のようなもの、と思ってください。</div>
-      <p class="sub" style="margin-top:14px;">※出典：金沢市都市像「未来を拓く世界の共創文化都市・金沢」（令和5年12月15日議決・全文）、金沢市「新たな都市像の検討」（企画調整課）、「未来共創計画」策定資料。</p>
     </div>
-  </div>
 
-  <div class="money-panel" id="rinen-five">
-    <div class="flow-panel">
-      <h4>🖐 都市像を支える「5つの基本方針」<span class="scope kz">金沢市</span></h4>
-      <p class="sub" style="margin:8px 0 10px;">都市像は、5つの分野に整理されています。それぞれ「〜づくり」という副題がついていて、<b>魅力・暮らし・人・仕事・都市</b>の順。金沢が10年で力を入れる場所の地図です。全方針に共通する横串は<b>「文化の活用」「多様な人の参画」「デジタル化」</b>の3つ。</p>
-      <div class="gikai-list" style="margin-top:10px;">
-        <div class="gikai-item" style="cursor:default;"><span class="d" style="color:var(--gold)">方針1<br>魅力<br>づくり</span><span class="t"><b>世界に誇る伝統と創造の文化が息づくまち。</b> 誰もが文化芸術に親しめる環境、金澤町家や用水の継承、スポーツ文化・建築文化・木の文化の振興、食文化と金沢クラフトの世界発信による都市ブランド力の向上。金沢の"看板"を磨く方針です。（→<b>金沢の文化</b>）</span></div>
-        <div class="gikai-item" style="cursor:default;"><span class="d" style="color:var(--green)">方針2<br>暮らし<br>づくり</span><span class="t"><b>多様な人々が共生し、心豊かに暮らせるまち。</b> 地域コミュニティの活性化、年齢・性別・障害の有無・国籍に関わりなく<b>多様性を認め合う共生社会</b>、未病対策と健康都市、ゼロカーボンシティとごみ減量。（→<b>介護と高齢化</b>／<b>金沢のゴミ</b>）</span></div>
-        <div class="gikai-item" style="cursor:default;"><span class="d" style="color:var(--navy)">方針3<br>人<br>づくり</span><span class="t"><b>共に学び、未来を創る人を育むまち。</b> 妊娠・出産から切れ目ない子育て支援、<b>誰一人取り残さない</b>子どもの学び、学都金沢の強みを生かした担い手育成、生涯学習と情操教育。人口減少時代の"次の世代"への投資です。（→<b>教育と子ども</b>）</span></div>
-        <div class="gikai-item" style="cursor:default;"><span class="d" style="color:var(--red)">方針4<br>仕事<br>づくり</span><span class="t"><b>創造・変革により成長するまち。</b> DX・GXと文化・産業の融合、産学官金の連携、起業に挑む学生・若者・女性への支援、商店街とものづくり産業の継承、農林水産業の振興。稼ぐ力と挑戦を後押しする方針。（→<b>金沢の会社</b>）</span></div>
-        <div class="gikai-item" style="cursor:default;"><span class="d" style="color:var(--navy)">方針5<br>都市<br>づくり</span><span class="t"><b>活力と個性があふれ、安全で持続可能なまち。</b> 中心市街地の活性化、歴史・自然と調和した都市景観、移住・定住と関係人口、公共交通ネットワーク、<b>災害に強いまちづくり</b>。ハード・インフラと防災の方針です。（→<b>まちなか</b>／<b>災害と金沢</b>）</span></div>
-      </div>
-      <div class="insight"><b>⚖ 読み方のコツ：</b> この5つは「きれいごとの並べ立て」に見えるかもしれません。大事なのは、<b>各方針にKPI（数値目標）が設定され、達成状況で計画が見直される</b>と決まっていること。つまり<b>言いっぱなしにしない仕組み</b>がある——その進み具合を追うのが、このサイトの「進捗トラッカー」です。（→<b>市政の進捗トラッカー</b>）</div>
-      <p class="sub" style="margin-top:14px;">※出典：金沢市都市像「未来を拓く世界の共創文化都市・金沢」全文（4 基本方針）、「未来共創計画」（令和6〜15年度・KPIと進捗管理の仕組み）。</p>
+    <p class="rn-qsub rn-maru">くわしく、タップして<ruby>見<rp>(</rp><rt>み</rt><rp>)</rp></ruby>よう</p>
+    <p class="rn-hint">↓ ひらくと、やさしい<ruby>説明<rp>(</rp><rt>せつめい</rt><rp>)</rp></ruby>が<ruby>出<rp>(</rp><rt>で</rt><rp>)</rp></ruby>るよ</p>
+    <div class="rn-uses">
+      <details class="rn-use"><summary class="rn-use-head"><span class="rn-em">🤝</span><span class="rn-nm"><ruby>合言葉<rp>(</rp><rt>あいことば</rt><rp>)</rp></ruby>「<ruby>共<rp>(</rp><rt>きょう</rt><rp>)</rp></ruby><ruby>創<rp>(</rp><rt>そう</rt><rp>)</rp></ruby>（きょうそう）」ってなに？</span><span class="rn-arw">▶</span></summary><div class="rn-use-body"><b><ruby>行政<rp>(</rp><rt>ぎょうせい</rt><rp>)</rp></ruby>（<ruby>市役所<rp>(</rp><rt>しやくしょ</rt><rp>)</rp></ruby>）だけでは、まちは<ruby>作<rp>(</rp><rt>つく</rt><rp>)</rp></ruby>れない。</b>だから<ruby>若<rp>(</rp><rt>わか</rt><rp>)</rp></ruby>い<ruby>人<rp>(</rp><rt>ひと</rt><rp>)</rp></ruby>・お<ruby>店<rp>(</rp><rt>みせ</rt><rp>)</rp></ruby>・<ruby>引<rp>(</rp><rt>ひ</rt><rp>)</rp></ruby>っこしてきた<ruby>人<rp>(</rp><rt>ひと</rt><rp>)</rp></ruby>・<ruby>大学<rp>(</rp><rt>だいがく</rt><rp>)</rp></ruby>…「<ruby>金沢<rp>(</rp><rt>かなざわ</rt><rp>)</rp></ruby>に<ruby>関<rp>(</rp><rt>かか</rt><rp>)</rp></ruby>わるみんな」で<ruby>一緒<rp>(</rp><rt>いっしょ</rt><rp>)</rp></ruby>に<ruby>創<rp>(</rp><rt>つく</rt><rp>)</rp></ruby>ろう、という<ruby>宣言<rp>(</rp><rt>せんげん</rt><rp>)</rp></ruby>。この<ruby>目標<rp>(</rp><rt>もくひょう</rt><rp>)</rp></ruby>そのものも、<ruby>市民<rp>(</rp><rt>しみん</rt><rp>)</rp></ruby>ワークショップや<ruby>地域<rp>(</rp><rt>ちいき</rt><rp>)</rp></ruby>との<ruby>話<rp>(</rp><rt>はな</rt><rp>)</rp></ruby>し<ruby>合<rp>(</rp><rt>あ</rt><rp>)</rp></ruby>い<b>13<ruby>回<rp>(</rp><rt>かい</rt><rp>)</rp></ruby></b>、<ruby>大学生<rp>(</rp><rt>だいがくせい</rt><rp>)</rp></ruby>の「<ruby>未来<rp>(</rp><rt>みらい</rt><rp>)</rp></ruby>へつなぐ<ruby>金沢<rp>(</rp><rt>かなざわ</rt><rp>)</rp></ruby><ruby>行動<rp>(</rp><rt>こうどう</rt><rp>)</rp></ruby><ruby>会議<rp>(</rp><rt>かいぎ</rt><rp>)</rp></ruby>」など、たくさんの<ruby>声<rp>(</rp><rt>こえ</rt><rp>)</rp></ruby>を<ruby>集<rp>(</rp><rt>あつ</rt><rp>)</rp></ruby>めて<ruby>作<rp>(</rp><rt>つく</rt><rp>)</rp></ruby>られたんだ。</div></details>
+      <details class="rn-use"><summary class="rn-use-head"><span class="rn-em">🎨</span><span class="rn-nm">"<ruby>文化<rp>(</rp><rt>ぶんか</rt><rp>)</rp></ruby>"の<ruby>意味<rp>(</rp><rt>いみ</rt><rp>)</rp></ruby>が、すごく<ruby>広<rp>(</rp><rt>ひろ</rt><rp>)</rp></ruby>い</span><span class="rn-arw">▶</span></summary><div class="rn-use-body">ここでいう「<ruby>文化<rp>(</rp><rt>ぶんか</rt><rp>)</rp></ruby>」は、<ruby>芸能<rp>(</rp><rt>げいのう</rt><rp>)</rp></ruby>・<ruby>工芸<rp>(</rp><rt>こうげい</rt><rp>)</rp></ruby>・<ruby>食<rp>(</rp><rt>しょく</rt><rp>)</rp></ruby>だけじゃない。<b>「<ruby>年月<rp>(</rp><rt>としつき</rt><rp>)</rp></ruby>を<ruby>経<rp>(</rp><rt>へ</rt><rp>)</rp></ruby>てできあがった、<ruby>人<rp>(</rp><rt>ひと</rt><rp>)</rp></ruby>とくらしに<ruby>関<rp>(</rp><rt>かか</rt><rp>)</rp></ruby>わるすべて」</b>を<ruby>文化<rp>(</rp><rt>ぶんか</rt><rp>)</rp></ruby>ととらえてる。だから<b>「<span class="rn-term" data-def="市のお金と地元のお金を合わせてしせつを建てる、金沢どくとくのやり方。"><ruby>金沢<rp>(</rp><rt>かなざわ</rt><rp>)</rp></ruby><ruby>方式<rp>(</rp><rt>ほうしき</rt><rp>)</rp></ruby></span>」も「<ruby>金沢<rp>(</rp><rt>かなざわ</rt><rp>)</rp></ruby>しぐさ」も"まちづくりの<ruby>文化<rp>(</rp><rt>ぶんか</rt><rp>)</rp></ruby>"</b>——<span class="rn-term" data-def="昔、金沢で生まれた、地いきの助け合いのきょてん。"><ruby>善隣<rp>(</rp><rt>ぜんりん</rt><rp>)</rp></ruby><ruby>館<rp>(</rp><rt>かん</rt><rp>)</rp></ruby></span>や<span class="rn-term" data-def="ふだんは別の仕事をする市民が、火事のとき出動する金沢の消ぼうだん。"><ruby>義勇<rp>(</rp><rt>ぎゆう</rt><rp>)</rp></ruby><ruby>消防<rp>(</rp><rt>しょうぼう</rt><rp>)</rp></ruby></span>から<ruby>続<rp>(</rp><rt>つづ</rt><rp>)</rp></ruby>く<ruby>地域<rp>(</rp><rt>ちいき</rt><rp>)</rp></ruby>の<ruby>助<rp>(</rp><rt>たす</rt><rp>)</rp></ruby>け<ruby>合<rp>(</rp><rt>あ</rt><rp>)</rp></ruby>い、<ruby>公<rp>(</rp><rt>おおやけ</rt><rp>)</rp></ruby>と<ruby>民<rp>(</rp><rt>みん</rt><rp>)</rp></ruby>がいっしょにやる<ruby>心<rp>(</rp><rt>こころ</rt><rp>)</rp></ruby>まで、ぜんぶ<ruby>金沢<rp>(</rp><rt>かなざわ</rt><rp>)</rp></ruby>の<ruby>文化<rp>(</rp><rt>ぶんか</rt><rp>)</rp></ruby>なんだ。（→<span class="rn-lk"><ruby>金沢<rp>(</rp><rt>かなざわ</rt><rp>)</rp></ruby><ruby>方式<rp>(</rp><rt>ほうしき</rt><rp>)</rp></ruby></span>）</div></details>
+      <details class="rn-use"><summary class="rn-use-head"><span class="rn-em">🌏</span><span class="rn-nm">なんで<ruby>今<rp>(</rp><rt>いま</rt><rp>)</rp></ruby>つくったの？（5つの<ruby>変化<rp>(</rp><rt>へんか</rt><rp>)</rp></ruby>）</span><span class="rn-arw">▶</span></summary><div class="rn-use-body">まちが「5つの<ruby>変化<rp>(</rp><rt>へんか</rt><rp>)</rp></ruby>」に<ruby>立<rp>(</rp><rt>た</rt><rp>)</rp></ruby>ち<ruby>向<rp>(</rp><rt>む</rt><rp>)</rp></ruby>かうため👇
+        <div class="rn-mini">
+          <div class="rn-m"><span class="rn-mk">①</span><ruby>人<rp>(</rp><rt>ひと</rt><rp>)</rp></ruby>が<ruby>減<rp>(</rp><rt>へ</rt><rp>)</rp></ruby>って、<ruby>高<rp>(</rp><rt>こう</rt><rp>)</rp></ruby>れい<ruby>化<rp>(</rp><rt>か</rt><rp>)</rp></ruby>がすすむ</div>
+          <div class="rn-m"><span class="rn-mk">②</span>コロナで、みんなの<ruby>考<rp>(</rp><rt>かんが</rt><rp>)</rp></ruby>え<ruby>方<rp>(</rp><rt>かた</rt><rp>)</rp></ruby>が<ruby>変<rp>(</rp><rt>か</rt><rp>)</rp></ruby>わった</div>
+          <div class="rn-m"><span class="rn-mk">③</span><span class="rn-term" data-def="2030年までに世界でたっせいを目ざす、17この目標。">SDGs</span>・<span class="rn-term" data-def="地球をあたためるガスを、へらしてゼロに近づけること。"><ruby>脱<rp>(</rp><rt>だつ</rt><rp>)</rp></ruby><ruby>炭素<rp>(</rp><rt>たんそ</rt><rp>)</rp></ruby></span>（<ruby>地球<rp>(</rp><rt>ちきゅう</rt><rp>)</rp></ruby>にやさしく）</div>
+          <div class="rn-m"><span class="rn-mk">④</span><ruby>北陸<rp>(</rp><rt>ほくりく</rt><rp>)</rp></ruby><ruby>新幹線<rp>(</rp><rt>しんかんせん</rt><rp>)</rp></ruby>が<ruby>敦賀<rp>(</rp><rt>つるが</rt><rp>)</rp></ruby>までのびた「<ruby>第<rp>(</rp><rt>だい</rt><rp>)</rp></ruby><ruby>二<rp>(</rp><rt>に</rt><rp>)</rp></ruby>の<ruby>開業<rp>(</rp><rt>かいぎょう</rt><rp>)</rp></ruby>」</div>
+          <div class="rn-m"><span class="rn-mk">⑤</span><ruby>地震<rp>(</rp><rt>じしん</rt><rp>)</rp></ruby>・<ruby>豪雨<rp>(</rp><rt>ごうう</rt><rp>)</rp></ruby>へのそなえ</div>
+        </div>
+        <ruby>新幹線<rp>(</rp><rt>しんかんせん</rt><rp>)</rp></ruby>をチャンスととらえて、<b>「<ruby>金沢<rp>(</rp><rt>かなざわ</rt><rp>)</rp></ruby>は<ruby>日本海<rp>(</rp><rt>にほんかい</rt><rp>)</rp></ruby><ruby>側<rp>(</rp><rt>がわ</rt><rp>)</rp></ruby>のリーダーであれ」</b>という<ruby>気合<rp>(</rp><rt>きあ</rt><rp>)</rp></ruby>いがこもってる。</div></details>
+      <details class="rn-use"><summary class="rn-use-head"><span class="rn-em">🧭</span><span class="rn-nm"><ruby>知<rp>(</rp><rt>し</rt><rp>)</rp></ruby>っておくと"<ruby>得<rp>(</rp><rt>とく</rt><rp>)</rp></ruby>"な<ruby>理由<rp>(</rp><rt>りゆう</rt><rp>)</rp></ruby></span><span class="rn-arw">▶</span></summary><div class="rn-use-body">この<ruby>目標<rp>(</rp><rt>もくひょう</rt><rp>)</rp></ruby>は、<ruby>金沢<rp>(</rp><rt>かなざわ</rt><rp>)</rp></ruby>の<b><ruby>予算<rp>(</rp><rt>よさん</rt><rp>)</rp></ruby>・<ruby>計画<rp>(</rp><rt>けいかく</rt><rp>)</rp></ruby>・やること、ぜんぶの"<ruby>大<rp>(</rp><rt>だい</rt><rp>)</rp></ruby>もと"</b>。「<ruby>未来<rp>(</rp><rt>みらい</rt><rp>)</rp></ruby><ruby>共<rp>(</rp><rt>ども</rt><rp>)</rp></ruby><ruby>創<rp>(</rp><rt>そう</rt><rp>)</rp></ruby><ruby>計画<rp>(</rp><rt>けいかく</rt><rp>)</rp></ruby>」（<ruby>令<rp>(</rp><rt>れい</rt><rp>)</rp></ruby><ruby>和<rp>(</rp><rt>わ</rt><rp>)</rp></ruby>6〜15<ruby>年度<rp>(</rp><rt>ねんど</rt><rp>)</rp></ruby>）という<ruby>一番<rp>(</rp><rt>いちばん</rt><rp>)</rp></ruby><ruby>上<rp>(</rp><rt>じょう</rt><rp>)</rp></ruby>の<ruby>行動<rp>(</rp><rt>こうどう</rt><rp>)</rp></ruby><ruby>計画<rp>(</rp><rt>けいかく</rt><rp>)</rp></ruby>がこの<ruby>下<rp>(</rp><rt>した</rt><rp>)</rp></ruby>にぶら<ruby>下<rp>(</rp><rt>さ</rt><rp>)</rp></ruby>がり、その<ruby>下<rp>(</rp><rt>した</rt><rp>)</rp></ruby>に<ruby>分野<rp>(</rp><rt>ぶんや</rt><rp>)</rp></ruby>ごとの<ruby>計画<rp>(</rp><rt>けいかく</rt><rp>)</rp></ruby>が<ruby>続<rp>(</rp><rt>つづ</rt><rp>)</rp></ruby>く。<ruby>市<rp>(</rp><rt>し</rt><rp>)</rp></ruby>がやる／やらない<ruby>理由<rp>(</rp><rt>りゆう</rt><rp>)</rp></ruby>は、たいていここにたどりつく。いわば<b>まちの"<ruby>憲法<rp>(</rp><rt>けんぽう</rt><rp>)</rp></ruby>"</b>みたいなもの、と<ruby>思<rp>(</rp><rt>おも</rt><rp>)</rp></ruby>ってね。</div></details>
     </div>
-  </div>
 
-  <div class="money-panel" id="rinen-root">
-    <div class="flow-panel">
-      <h4>🌳 40年変わらない、金沢の3つの理念<span class="scope kz">金沢市</span></h4>
-      <p class="sub" style="margin:8px 0 10px;">じつは金沢には、いまの都市像よりさらに古くて深い「理念」があります。<b>昭和60年（1985年）に定めた「金沢市基本構想」</b>——ここに掲げた3つの理念を、金沢は<b>約40年間、市政の最上位の基本理念として受け継いできました</b>。令和5年の新しい都市像も、この3つを「引き続き継承する」と明記しています。</p>
-      <div class="gen-grid" style="gap:10px;margin:10px 0 14px;">
-        <div class="gen-card" style="border-color:var(--navy);"><div class="g-emoji">🙋</div><div class="g-name">理念その1</div><div class="g-pop" style="font-size:1.1em;color:var(--navy)">市民主体</div></div>
-        <div class="gen-card" style="border-color:var(--green);"><div class="g-emoji">🌿</div><div class="g-name">理念その2</div><div class="g-pop" style="font-size:.95em;color:var(--green)">豊かな人間環境<br>の構築</div></div>
-        <div class="gen-card" style="border-color:var(--gold);"><div class="g-emoji">🌏</div><div class="g-name">理念その3</div><div class="g-pop" style="font-size:.95em;color:var(--gold)">国際的文化<br>産業都市</div></div>
+    <div class="rn-talk1"><span class="rn-ic">💭</span><div class="rn-tx"><span class="rn-lb">おうちで<ruby>話<rp>(</rp><rt>はな</rt><rp>)</rp></ruby>そう</span>きみが<ruby>金沢<rp>(</rp><rt>かなざわ</rt><rp>)</rp></ruby>の<ruby>未来<rp>(</rp><rt>みらい</rt><rp>)</rp></ruby>をつくるなら、<b>どんなまち</b>にしたい？　おうちの<ruby>人<rp>(</rp><rt>ひと</rt><rp>)</rp></ruby>にも<ruby>聞<rp>(</rp><rt>き</rt><rp>)</rp></ruby>いてみよう。</div></div>
+  </section>
+
+  <!-- タブ2 -->
+  <section class="rn-panel" id="rn-p2">
+    <div class="rn-quiz" data-correct="five">
+      <div class="rn-qh rn-maru"><span class="rn-qd">?</span><ruby>金沢<rp>(</rp><rt>かなざわ</rt><rp>)</rp></ruby>が10<ruby>年<rp>(</rp><rt>ねん</rt><rp>)</rp></ruby>で<ruby>力<rp>(</rp><rt>ちから</rt><rp>)</rp></ruby>を<ruby>入<rp>(</rp><rt>い</rt><rp>)</rp></ruby>れる"<ruby>場所<rp>(</rp><rt>ばしょ</rt><rp>)</rp></ruby>"は、いくつある？</div>
+      <div class="rn-opts">
+        <button class="rn-opt rn-maru" data-v="five"><span class="rn-k">A</span>5つ</button>
+        <button class="rn-opt rn-maru" data-v="three"><span class="rn-k">B</span>3つ</button>
+        <button class="rn-opt rn-maru" data-v="ten"><span class="rn-k">C</span>10コ</button>
       </div>
-      <p class="sub" style="margin:6px 0;">都市像はこれを<b>「金沢の歴史や個性、価値観などを礎とした普遍的な考え方」</b>と表現しています。市長が代わっても、時代が変わっても、この3本の柱は動かさない——という宣言です。特に<b>「市民主体」</b>が一番目に来ていることは、市民として覚えておく価値があります。</p>
-      <div class="insight blue"><b>🧭 つまり金沢は二層構造：</b> 一番おおもとに<b>「40年不変の3理念」（1985年〜）</b>があり、その上に時代ごとの<b>「10年の都市像」（今は"共創文化都市"）</b>が乗る。土台は動かさず、目標像だけ時代に合わせて更新していく——これが金沢のまちづくりの設計思想です。「金沢って結局どんなまち？」と聞かれたら、<b>「市民主体で、文化を軸に、世界とつながろうとしているまち」</b>と答えれば、まず外れません。</div>
-      <p class="sub" style="margin-top:14px;">※出典：金沢市都市像「未来を拓く世界の共創文化都市・金沢」全文（1 趣旨・基本構想の三理念の継承を明記）、金沢市基本構想（昭和60年策定）。</p>
-    </div>
-  </div>
-
-  <div class="money-panel" id="rinen-ken">
-    <div class="flow-panel">
-      <h4>🤝 市境を越えた金沢——石川中央都市圏の「中心市」<span class="scope kz">金沢</span></h4>
-      <p class="sub">金沢市の役割は、市境の内側で終わりません。金沢は白山・かほく・野々市・津幡・内灘とつくる「石川中央都市圏」の中心市として、圏域ぐるみの行政を引っぱる立場にあります。</p>
-      <div class="gikai-list" style="margin-top:10px;">
-        <div class="gikai-item" style="cursor:default;"><span class="d" style="color:var(--gold)">4市2町</span><span class="t">2016年3月28日、金沢市は白山市・かほく市・野々市市・津幡町・内灘町の5市町それぞれと1対1で<b>連携協約</b>を結び、国の制度上の<b>連携中枢都市</b>（圏域の中心市）になりました。圏域の将来像をまとめた「石川中央都市圏ビジョン」は同月に策定され、毎年度改訂されています。</span></div>
-        <div class="gikai-item" style="cursor:default;"><span class="d" style="color:var(--navy)">制度</span><span class="t">連携中枢都市圏は、人口減少の時代に<b>人口20万人以上などの要件を満たす中心都市</b>が近隣市町と手を組み、①経済成長のけん引 ②高次都市機能の集積・強化 ③生活関連サービスの向上、の3つを圏域単位で担う国の仕組みです。</span></div>
-        <div class="gikai-item" style="cursor:default;"><span class="d" style="color:var(--navy)">規模</span><span class="t">圏域の人口は<b>約72.8万人</b>（平成27年国勢調査）で石川県の約63%、面積は約1,430平方キロで県の約34%。県民の3人に2人近くが、この圏域で暮らしている計算です。</span></div>
-        <div class="gikai-item" style="cursor:default;"><span class="d" style="color:var(--red)">生活の中の実例</span><span class="t">令和8年度の金沢市予算から拾うと——夜間の子ども救急を担う<b>金沢広域急病センターの小児科は4市2町の広域運営</b>。子育て情報アプリ「いしかわ中央子育てアプリ」は圏域で共同運用。婚活イベントも圏域市町と共同開催。太陽光発電など脱炭素の推進では、<b>金沢市が圏域内の4市町に補助金6,700万円を交付</b>する側に立ちます。不登校支援でも圏域の教育支援センターが連絡会をつくり、縄文から近世までの歴史遺産も圏域で共同発信。上下水道は2017年2月に圏域の広域連携ビジョンが策定されています。</span></div>
-        <div class="gikai-item" style="cursor:default;"><span class="d" style="color:var(--gold)">お金の裏づけ</span><span class="t">この仕組みには国の後押しがあります。中心市となった金沢市には<b>圏域人口に応じて算定される普通交付税の措置</b>、圏域で連携する取組には<b>特別交付税の措置</b>——広域連携は、国が地方交付税で応援する政策です。</span></div>
-        <div class="gikai-item" style="cursor:default;"><span class="d" style="color:var(--red)">実データ：夜間急病が3年で59%増</span><span class="t">上の実例の中で、いま数字が大きく動いているのが夜間の急病診療です。毎夜、内科と小児科を開ける急病診療事業——担い手は市の外郭団体（公財）金沢健康福祉財団——の利用者は、令和4年度<b>5,566人→令和5年度7,619人→令和6年度8,847人</b>。<b>3年で59%増</b>え、令和6年度の事業費用は<b>約1億3,317万円</b>です（→財団の全体像は<b>金沢のお金</b>の外郭団体の節へ）。夜間に子どもを診てもらえる場所の需要が、圏域で伸び続けています。</span></div>
+      <div class="rn-answer">
+        <div class="rn-rc rn-maru">せいかい！🎉</div>
+        <div class="rn-title rn-maru">ぜんぶで <span class="rn-k">5つ</span>！</div>
+        <div class="rn-subttl"><ruby>魅力<rp>(</rp><rt>みりょく</rt><rp>)</rp></ruby> ・ <ruby>暮<rp>(</rp><rt>く</rt><rp>)</rp></ruby>らし ・ <ruby>人<rp>(</rp><rt>ひと</rt><rp>)</rp></ruby> ・ <ruby>仕事<rp>(</rp><rt>しごと</rt><rp>)</rp></ruby> ・ <ruby>都市<rp>(</rp><rt>とし</rt><rp>)</rp></ruby> づくり</div>
+        <div class="rn-lab"><ruby>金沢<rp>(</rp><rt>かなざわ</rt><rp>)</rp></ruby>が10<ruby>年<rp>(</rp><rt>ねん</rt><rp>)</rp></ruby>で<ruby>力<rp>(</rp><rt>ちから</rt><rp>)</rp></ruby>を<ruby>入<rp>(</rp><rt>い</rt><rp>)</rp></ruby>れる「<ruby>場所<rp>(</rp><rt>ばしょ</rt><rp>)</rp></ruby>の<ruby>地図<rp>(</rp><rt>ちず</rt><rp>)</rp></ruby>」。<ruby>下<rp>(</rp><rt>した</rt><rp>)</rp></ruby>でひとつずつ<ruby>見<rp>(</rp><rt>み</rt><rp>)</rp></ruby>てみよう。</div>
       </div>
-      <div class="insight blue"><b>💡 ここがポイント：</b> 「金沢市の予算」の中に、市外のまちの脱炭素や圏域共通のアプリ運用が入っている——中心市は圏域の事務局役・とりまとめ役を担うからです。金沢の行政を見るときは、市境の内側だけでなく「圏域の中心市としての金沢」という顔もあわせて見ると、仕事の全体像に近づきます。</div>
-      <p class="src">出典：金沢市企画調整課「連携中枢都市圏について」（4市2町・連携協約・ビジョンの毎年度改訂）、白山市・野々市市の公式サイト（2016年3月28日の協約締結式・制度の3つの役割）、金沢市企業局資料（圏域人口約72.8万人〔平成27年国勢調査〕・面積約1,430平方キロ・上下水道広域連携ビジョン2017年2月策定）、金沢市「令和8年度予算概要」（脱炭素補助6,700万円・広域急病センター・子育てアプリ・婚活・教育支援センター連絡会・歴史遺産活用の各事業）、総務省「多様な広域連携」・経済財政諮問会議提出資料（令和6年11月・連携中枢都市への普通交付税措置〔圏域人口に応じて算定〕と特別交付税措置）、（公財）金沢健康福祉財団「法人の経営状況の報告」（議会報告・令和4〜6年度決算。急病診療事業の利用者5,566→7,619→8,847人・令和6年度費用133,169千円）。</p>
     </div>
-  </div>
 
-  <div style="text-align:center;"><button class="cat-close" onclick="closeCat()">▲ とじる</button></div>
+    <div class="rn-plans">
+      <div class="rn-plan" style="--pc:var(--m1)"><div class="rn-ph"><span class="rn-pn">1</span><span class="rn-pl rn-maru"><ruby>魅力<rp>(</rp><rt>みりょく</rt><rp>)</rp></ruby>づくり</span></div><div class="rn-pd"><b><ruby>世界<rp>(</rp><rt>せかい</rt><rp>)</rp></ruby>に<ruby>誇<rp>(</rp><rt>ほこ</rt><rp>)</rp></ruby>る、<ruby>文化<rp>(</rp><rt>ぶんか</rt><rp>)</rp></ruby>が<ruby>息<rp>(</rp><rt>いき</rt><rp>)</rp></ruby>づくまち。</b><span class="rn-term" data-def="昔からある、金沢のでんとう的な木の家。"><ruby>金澤<rp>(</rp><rt>かなざわ</rt><rp>)</rp></ruby><ruby>町家<rp>(</rp><rt>まちや</rt><rp>)</rp></ruby></span>や<span class="rn-term" data-def="田や畑、生活に水を引くための、人がつくった水路。"><ruby>用水<rp>(</rp><rt>ようすい</rt><rp>)</rp></ruby></span>を<ruby>守<rp>(</rp><rt>まも</rt><rp>)</rp></ruby>り、スポーツ・<ruby>建築<rp>(</rp><rt>けんちく</rt><rp>)</rp></ruby>・<ruby>木<rp>(</rp><rt>き</rt><rp>)</rp></ruby>の<ruby>文化<rp>(</rp><rt>ぶんか</rt><rp>)</rp></ruby>を<ruby>育<rp>(</rp><rt>そだ</rt><rp>)</rp></ruby>て、<ruby>食<rp>(</rp><rt>しょく</rt><rp>)</rp></ruby>と<ruby>金沢<rp>(</rp><rt>かなざわ</rt><rp>)</rp></ruby>クラフトを<ruby>世界<rp>(</rp><rt>せかい</rt><rp>)</rp></ruby>へ。<ruby>金沢<rp>(</rp><rt>かなざわ</rt><rp>)</rp></ruby>の"<ruby>看板<rp>(</rp><rt>かんばん</rt><rp>)</rp></ruby>"をみがく<ruby>方針<rp>(</rp><rt>ほうしん</rt><rp>)</rp></ruby>。（→<span class="rn-lk"><ruby>金沢<rp>(</rp><rt>かなざわ</rt><rp>)</rp></ruby>の<ruby>文化<rp>(</rp><rt>ぶんか</rt><rp>)</rp></ruby></span>）</div></div>
+      <div class="rn-plan" style="--pc:var(--m2)"><div class="rn-ph"><span class="rn-pn">2</span><span class="rn-pl rn-maru"><ruby>暮<rp>(</rp><rt>く</rt><rp>)</rp></ruby>らしづくり</span></div><div class="rn-pd"><b>みんなが<ruby>共<rp>(</rp><rt>とも</rt><rp>)</rp></ruby>に、<ruby>心<rp>(</rp><rt>こころ</rt><rp>)</rp></ruby>ゆたかに<ruby>暮<rp>(</rp><rt>く</rt><rp>)</rp></ruby>らせるまち。</b><ruby>地域<rp>(</rp><rt>ちいき</rt><rp>)</rp></ruby>のつながり、<ruby>年齢<rp>(</rp><rt>ねんれい</rt><rp>)</rp></ruby>・<ruby>性別<rp>(</rp><rt>せいべつ</rt><rp>)</rp></ruby>・<ruby>障害<rp>(</rp><rt>しょうがい</rt><rp>)</rp></ruby>・<ruby>国籍<rp>(</rp><rt>こくせき</rt><rp>)</rp></ruby>にかかわらず<ruby>認<rp>(</rp><rt>みと</rt><rp>)</rp></ruby>め<ruby>合<rp>(</rp><rt>あ</rt><rp>)</rp></ruby>う<span class="rn-term" data-def="ちがう人どうしが、みとめ合っていっしょに生きること。"><ruby>共生<rp>(</rp><rt>きょうせい</rt><rp>)</rp></ruby></span>、<ruby>健康<rp>(</rp><rt>けんこう</rt><rp>)</rp></ruby>づくり、<span class="rn-term" data-def="地球をあたためるガスを、出す分とへらす分で「実しつゼロ」にすること。">ゼロカーボン</span>とごみ<ruby>減量<rp>(</rp><rt>げんりょう</rt><rp>)</rp></ruby>。（→<span class="rn-lk"><ruby>介護<rp>(</rp><rt>かいご</rt><rp>)</rp></ruby>と<ruby>高齢<rp>(</rp><rt>こうれい</rt><rp>)</rp></ruby><ruby>化<rp>(</rp><rt>か</rt><rp>)</rp></ruby></span>／<span class="rn-lk"><ruby>金沢<rp>(</rp><rt>かなざわ</rt><rp>)</rp></ruby>のゴミ</span>）</div></div>
+      <div class="rn-plan" style="--pc:var(--m3)"><div class="rn-ph"><span class="rn-pn">3</span><span class="rn-pl rn-maru"><ruby>人<rp>(</rp><rt>ひと</rt><rp>)</rp></ruby>づくり</span></div><div class="rn-pd"><b><ruby>共<rp>(</rp><rt>とも</rt><rp>)</rp></ruby>に<ruby>学<rp>(</rp><rt>まな</rt><rp>)</rp></ruby>び、<ruby>未来<rp>(</rp><rt>みらい</rt><rp>)</rp></ruby>を<ruby>創<rp>(</rp><rt>つく</rt><rp>)</rp></ruby>る<ruby>人<rp>(</rp><rt>ひと</rt><rp>)</rp></ruby>を<ruby>育<rp>(</rp><rt>そだ</rt><rp>)</rp></ruby>てるまち。</b><ruby>妊娠<rp>(</rp><rt>にんしん</rt><rp>)</rp></ruby>・<ruby>出産<rp>(</rp><rt>しゅっさん</rt><rp>)</rp></ruby>から<ruby>切<rp>(</rp><rt>き</rt><rp>)</rp></ruby>れ<ruby>目<rp>(</rp><rt>め</rt><rp>)</rp></ruby>ない<ruby>子育<rp>(</rp><rt>こそだ</rt><rp>)</rp></ruby>て<ruby>支援<rp>(</rp><rt>しえん</rt><rp>)</rp></ruby>、だれも<ruby>取<rp>(</rp><rt>と</rt><rp>)</rp></ruby>り<ruby>残<rp>(</rp><rt>のこ</rt><rp>)</rp></ruby>さない<ruby>学<rp>(</rp><rt>まな</rt><rp>)</rp></ruby>び、<ruby>学都<rp>(</rp><rt>がくと</rt><rp>)</rp></ruby>・<ruby>金沢<rp>(</rp><rt>かなざわ</rt><rp>)</rp></ruby>の<ruby>力<rp>(</rp><rt>ちから</rt><rp>)</rp></ruby>を<ruby>生<rp>(</rp><rt>い</rt><rp>)</rp></ruby>かした<ruby>人材<rp>(</rp><rt>じんざい</rt><rp>)</rp></ruby><ruby>育成<rp>(</rp><rt>いくせい</rt><rp>)</rp></ruby>、<span class="rn-term" data-def="大人になっても、一生ずっと学びつづけること。"><ruby>生涯<rp>(</rp><rt>しょうがい</rt><rp>)</rp></ruby><ruby>学習<rp>(</rp><rt>がくしゅう</rt><rp>)</rp></ruby></span>。<ruby>次<rp>(</rp><rt>つぎ</rt><rp>)</rp></ruby>の<ruby>世代<rp>(</rp><rt>せだい</rt><rp>)</rp></ruby>への<ruby>投資<rp>(</rp><rt>とうし</rt><rp>)</rp></ruby>。（→<span class="rn-lk"><ruby>教育<rp>(</rp><rt>きょういく</rt><rp>)</rp></ruby>と<ruby>子<rp>(</rp><rt>こ</rt><rp>)</rp></ruby>ども</span>）</div></div>
+      <div class="rn-plan" style="--pc:var(--m4)"><div class="rn-ph"><span class="rn-pn">4</span><span class="rn-pl rn-maru"><ruby>仕事<rp>(</rp><rt>しごと</rt><rp>)</rp></ruby>づくり</span></div><div class="rn-pd"><b><ruby>創造<rp>(</rp><rt>そうぞう</rt><rp>)</rp></ruby>と<ruby>変革<rp>(</rp><rt>へんかく</rt><rp>)</rp></ruby>で<ruby>成長<rp>(</rp><rt>せいちょう</rt><rp>)</rp></ruby>するまち。</b><span class="rn-term" data-def="デジタルの力で、仕事やくらしを新しく変えること。">DX</span>・<span class="rn-term" data-def="かんきょうにやさしいエネルギーへ、社会を変えていくこと。">GX</span>と<ruby>文化<rp>(</rp><rt>ぶんか</rt><rp>)</rp></ruby>・<ruby>産業<rp>(</rp><rt>さんぎょう</rt><rp>)</rp></ruby>の<ruby>融合<rp>(</rp><rt>ゆうごう</rt><rp>)</rp></ruby>、<span class="rn-term" data-def="会社・大学・役所・銀行が、力を合わせること。"><ruby>産学<rp>(</rp><rt>さんがく</rt><rp>)</rp></ruby><ruby>官金<rp>(</rp><rt>かんきん</rt><rp>)</rp></ruby></span>の<ruby>連携<rp>(</rp><rt>れんけい</rt><rp>)</rp></ruby>、<ruby>起業<rp>(</rp><rt>きぎょう</rt><rp>)</rp></ruby>に<ruby>挑<rp>(</rp><rt>いど</rt><rp>)</rp></ruby>む<ruby>学生<rp>(</rp><rt>がくせい</rt><rp>)</rp></ruby>・<ruby>若者<rp>(</rp><rt>わかもの</rt><rp>)</rp></ruby>・<ruby>女性<rp>(</rp><rt>じょせい</rt><rp>)</rp></ruby>の<ruby>応援<rp>(</rp><rt>おうえん</rt><rp>)</rp></ruby>、<ruby>商店<rp>(</rp><rt>しょうてん</rt><rp>)</rp></ruby><ruby>街<rp>(</rp><rt>がい</rt><rp>)</rp></ruby>とものづくりの<ruby>継承<rp>(</rp><rt>けいしょう</rt><rp>)</rp></ruby>、<ruby>農林<rp>(</rp><rt>のうりん</rt><rp>)</rp></ruby><ruby>水産<rp>(</rp><rt>すいさん</rt><rp>)</rp></ruby><ruby>業<rp>(</rp><rt>ぎょう</rt><rp>)</rp></ruby>の<ruby>振興<rp>(</rp><rt>しんこう</rt><rp>)</rp></ruby>。<ruby>稼<rp>(</rp><rt>かせ</rt><rp>)</rp></ruby>ぐ<ruby>力<rp>(</rp><rt>ちから</rt><rp>)</rp></ruby>と<ruby>挑戦<rp>(</rp><rt>ちょうせん</rt><rp>)</rp></ruby>を<ruby>後押<rp>(</rp><rt>あとお</rt><rp>)</rp></ruby>し。（→<span class="rn-lk"><ruby>金沢<rp>(</rp><rt>かなざわ</rt><rp>)</rp></ruby>の<ruby>会社<rp>(</rp><rt>かいしゃ</rt><rp>)</rp></ruby></span>）</div></div>
+      <div class="rn-plan" style="--pc:var(--m5)"><div class="rn-ph"><span class="rn-pn">5</span><span class="rn-pl rn-maru"><ruby>都市<rp>(</rp><rt>とし</rt><rp>)</rp></ruby>づくり</span></div><div class="rn-pd"><b><ruby>活力<rp>(</rp><rt>かつりょく</rt><rp>)</rp></ruby>と<ruby>個性<rp>(</rp><rt>こせい</rt><rp>)</rp></ruby>があふれ、<ruby>安全<rp>(</rp><rt>あんぜん</rt><rp>)</rp></ruby>で<ruby>持続<rp>(</rp><rt>じぞく</rt><rp>)</rp></ruby><ruby>可能<rp>(</rp><rt>かのう</rt><rp>)</rp></ruby>なまち。</b><span class="rn-term" data-def="まちの、いちばんにぎやかな中心のあたり。"><span class="rn-term" data-def="まわりの市や町のまとまりで、中心のやくをする市。"><ruby>中心<rp>(</rp><rt>ちゅうしん</rt><rp>)</rp></ruby><ruby>市<rp>(</rp><rt>し</rt><rp>)</rp></ruby></span><ruby>街<rp>(</rp><rt>がい</rt><rp>)</rp></ruby><ruby>地<rp>(</rp><rt>ち</rt><rp>)</rp></ruby></span>の<ruby>活性<rp>(</rp><rt>かっせい</rt><rp>)</rp></ruby><ruby>化<rp>(</rp><rt>か</rt><rp>)</rp></ruby>、<ruby>歴史<rp>(</rp><rt>れきし</rt><rp>)</rp></ruby>・<ruby>自然<rp>(</rp><rt>しぜん</rt><rp>)</rp></ruby>と<ruby>調和<rp>(</rp><rt>ちょうわ</rt><rp>)</rp></ruby>した<span class="rn-term" data-def="まちなみや風景の、見た目。"><ruby>景観<rp>(</rp><rt>けいかん</rt><rp>)</rp></ruby></span>、<ruby>移住<rp>(</rp><rt>いじゅう</rt><rp>)</rp></ruby>・<ruby>定住<rp>(</rp><rt>ていじゅう</rt><rp>)</rp></ruby>、<ruby>公共<rp>(</rp><rt>こうきょう</rt><rp>)</rp></ruby><ruby>交通<rp>(</rp><rt>こうつう</rt><rp>)</rp></ruby>、<ruby>災害<rp>(</rp><rt>さいがい</rt><rp>)</rp></ruby>に<ruby>強<rp>(</rp><rt>つよ</rt><rp>)</rp></ruby>いまちづくり。（→<span class="rn-lk">まちなか</span>／<span class="rn-lk"><ruby>災害<rp>(</rp><rt>さいがい</rt><rp>)</rp></ruby>と<ruby>金沢<rp>(</rp><rt>かなざわ</rt><rp>)</rp></ruby></span>）</div></div>
+    </div>
+
+    <div class="rn-kushi">
+      <span class="rn-kc"><ruby>横<rp>(</rp><rt>よこ</rt><rp>)</rp></ruby><ruby>串<rp>(</rp><rt>くし</rt><rp>)</rp></ruby>① <ruby>文化<rp>(</rp><rt>ぶんか</rt><rp>)</rp></ruby>の<ruby>活用<rp>(</rp><rt>かつよう</rt><rp>)</rp></ruby></span>
+      <span class="rn-kc"><ruby>横<rp>(</rp><rt>よこ</rt><rp>)</rp></ruby><ruby>串<rp>(</rp><rt>くし</rt><rp>)</rp></ruby>② <ruby>多様<rp>(</rp><rt>たよう</rt><rp>)</rp></ruby>な<ruby>人<rp>(</rp><rt>ひと</rt><rp>)</rp></ruby>の<ruby>参画<rp>(</rp><rt>さんかく</rt><rp>)</rp></ruby></span>
+      <span class="rn-kc"><ruby>横<rp>(</rp><rt>よこ</rt><rp>)</rp></ruby><ruby>串<rp>(</rp><rt>くし</rt><rp>)</rp></ruby>③ デジタル<ruby>化<rp>(</rp><rt>か</rt><rp>)</rp></ruby></span>
+    </div>
+
+    <div class="rn-insight"><b>⚖ <ruby>読<rp>(</rp><rt>よ</rt><rp>)</rp></ruby>み<ruby>方<rp>(</rp><rt>かた</rt><rp>)</rp></ruby>のコツ：</b>この5つ、「きれいごと」に<ruby>見<rp>(</rp><rt>み</rt><rp>)</rp></ruby>えるかも。でも<ruby>大事<rp>(</rp><rt>だいじ</rt><rp>)</rp></ruby>なのは、<ruby>各<rp>(</rp><rt>かく</rt><rp>)</rp></ruby><ruby>方針<rp>(</rp><rt>ほうしん</rt><rp>)</rp></ruby>に<b><ruby>数値<rp>(</rp><rt>すうち</rt><rp>)</rp></ruby><ruby>目標<rp>(</rp><rt>もくひょう</rt><rp>)</rp></ruby>（<span class="rn-term" data-def="目標にどれだけ近づいたかを、数字ではかるものさし。">KPI</span>）</b>が<ruby>決<rp>(</rp><rt>き</rt><rp>)</rp></ruby>められ、<ruby>達成<rp>(</rp><rt>たっせい</rt><rp>)</rp></ruby>できたか<ruby>毎年<rp>(</rp><rt>まいとし</rt><rp>)</rp></ruby>チェックして<ruby>計画<rp>(</rp><rt>けいかく</rt><rp>)</rp></ruby>を<ruby>見直<rp>(</rp><rt>みなお</rt><rp>)</rp></ruby>すこと＝<b><ruby>言<rp>(</rp><rt>い</rt><rp>)</rp></ruby>いっぱなしにしない<ruby>仕組<rp>(</rp><rt>しく</rt><rp>)</rp></ruby>み</b>があるんだ。その<ruby>進<rp>(</rp><rt>すす</rt><rp>)</rp></ruby>み<ruby>具合<rp>(</rp><rt>ぐあい</rt><rp>)</rp></ruby>を<ruby>追<rp>(</rp><rt>お</rt><rp>)</rp></ruby>うのが「<ruby>進捗<rp>(</rp><rt>しんちょく</rt><rp>)</rp></ruby>トラッカー」。（→<span class="rn-lk"><ruby>市政<rp>(</rp><rt>しせい</rt><rp>)</rp></ruby>の<ruby>進捗<rp>(</rp><rt>しんちょく</rt><rp>)</rp></ruby>トラッカー</span>）</div>
+
+    <div class="rn-talk1"><span class="rn-ic">💭</span><div class="rn-tx"><span class="rn-lb">おうちで<ruby>話<rp>(</rp><rt>はな</rt><rp>)</rp></ruby>そう</span>5つの<ruby>方針<rp>(</rp><rt>ほうしん</rt><rp>)</rp></ruby>で、きみが<b>いちばん<ruby>大事<rp>(</rp><rt>だいじ</rt><rp>)</rp></ruby>だと<ruby>思<rp>(</rp><rt>おも</rt><rp>)</rp></ruby>う</b>のはどれ？　それは、なんで？</div></div>
+  </section>
+
+  <!-- タブ3 -->
+  <section class="rn-panel" id="rn-p3">
+    <div class="rn-quiz" data-correct="y40">
+      <div class="rn-qh rn-maru"><span class="rn-qd">?</span><ruby>金沢<rp>(</rp><rt>かなざわ</rt><rp>)</rp></ruby>がずっと<ruby>大事<rp>(</rp><rt>だいじ</rt><rp>)</rp></ruby>にしてる「3つの<ruby>理念<rp>(</rp><rt>りねん</rt><rp>)</rp></ruby>」。<ruby>何<rp>(</rp><rt>なん</rt><rp>)</rp></ruby><ruby>年<rp>(</rp><rt>ねん</rt><rp>)</rp></ruby>、<ruby>変<rp>(</rp><rt>か</rt><rp>)</rp></ruby>わってない？</div>
+      <div class="rn-opts">
+        <button class="rn-opt rn-maru" data-v="y10"><span class="rn-k">A</span><ruby>約<rp>(</rp><rt>やく</rt><rp>)</rp></ruby>10<ruby>年<rp>(</rp><rt>ねん</rt><rp>)</rp></ruby></button>
+        <button class="rn-opt rn-maru" data-v="y40"><span class="rn-k">B</span><ruby>約<rp>(</rp><rt>やく</rt><rp>)</rp></ruby>40<ruby>年<rp>(</rp><rt>ねん</rt><rp>)</rp></ruby></button>
+        <button class="rn-opt rn-maru" data-v="y100"><span class="rn-k">C</span><ruby>約<rp>(</rp><rt>やく</rt><rp>)</rp></ruby>100<ruby>年<rp>(</rp><rt>ねん</rt><rp>)</rp></ruby></button>
+      </div>
+      <div class="rn-answer">
+        <div class="rn-rc rn-maru">せいかい！🎉</div>
+        <div class="rn-title rn-maru">なんと <span class="rn-k"><ruby>約<rp>(</rp><rt>やく</rt><rp>)</rp></ruby>40<ruby>年<rp>(</rp><rt>ねん</rt><rp>)</rp></ruby></span>！</div>
+        <div class="rn-subttl"><ruby>昭和<rp>(</rp><rt>しょうわ</rt><rp>)</rp></ruby>60<ruby>年<rp>(</rp><rt>ねん</rt><rp>)</rp></ruby>（1985<ruby>年<rp>(</rp><rt>ねん</rt><rp>)</rp></ruby>）から、ずっと</div>
+        <div class="rn-lab"><ruby>市民<rp>(</rp><rt>しみん</rt><rp>)</rp></ruby><ruby>主体<rp>(</rp><rt>しゅたい</rt><rp>)</rp></ruby> ／ <span class="rn-term" data-def="だれもが心ゆたかに暮らせる、まわりの環境をつくること。"><ruby>豊<rp>(</rp><rt>ゆた</rt><rp>)</rp></ruby>かな<ruby>人間<rp>(</rp><rt>にんげん</rt><rp>)</rp></ruby><ruby>環境<rp>(</rp><rt>かんきょう</rt><rp>)</rp></ruby>の<ruby>構築<rp>(</rp><rt>こうちく</rt><rp>)</rp></ruby></span> ／ <span class="rn-term" data-def="文化と産業の力で、世界とつながる都市。金沢が40年めざす理念のひとつ。"><ruby>国際<rp>(</rp><rt>こくさい</rt><rp>)</rp></ruby><ruby>的<rp>(</rp><rt>てき</rt><rp>)</rp></ruby><ruby>文化<rp>(</rp><rt>ぶんか</rt><rp>)</rp></ruby><ruby>産業<rp>(</rp><rt>さんぎょう</rt><rp>)</rp></ruby><ruby>都市<rp>(</rp><rt>とし</rt><rp>)</rp></ruby></span> ――この3つを、<ruby>市長<rp>(</rp><rt>しちょう</rt><rp>)</rp></ruby>が<ruby>代<rp>(</rp><rt>か</rt><rp>)</rp></ruby>わってもずっと<ruby>守<rp>(</rp><rt>まも</rt><rp>)</rp></ruby>り<ruby>続<rp>(</rp><rt>つづ</rt><rp>)</rp></ruby>けてる。</div>
+      </div>
+    </div>
+
+    <p class="rn-qsub rn-maru"><ruby>金沢<rp>(</rp><rt>かなざわ</rt><rp>)</rp></ruby>のまちづくりは「2<ruby>階<rp>(</rp><rt>かい</rt><rp>)</rp></ruby><ruby>建<rp>(</rp><rt>だ</rt><rp>)</rp></ruby>て」</p>
+    <div class="rn-bld">
+      <div class="rn-floor rn-up">
+        <div class="rn-ft">🔄 2<ruby>階<rp>(</rp><rt>かい</rt><rp>)</rp></ruby>：10<ruby>年<rp>(</rp><rt>ねん</rt><rp>)</rp></ruby>ごとの<ruby>目標<rp>(</rp><rt>もくひょう</rt><rp>)</rp></ruby>（<ruby>今<rp>(</rp><rt>いま</rt><rp>)</rp></ruby>はコレ）</div>
+        <div class="rn-big"><ruby>未来<rp>(</rp><rt>みらい</rt><rp>)</rp></ruby>を<ruby>拓<rp>(</rp><rt>ひら</rt><rp>)</rp></ruby>く<ruby>世界<rp>(</rp><rt>せかい</rt><rp>)</rp></ruby>の <ruby>共<rp>(</rp><rt>きょう</rt><rp>)</rp></ruby><ruby>創<rp>(</rp><rt>そう</rt><rp>)</rp></ruby><ruby>文化<rp>(</rp><rt>ぶんか</rt><rp>)</rp></ruby><ruby>都市<rp>(</rp><rt>とし</rt><rp>)</rp></ruby>・<ruby>金沢<rp>(</rp><rt>かなざわ</rt><rp>)</rp></ruby></div>
+        <div class="rn-small"><ruby>時代<rp>(</rp><rt>じだい</rt><rp>)</rp></ruby>に<ruby>合<rp>(</rp><rt>あ</rt><rp>)</rp></ruby>わせて、<ruby>目標<rp>(</rp><rt>もくひょう</rt><rp>)</rp></ruby>だけ<ruby>新<rp>(</rp><rt>あたら</rt><rp>)</rp></ruby>しく<ruby>更新<rp>(</rp><rt>こうしん</rt><rp>)</rp></ruby>していく</div>
+      </div>
+      <div class="rn-floor rn-base">
+        <div class="rn-ft">🧱 1<ruby>階<rp>(</rp><rt>かい</rt><rp>)</rp></ruby>（<ruby>土台<rp>(</rp><rt>どだい</rt><rp>)</rp></ruby>）：40<ruby>年<rp>(</rp><rt>ねん</rt><rp>)</rp></ruby><ruby>変<rp>(</rp><rt>か</rt><rp>)</rp></ruby>わらない3つの<ruby>理念<rp>(</rp><rt>りねん</rt><rp>)</rp></ruby>（1985<ruby>年<rp>(</rp><rt>ねん</rt><rp>)</rp></ruby>〜）</div>
+        <div class="rn-pillars">
+          <div class="rn-pil" style="background:var(--r1)"><div class="rn-pn2"><ruby>市民<rp>(</rp><rt>しみん</rt><rp>)</rp></ruby><ruby>主体<rp>(</rp><rt>しゅたい</rt><rp>)</rp></ruby></div><div class="rn-ps2"><ruby>主役<rp>(</rp><rt>しゅやく</rt><rp>)</rp></ruby>は<ruby>市民<rp>(</rp><rt>しみん</rt><rp>)</rp></ruby></div></div>
+          <div class="rn-pil" style="background:var(--r2)"><div class="rn-pn2"><ruby>豊<rp>(</rp><rt>ゆた</rt><rp>)</rp></ruby>かな<ruby>人間<rp>(</rp><rt>にんげん</rt><rp>)</rp></ruby><br><ruby>環境<rp>(</rp><rt>かんきょう</rt><rp>)</rp></ruby>の<ruby>構築<rp>(</rp><rt>こうちく</rt><rp>)</rp></ruby></div><div class="rn-ps2">くらしやすさ</div></div>
+          <div class="rn-pil" style="background:var(--r3)"><div class="rn-pn2"><ruby>国際<rp>(</rp><rt>こくさい</rt><rp>)</rp></ruby><ruby>的<rp>(</rp><rt>てき</rt><rp>)</rp></ruby><ruby>文化<rp>(</rp><rt>ぶんか</rt><rp>)</rp></ruby><br><ruby>産業<rp>(</rp><rt>さんぎょう</rt><rp>)</rp></ruby><ruby>都市<rp>(</rp><rt>とし</rt><rp>)</rp></ruby></div><div class="rn-ps2"><ruby>文化<rp>(</rp><rt>ぶんか</rt><rp>)</rp></ruby>と<ruby>世界<rp>(</rp><rt>せかい</rt><rp>)</rp></ruby>へ</div></div>
+        </div>
+      </div>
+      <p class="rn-bld-note"><b><ruby>土台<rp>(</rp><rt>どだい</rt><rp>)</rp></ruby>（3つの<ruby>理念<rp>(</rp><rt>りねん</rt><rp>)</rp></ruby>）は<ruby>動<rp>(</rp><rt>うご</rt><rp>)</rp></ruby>かさない。<ruby>目標<rp>(</rp><rt>もくひょう</rt><rp>)</rp></ruby>だけ<ruby>時代<rp>(</rp><rt>じだい</rt><rp>)</rp></ruby>に<ruby>合<rp>(</rp><rt>あ</rt><rp>)</rp></ruby>わせて<ruby>新<rp>(</rp><rt>あたら</rt><rp>)</rp></ruby>しくする。</b><br>これが<ruby>金沢<rp>(</rp><rt>かなざわ</rt><rp>)</rp></ruby>のまちづくりの<ruby>設計<rp>(</rp><rt>せっけい</rt><rp>)</rp></ruby><ruby>思想<rp>(</rp><rt>しそう</rt><rp>)</rp></ruby>だよ。</p>
+    </div>
+
+    <div class="rn-insight"><b>🧭 <span class="rn-term" data-def="2つの層（やくわり）に分けて、組み立てるしくみ。"><ruby>二<rp>(</rp><rt>に</rt><rp>)</rp></ruby><ruby>層<rp>(</rp><rt>そう</rt><rp>)</rp></ruby><ruby>構造<rp>(</rp><rt>こうぞう</rt><rp>)</rp></ruby></span>：</b><ruby>一番<rp>(</rp><rt>いちばん</rt><rp>)</rp></ruby>おおもとに<b>「40<ruby>年<rp>(</rp><rt>ねん</rt><rp>)</rp></ruby><ruby>不変<rp>(</rp><rt>ふへん</rt><rp>)</rp></ruby>の3<ruby>理念<rp>(</rp><rt>りねん</rt><rp>)</rp></ruby>」（1985<ruby>年<rp>(</rp><rt>ねん</rt><rp>)</rp></ruby>〜）</b>があり、その<ruby>上<rp>(</rp><rt>うえ</rt><rp>)</rp></ruby>に<ruby>時代<rp>(</rp><rt>じだい</rt><rp>)</rp></ruby>ごとの<b>「10<ruby>年<rp>(</rp><rt>ねん</rt><rp>)</rp></ruby>の<ruby>目標<rp>(</rp><rt>もくひょう</rt><rp>)</rp></ruby>」（<ruby>今<rp>(</rp><rt>いま</rt><rp>)</rp></ruby>は"<ruby>共<rp>(</rp><rt>ども</rt><rp>)</rp></ruby><ruby>創<rp>(</rp><rt>そう</rt><rp>)</rp></ruby><ruby>文化<rp>(</rp><rt>ぶんか</rt><rp>)</rp></ruby><ruby>都市<rp>(</rp><rt>とし</rt><rp>)</rp></ruby>"）</b>が<ruby>乗<rp>(</rp><rt>の</rt><rp>)</rp></ruby>る。とくに<b>「<ruby>市民<rp>(</rp><rt>しみん</rt><rp>)</rp></ruby><ruby>主体<rp>(</rp><rt>しゅたい</rt><rp>)</rp></ruby>」が1<ruby>番目<rp>(</rp><rt>ばんめ</rt><rp>)</rp></ruby></b>に<ruby>来<rp>(</rp><rt>き</rt><rp>)</rp></ruby>てるのは、<ruby>市民<rp>(</rp><rt>しみん</rt><rp>)</rp></ruby>として<ruby>覚<rp>(</rp><rt>おぼ</rt><rp>)</rp></ruby>えておく<ruby>価値<rp>(</rp><rt>かち</rt><rp>)</rp></ruby>があるよ。</div>
+
+    <div class="rn-talk1"><span class="rn-ic">💭</span><div class="rn-tx"><span class="rn-lb">おうちで<ruby>話<rp>(</rp><rt>はな</rt><rp>)</rp></ruby>そう</span>40<ruby>年<rp>(</rp><rt>ねん</rt><rp>)</rp></ruby><ruby>変<rp>(</rp><rt>か</rt><rp>)</rp></ruby>わらない3つに、もし<b>1つ<ruby>加<rp>(</rp><rt>くわ</rt><rp>)</rp></ruby>える</b>なら、きみは<ruby>何<rp>(</rp><rt>なに</rt><rp>)</rp></ruby>を<ruby>大事<rp>(</rp><rt>だいじ</rt><rp>)</rp></ruby>にしたい？</div></div>
+  </section>
+
+  <!-- タブ4 -->
+  <section class="rn-panel" id="rn-p4">
+    <div class="rn-quiz" data-correct="towns">
+      <div class="rn-qh rn-maru"><span class="rn-qd">?</span><ruby>金沢<rp>(</rp><rt>かなざわ</rt><rp>)</rp></ruby>は、まわりの"いくつのまち"と<ruby>手<rp>(</rp><rt>て</rt><rp>)</rp></ruby>を<ruby>組<rp>(</rp><rt>く</rt><rp>)</rp></ruby>んでる？</div>
+      <div class="rn-opts">
+        <button class="rn-opt rn-maru" data-v="only"><span class="rn-k">A</span><ruby>金沢<rp>(</rp><rt>かなざわ</rt><rp>)</rp></ruby>だけ</button>
+        <button class="rn-opt rn-maru" data-v="all"><span class="rn-k">B</span><ruby>日本<rp>(</rp><rt>にっぽん</rt><rp>)</rp></ruby>ぜんぶ</button>
+        <button class="rn-opt rn-maru" data-v="towns"><span class="rn-k">C</span>まわりの5つのまち</button>
+      </div>
+      <div class="rn-answer">
+        <div class="rn-rc rn-maru">せいかい！🎉</div>
+        <div class="rn-title rn-maru">まわりの<span class="rn-k">5つのまち</span>と、いっしょ！</div>
+        <div class="rn-subttl"><ruby>白山<rp>(</rp><rt>はくさん</rt><rp>)</rp></ruby>・かほく・<ruby>野々市<rp>(</rp><rt>ののいち</rt><rp>)</rp></ruby>・<ruby>津幡<rp>(</rp><rt>つばた</rt><rp>)</rp></ruby>・<ruby>内灘<rp>(</rp><rt>うちなだ</rt><rp>)</rp></ruby> ＋ <ruby>金沢<rp>(</rp><rt>かなざわ</rt><rp>)</rp></ruby></div>
+        <div class="rn-lab">この6つで「<ruby>石川<rp>(</rp><rt>いしかわ</rt><rp>)</rp></ruby><ruby>中央<rp>(</rp><rt>ちゅうおう</rt><rp>)</rp></ruby><ruby>都市<rp>(</rp><rt>とし</rt><rp>)</rp></ruby><ruby>圏<rp>(</rp><rt>けん</rt><rp>)</rp></ruby>」をつくってる（<b>4<ruby>市<rp>(</rp><rt>し</rt><rp>)</rp></ruby>2<ruby>町<rp>(</rp><rt>まち</rt><rp>)</rp></ruby>・<ruby>約<rp>(</rp><rt>やく</rt><rp>)</rp></ruby>72.8<ruby>万<rp>(</rp><rt>まん</rt><rp>)</rp></ruby><ruby>人<rp>(</rp><rt>にん</rt><rp>)</rp></ruby></b>）。<ruby>金沢<rp>(</rp><rt>かなざわ</rt><rp>)</rp></ruby>が、そのまとめ<ruby>役<rp>(</rp><rt>やく</rt><rp>)</rp></ruby>なんだ。</div>
+      </div>
+    </div>
+
+    <div class="rn-region">
+      <div class="rn-rc-center"><ruby>石川<rp>(</rp><rt>いしかわ</rt><rp>)</rp></ruby><ruby>中央<rp>(</rp><rt>ちゅうおう</rt><rp>)</rp></ruby><ruby>都市<rp>(</rp><rt>とし</rt><rp>)</rp></ruby><ruby>圏<rp>(</rp><rt>けん</rt><rp>)</rp></ruby></div>
+      <div class="rn-rc-town">
+        <span class="rn-tw rn-c"><ruby>金沢<rp>(</rp><rt>かなざわ</rt><rp>)</rp></ruby><ruby>市<rp>(</rp><rt>し</rt><rp>)</rp></ruby>（<ruby>中心<rp>(</rp><rt>ちゅうしん</rt><rp>)</rp></ruby>）</span>
+        <span class="rn-tw"><ruby>白山<rp>(</rp><rt>はくさん</rt><rp>)</rp></ruby><ruby>市<rp>(</rp><rt>し</rt><rp>)</rp></ruby></span>
+        <span class="rn-tw">かほく<ruby>市<rp>(</rp><rt>し</rt><rp>)</rp></ruby></span>
+        <span class="rn-tw"><ruby>野々市<rp>(</rp><rt>ののいち</rt><rp>)</rp></ruby><ruby>市<rp>(</rp><rt>し</rt><rp>)</rp></ruby></span>
+        <span class="rn-tw"><ruby>津幡<rp>(</rp><rt>つばた</rt><rp>)</rp></ruby><ruby>町<rp>(</rp><rt>まち</rt><rp>)</rp></ruby></span>
+        <span class="rn-tw"><ruby>内灘<rp>(</rp><rt>うちなだ</rt><rp>)</rp></ruby><ruby>町<rp>(</rp><rt>まち</rt><rp>)</rp></ruby></span>
+      </div>
+      <div class="rn-rstats">
+        <div class="rn-rstat"><div class="rn-rn rn-maru">4<ruby>市<rp>(</rp><rt>し</rt><rp>)</rp></ruby>2<ruby>町<rp>(</rp><rt>まち</rt><rp>)</rp></ruby></div><div class="rn-rl">が<ruby>手<rp>(</rp><rt>て</rt><rp>)</rp></ruby>を<ruby>組<rp>(</rp><rt>く</rt><rp>)</rp></ruby>む</div></div>
+        <div class="rn-rstat"><div class="rn-rn rn-maru"><ruby>約<rp>(</rp><rt>やく</rt><rp>)</rp></ruby>72.8<ruby>万<rp>(</rp><rt>まん</rt><rp>)</rp></ruby><ruby>人<rp>(</rp><rt>にん</rt><rp>)</rp></ruby></div><div class="rn-rl"><span class="rn-term" data-def="いくつかの市や町をまとめた、生活のつながりのはんい。"><ruby>圏<rp>(</rp><rt>けん</rt><rp>)</rp></ruby><ruby>域<rp>(</rp><rt>いき</rt><rp>)</rp></ruby></span>の<ruby>人口<rp>(</rp><rt>じんこう</rt><rp>)</rp></ruby></div></div>
+      </div>
+    </div>
+
+    <div class="rn-uses" style="margin-top:16px;">
+      <details class="rn-use"><summary class="rn-use-head"><span class="rn-em">📜</span><span class="rn-nm">いつ、どう<ruby>決<rp>(</rp><rt>き</rt><rp>)</rp></ruby>めたの？</span><span class="rn-arw">▶</span></summary><div class="rn-use-body"><b>2016<ruby>年<rp>(</rp><rt>ねん</rt><rp>)</rp></ruby>（<ruby>平成<rp>(</rp><rt>へいせい</rt><rp>)</rp></ruby>28<ruby>年<rp>(</rp><rt>ねん</rt><rp>)</rp></ruby>）3<ruby>月<rp>(</rp><rt>つき</rt><rp>)</rp></ruby>28<ruby>日<rp>(</rp><rt>にち</rt><rp>)</rp></ruby></b>、<ruby>金沢<rp>(</rp><rt>かなざわ</rt><rp>)</rp></ruby><ruby>市<rp>(</rp><rt>し</rt><rp>)</rp></ruby>は<ruby>白山<rp>(</rp><rt>はくさん</rt><rp>)</rp></ruby>・かほく・<ruby>野々市<rp>(</rp><rt>ののいち</rt><rp>)</rp></ruby>・<ruby>津幡<rp>(</rp><rt>つばた</rt><rp>)</rp></ruby>・<ruby>内灘<rp>(</rp><rt>うちなだ</rt><rp>)</rp></ruby>の5<ruby>市町<rp>(</rp><rt>しちょう</rt><rp>)</rp></ruby>と、1<ruby>対<rp>(</rp><rt>たい</rt><rp>)</rp></ruby>1で<b>「<span class="rn-term" data-def="市や町どうしが「協力しよう」とむすぶ、正式なやくそく。"><ruby>連携<rp>(</rp><rt>れんけい</rt><rp>)</rp></ruby><ruby>協約<rp>(</rp><rt>きょうやく</rt><rp>)</rp></ruby></span>」</b>という<ruby>約束<rp>(</rp><rt>やくそく</rt><rp>)</rp></ruby>を<ruby>結<rp>(</rp><rt>むす</rt><rp>)</rp></ruby>んだ。<ruby>金沢<rp>(</rp><rt>かなざわ</rt><rp>)</rp></ruby>が、<ruby>国<rp>(</rp><rt>くに</rt><rp>)</rp></ruby>の<ruby>制度<rp>(</rp><rt>せいど</rt><rp>)</rp></ruby>でいう<ruby>圏<rp>(</rp><rt>けん</rt><rp>)</rp></ruby><ruby>域<rp>(</rp><rt>いき</rt><rp>)</rp></ruby>の<b>「<ruby>中心<rp>(</rp><rt>ちゅうしん</rt><rp>)</rp></ruby><ruby>市<rp>(</rp><rt>し</rt><rp>)</rp></ruby>」</b>になったんだ。</div></details>
+      <details class="rn-use"><summary class="rn-use-head"><span class="rn-em">🧩</span><span class="rn-nm">いっしょに、<ruby>何<rp>(</rp><rt>なに</rt><rp>)</rp></ruby>をやってるの？</span><span class="rn-arw">▶</span></summary><div class="rn-use-body">たとえば——<ruby>夜<rp>(</rp><rt>よる</rt><rp>)</rp></ruby>の<ruby>子<rp>(</rp><rt>こ</rt><rp>)</rp></ruby>どもの<ruby>救急<rp>(</rp><rt>きゅうきゅう</rt><rp>)</rp></ruby>を<ruby>圏<rp>(</rp><rt>けん</rt><rp>)</rp></ruby><ruby>域<rp>(</rp><rt>いき</rt><rp>)</rp></ruby>で<ruby>運営<rp>(</rp><rt>うんえい</rt><rp>)</rp></ruby>、<ruby>子育<rp>(</rp><rt>こそだ</rt><rp>)</rp></ruby>て<ruby>情報<rp>(</rp><rt>じょうほう</rt><rp>)</rp></ruby>アプリを<span class="rn-term" data-def="ちからを合わせて、いっしょにやること。"><ruby>共同<rp>(</rp><rt>きょうどう</rt><rp>)</rp></ruby></span>で<ruby>運用<rp>(</rp><rt>うんよう</rt><rp>)</rp></ruby>、<ruby>脱<rp>(</rp><rt>だつ</rt><rp>)</rp></ruby><ruby>炭素<rp>(</rp><rt>たんそ</rt><rp>)</rp></ruby>の<ruby>応援<rp>(</rp><rt>おうえん</rt><rp>)</rp></ruby><ruby>金<rp>(</rp><rt>きん</rt><rp>)</rp></ruby>を<ruby>金沢<rp>(</rp><rt>かなざわ</rt><rp>)</rp></ruby>がまわりのまちへ<ruby>交付<rp>(</rp><rt>こうふ</rt><rp>)</rp></ruby>、<ruby>婚<rp>(</rp><rt>こん</rt><rp>)</rp></ruby><ruby>活<rp>(</rp><rt>かつ</rt><rp>)</rp></ruby>イベントも<ruby>共同<rp>(</rp><rt>きょうどう</rt><rp>)</rp></ruby><ruby>開催<rp>(</rp><rt>かいさい</rt><rp>)</rp></ruby>。バラバラでやるより、<ruby>力<rp>(</rp><rt>ちから</rt><rp>)</rp></ruby>を<ruby>合<rp>(</rp><rt>あ</rt><rp>)</rp></ruby>わせた<ruby>方<rp>(</rp><rt>ほう</rt><rp>)</rp></ruby>が<ruby>強<rp>(</rp><rt>つよ</rt><rp>)</rp></ruby>い、というわけ。</div></details>
+    </div>
+
+    <div class="rn-insight"><b>💡 ここがポイント：</b>「<ruby>金沢<rp>(</rp><rt>かなざわ</rt><rp>)</rp></ruby><ruby>市<rp>(</rp><rt>し</rt><rp>)</rp></ruby>の<ruby>予算<rp>(</rp><rt>よさん</rt><rp>)</rp></ruby>」の<ruby>中<rp>(</rp><rt>なか</rt><rp>)</rp></ruby>に、<ruby>市<rp>(</rp><rt>し</rt><rp>)</rp></ruby>の<ruby>外<rp>(</rp><rt>そと</rt><rp>)</rp></ruby>のまちの<ruby>取<rp>(</rp><rt>と</rt><rp>)</rp></ruby>り<ruby>組<rp>(</rp><rt>く</rt><rp>)</rp></ruby>みが<ruby>入<rp>(</rp><rt>はい</rt><rp>)</rp></ruby>っていることがある——<ruby>中心<rp>(</rp><rt>ちゅうしん</rt><rp>)</rp></ruby><ruby>市<rp>(</rp><rt>し</rt><rp>)</rp></ruby>は<b><ruby>圏<rp>(</rp><rt>けん</rt><rp>)</rp></ruby><ruby>域<rp>(</rp><rt>いき</rt><rp>)</rp></ruby>のまとめ<ruby>役<rp>(</rp><rt>やく</rt><rp>)</rp></ruby></b>だから。<ruby>金沢<rp>(</rp><rt>かなざわ</rt><rp>)</rp></ruby>を<ruby>見<rp>(</rp><rt>み</rt><rp>)</rp></ruby>るときは、<ruby>市<rp>(</rp><rt>し</rt><rp>)</rp></ruby>の<ruby>中<rp>(</rp><rt>なか</rt><rp>)</rp></ruby>だけじゃなく「<ruby>圏<rp>(</rp><rt>けん</rt><rp>)</rp></ruby><ruby>域<rp>(</rp><rt>いき</rt><rp>)</rp></ruby>の<ruby>中心<rp>(</rp><rt>ちゅうしん</rt><rp>)</rp></ruby>としての<ruby>金沢<rp>(</rp><rt>かなざわ</rt><rp>)</rp></ruby>」という<ruby>顔<rp>(</rp><rt>かお</rt><rp>)</rp></ruby>もあわせて<ruby>見<rp>(</rp><rt>み</rt><rp>)</rp></ruby>よう。</div>
+
+    <div class="rn-talk1"><span class="rn-ic">💭</span><div class="rn-tx"><span class="rn-lb">おうちで<ruby>話<rp>(</rp><rt>はな</rt><rp>)</rp></ruby>そう</span>となりのまちと「いっしょにやると<ruby>良<rp>(</rp><rt>よ</rt><rp>)</rp></ruby>いこと」、<ruby>何<rp>(</rp><rt>なに</rt><rp>)</rp></ruby>が<ruby>思<rp>(</rp><rt>おも</rt><rp>)</rp></ruby>いつく？</div></div>
+  </section>
+
+  <p class="rn-src">※<ruby>出典<rp>(</rp><rt>しゅってん</rt><rp>)</rp></ruby>：<ruby>金沢<rp>(</rp><rt>かなざわ</rt><rp>)</rp></ruby><ruby>市<rp>(</rp><rt>し</rt><rp>)</rp></ruby> <ruby>都市<rp>(</rp><rt>とし</rt><rp>)</rp></ruby><ruby>像<rp>(</rp><rt>ぞう</rt><rp>)</rp></ruby>「<ruby>未来<rp>(</rp><rt>みらい</rt><rp>)</rp></ruby>を<ruby>拓<rp>(</rp><rt>ひら</rt><rp>)</rp></ruby>く<ruby>世界<rp>(</rp><rt>せかい</rt><rp>)</rp></ruby>の<ruby>共<rp>(</rp><rt>きょう</rt><rp>)</rp></ruby><ruby>創<rp>(</rp><rt>そう</rt><rp>)</rp></ruby><ruby>文化<rp>(</rp><rt>ぶんか</rt><rp>)</rp></ruby><ruby>都市<rp>(</rp><rt>とし</rt><rp>)</rp></ruby>・<ruby>金沢<rp>(</rp><rt>かなざわ</rt><rp>)</rp></ruby>」（<ruby>令<rp>(</rp><rt>れい</rt><rp>)</rp></ruby><ruby>和<rp>(</rp><rt>わ</rt><rp>)</rp></ruby>5<ruby>年<rp>(</rp><rt>ねん</rt><rp>)</rp></ruby>12<ruby>月<rp>(</rp><rt>つき</rt><rp>)</rp></ruby>15<ruby>日<rp>(</rp><rt>にち</rt><rp>)</rp></ruby> <ruby>市議会<rp>(</rp><rt>しぎかい</rt><rp>)</rp></ruby><ruby>議決<rp>(</rp><rt>ぎけつ</rt><rp>)</rp></ruby>・<ruby>全文<rp>(</rp><rt>ぜんぶん</rt><rp>)</rp></ruby>／<ruby>目標<rp>(</rp><rt>もくひょう</rt><rp>)</rp></ruby><ruby>年次<rp>(</rp><rt>ねんじ</rt><rp>)</rp></ruby> <ruby>令<rp>(</rp><rt>れい</rt><rp>)</rp></ruby><ruby>和<rp>(</rp><rt>わ</rt><rp>)</rp></ruby>16<ruby>年<rp>(</rp><rt>ねん</rt><rp>)</rp></ruby>／5つの<ruby>基本<rp>(</rp><rt>きほん</rt><rp>)</rp></ruby><ruby>方針<rp>(</rp><rt>ほうしん</rt><rp>)</rp></ruby>）、<ruby>金沢<rp>(</rp><rt>かなざわ</rt><rp>)</rp></ruby><ruby>市<rp>(</rp><rt>し</rt><rp>)</rp></ruby>「<ruby>新<rp>(</rp><rt>あら</rt><rp>)</rp></ruby>たな<ruby>都市<rp>(</rp><rt>とし</rt><rp>)</rp></ruby><ruby>像<rp>(</rp><rt>ぞう</rt><rp>)</rp></ruby>の<ruby>検討<rp>(</rp><rt>けんとう</rt><rp>)</rp></ruby>」（<ruby>企画<rp>(</rp><rt>きかく</rt><rp>)</rp></ruby><ruby>調整<rp>(</rp><rt>ちょうせい</rt><rp>)</rp></ruby><ruby>課<rp>(</rp><rt>か</rt><rp>)</rp></ruby>）、「<ruby>未来<rp>(</rp><rt>みらい</rt><rp>)</rp></ruby><ruby>共<rp>(</rp><rt>ども</rt><rp>)</rp></ruby><ruby>創<rp>(</rp><rt>そう</rt><rp>)</rp></ruby><ruby>計画<rp>(</rp><rt>けいかく</rt><rp>)</rp></ruby>」（<ruby>令<rp>(</rp><rt>れい</rt><rp>)</rp></ruby><ruby>和<rp>(</rp><rt>わ</rt><rp>)</rp></ruby>6〜15<ruby>年度<rp>(</rp><rt>ねんど</rt><rp>)</rp></ruby>・KPIと<ruby>進捗<rp>(</rp><rt>しんちょく</rt><rp>)</rp></ruby><ruby>管理<rp>(</rp><rt>かんり</rt><rp>)</rp></ruby>の<ruby>仕組<rp>(</rp><rt>しく</rt><rp>)</rp></ruby>み）、<ruby>金沢<rp>(</rp><rt>かなざわ</rt><rp>)</rp></ruby><ruby>市<rp>(</rp><rt>し</rt><rp>)</rp></ruby><span class="rn-term" data-def="まちの、いちばんおおもとになる大きな計画。"><ruby>基本<rp>(</rp><rt>きほん</rt><rp>)</rp></ruby><ruby>構想<rp>(</rp><rt>こうそう</rt><rp>)</rp></ruby></span>（<ruby>昭和<rp>(</rp><rt>しょうわ</rt><rp>)</rp></ruby>60<ruby>年<rp>(</rp><rt>ねん</rt><rp>)</rp></ruby><ruby>策定<rp>(</rp><rt>さくてい</rt><rp>)</rp></ruby>・3<ruby>理念<rp>(</rp><rt>りねん</rt><rp>)</rp></ruby>）、<ruby>金沢<rp>(</rp><rt>かなざわ</rt><rp>)</rp></ruby><ruby>市<rp>(</rp><rt>し</rt><rp>)</rp></ruby><ruby>企画<rp>(</rp><rt>きかく</rt><rp>)</rp></ruby><ruby>調整<rp>(</rp><rt>ちょうせい</rt><rp>)</rp></ruby><ruby>課<rp>(</rp><rt>か</rt><rp>)</rp></ruby>「<ruby>石川<rp>(</rp><rt>いしかわ</rt><rp>)</rp></ruby><ruby>中央<rp>(</rp><rt>ちゅうおう</rt><rp>)</rp></ruby><ruby>都市<rp>(</rp><rt>とし</rt><rp>)</rp></ruby><ruby>圏<rp>(</rp><rt>けん</rt><rp>)</rp></ruby>」（4<ruby>市<rp>(</rp><rt>し</rt><rp>)</rp></ruby>2<ruby>町<rp>(</rp><rt>まち</rt><rp>)</rp></ruby>・2016<ruby>年<rp>(</rp><rt>ねん</rt><rp>)</rp></ruby>3<ruby>月<rp>(</rp><rt>つき</rt><rp>)</rp></ruby>28<ruby>日<rp>(</rp><rt>にち</rt><rp>)</rp></ruby><ruby>連携<rp>(</rp><rt>れんけい</rt><rp>)</rp></ruby><ruby>協約<rp>(</rp><rt>きょうやく</rt><rp>)</rp></ruby>・<ruby>圏<rp>(</rp><rt>けん</rt><rp>)</rp></ruby><ruby>域<rp>(</rp><rt>いき</rt><rp>)</rp></ruby><ruby>約<rp>(</rp><rt>やく</rt><rp>)</rp></ruby>72.8<ruby>万<rp>(</rp><rt>まん</rt><rp>)</rp></ruby><ruby>人<rp>(</rp><rt>にん</rt><rp>)</rp></ruby>〔<ruby>平成<rp>(</rp><rt>へいせい</rt><rp>)</rp></ruby>27<ruby>年<rp>(</rp><rt>ねん</rt><rp>)</rp></ruby><ruby>国勢調査<rp>(</rp><rt>こくせいちょうさ</rt><rp>)</rp></ruby>〕）。<ruby>内容<rp>(</rp><rt>ないよう</rt><rp>)</rp></ruby>は<ruby>原本<rp>(</rp><rt>げんぽん</rt><rp>)</rp></ruby>と<ruby>照<rp>(</rp><rt>て</rt><rp>)</rp></ruby>らし<ruby>合<rp>(</rp><rt>あ</rt><rp>)</rp></ruby>わせて<ruby>載<rp>(</rp><rt>の</rt><rp>)</rp></ruby>せています。</p>
+
+  <p class="rn-sign">― <ruby>金沢<rp>(</rp><rt>かなざわ</rt><rp>)</rp></ruby>が<ruby>好<rp>(</rp><rt>す</rt><rp>)</rp></ruby>きな、まちの<ruby>一<rp>(</rp><rt>いち</rt><rp>)</rp></ruby><ruby>市民<rp>(</rp><rt>しみん</rt><rp>)</rp></ruby>がつくっています。</p>
+<button class="cat-close" onclick="closeCat()">▲ とじる</button>
 </section>
 
 <!-- 金沢まるごとデータ -->
@@ -14931,5 +15160,42 @@ function showKohka(){
 })();
 </script>
 
+<script id="rinen-wy-js">
+(function(){
+  var root=document.getElementById('rinen'); if(!root) return;
+  root.querySelectorAll('.rn-quiz').forEach(function(q){
+    var correct=q.dataset.correct, ans=q.querySelector('.rn-answer'), rc=q.querySelector('.rn-rc'), answered=false;
+    q.querySelectorAll('.rn-opt').forEach(function(btn){
+      btn.addEventListener('click',function(){
+        if(answered) return; answered=true;
+        q.querySelectorAll('.rn-opt').forEach(function(b){ b.disabled=true; if(b.dataset.v===correct) b.classList.add('rn-correct'); });
+        if(btn.dataset.v!==correct){ btn.classList.add('rn-wrong'); if(rc) rc.textContent='おしい！こたえは…'; }
+        else { if(rc) rc.textContent='せいかい！🎉'; }
+        if(ans) ans.classList.add('rn-show');
+      });
+    });
+  });
+  var tabs=root.querySelector('.rn-tabs');
+  if(tabs) tabs.querySelectorAll('.rn-tab').forEach(function(t){
+    t.addEventListener('click',function(){
+      tabs.querySelectorAll('.rn-tab').forEach(function(x){ x.classList.remove('rn-on'); });
+      root.querySelectorAll('.rn-panel').forEach(function(p){ p.classList.remove('rn-on'); });
+      t.classList.add('rn-on');
+      var tgt=root.querySelector('#'+t.dataset.p); if(tgt) tgt.classList.add('rn-on');
+    });
+  });
+  var pop=null;
+  function closePop(){ if(pop){ pop.remove(); pop=null; } }
+  document.addEventListener('click',function(e){
+    var t=e.target.closest ? e.target.closest('.rn-term') : null;
+    if(t && root.contains(t)){
+      e.stopPropagation(); closePop();
+      pop=document.createElement('div'); pop.className='rn-term-pop';
+      pop.innerHTML='<span class="rn-cl">×</span><span class="rn-tw">'+t.innerHTML+'</span>'+t.getAttribute('data-def');
+      document.body.appendChild(pop);
+    } else if(!(e.target.closest && e.target.closest('.rn-term-pop'))){ closePop(); }
+  });
+})();
+</script>
 </body>
 </html>
