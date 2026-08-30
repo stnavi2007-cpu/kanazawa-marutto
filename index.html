@@ -303,7 +303,7 @@
  .cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:6px 0 8px;}
  @media(max-width:900px){.cat-grid{grid-template-columns:repeat(2,1fr);gap:12px;}}
  @media(max-width:430px){.cat-grid{grid-template-columns:repeat(2,1fr);gap:10px;}}
- .cat{background:#fff;border:1.5px solid var(--line);border-radius:18px;padding:16px 14px 14px;cursor:pointer;text-align:center;transition:.18s;position:relative;overflow:hidden;content-visibility:auto;contain-intrinsic-size:0 150px;}
+ .cat{background:#fff;border:1.5px solid var(--line);border-radius:18px;padding:16px 14px 14px;cursor:pointer;text-align:center;transition:.18s;position:relative;overflow:hidden;}
  /* ===== 映画ポスター風サムネ(has-thumbが付いたタイルのみ) ===== */
  .cat.has-thumb{background-image:var(--thumb);background-size:cover;background-position:center;background-repeat:no-repeat;border-color:transparent;}
  .cat.has-thumb::before{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(to bottom,rgba(10,22,40,.30) 0%,rgba(10,22,40,.55) 55%,rgba(10,22,40,.88) 100%);z-index:0;}
@@ -345,7 +345,7 @@
    .cat p{display:none;}
  }
  /* 開いたパネル */
- .cat-panel{display:none;content-visibility:auto;contain-intrinsic-size:0 1200px;}
+ .cat-panel{display:none;}
 .cat-grid>.cat-panel{grid-column:1/-1;}
  .cat-panel.on{display:block;}
  .cat-close{display:flex;width:fit-content;align-items:center;gap:6px;margin:18px auto 0;padding:10px 20px;background:var(--navy);color:#fff;border:none;border-radius:30px;font-family:inherit;font-weight:800;font-size:13px;cursor:pointer;}
