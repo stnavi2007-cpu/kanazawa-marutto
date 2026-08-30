@@ -16610,8 +16610,7 @@ body:not(.furigana) #kane ruby rt{display:none!important;}
     }catch(e){}
   })();
 
-  // ページ全体の未ルビ漢字にふりがなを自動付与（既存rubyはスキップ）
-  rubyify(document.body);
+  (window.requestIdleCallback||function(f){setTimeout(f,80);})(function(){try{rubyify(document.body);}catch(e){}});
 
   // ===== カテゴリーの画像(映画ポスター風サムネ) =====
   // GitHub Pages上の {id}.jpg を各カードタイルの背景に自動適用。
