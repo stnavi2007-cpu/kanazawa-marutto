@@ -27461,7 +27461,7 @@ const QZ_RANK_API = 'https://script.google.com/macros/s/AKfycbzdYm37-INScXlHoqjC
 // 全国ランキングを読む(GAS・GET)。通信失敗はnullを返す
 async function qzRankFetch(){
   try{
-    const res = await fetch(QZ_RANK_API, {method:'GET'});
+    const res = await fetch(QZ_RANK_API + '?day=' + encodeURIComponent(qzTodayStr()), {method:'GET'});
     const data = await res.json();
     return (data && data.ok && Array.isArray(data.list)) ? data.list : [];
   }catch(e){ return null; }
@@ -27549,7 +27549,7 @@ async function qzShowRanking(highlight){
   }
   let rows = '';
   if(list.length===0){
-    rows = '<div class="qz-rank-empty">まだ だれも投稿していないよ。<br>いちばんのりを めざそう！</div>';
+    rows = '<div class="qz-rank-empty">きょうは まだ だれも投稿していないよ。<br>いちばんのりを めざそう！</div>';
   }else{
     list.forEach((e, i) => {
       const medal = i===0?'🥇':i===1?'🥈':i===2?'🥉':(i+1)+'位';
@@ -27564,15 +27564,15 @@ async function qzShowRanking(highlight){
   }
   box.innerHTML =
     '<div class="qz-start">'+
-    (highlight? '<div class="qz-done-badge">🏅 全国ランキングに とうろくしたよ！</div>' : '')+
+    (highlight? '<div class="qz-done-badge">🏅 ランキングに とうろくしたよ！</div>' : '')+
     '<div class="qz-rank-card" id="qzShareCard">'+
-      '<div class="qz-rank-title">🏆 金沢まるっと 全国ランキング TOP20</div>'+
+      '<div class="qz-rank-title">🏆 金沢まるっと 今日のランキング TOP20</div>'+
       '<div class="qz-rank-list">'+rows+'</div>'+
       '<div class="qz-rank-foot">金沢まるっと10問クイズ</div>'+
     '</div>'+
     '<button class="qz-btn qz-btn-share" onclick="qzShareRanking()">📤 ランキングをシェアする</button>'+
     '<button class="qz-btn qz-btn-ghost" onclick="qzInit()">とじる</button>'+
-    '<p class="qz-note">日本中の みんなと きそえるよ！また明日、上をめざそう！</p>'+
+    '<p class="qz-note">今日の10問の、みんなのトップ20だよ！ランキングは毎日 朝リセット。また明日、1位をめざそう！</p>'+
     '</div>';
   rubyify(box);
 }
@@ -27586,7 +27586,7 @@ function qzEscape(str){
 async function qzShareRanking(){
   const list = await qzRankFetch();
   if(!list || list.length===0){ qzToast('まだランキングがないよ'); return; }
-  let text = '【金沢まるっと10問クイズ】全国ランキングTOP20 🏆\n\n';
+  let text = '【金沢まるっと10問クイズ】今日のランキングTOP20 🏆\n\n';
   list.slice(0,5).forEach((e,i)=>{
     const medal = i===0?'🥇':i===1?'🥈':i===2?'🥉':(i+1)+'位';
     text += medal+' '+e.name+' '+e.score+'点\n';
@@ -27595,7 +27595,7 @@ async function qzShareRanking(){
   text += '\nあなたも金沢のことどれくらい知ってる？\n#金沢まるっと #金沢クイズ';
   const url = location.href;
   if(navigator.share){
-    navigator.share({title:'金沢まるっと 全国ランキング', text:text, url:url}).catch(()=>{});
+    navigator.share({title:'金沢まるっと ランキング', text:text, url:url}).catch(()=>{});
   }else{
     const full = text+'\n'+url;
     if(navigator.clipboard){
