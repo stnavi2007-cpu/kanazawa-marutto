@@ -27461,7 +27461,7 @@ const QZ_RANK_API = 'https://script.google.com/macros/s/AKfycbzdYm37-INScXlHoqjC
 // 全国ランキングを読む(GAS・GET)。通信失敗はnullを返す
 async function qzRankFetch(){
   try{
-    const res = await fetch(QZ_RANK_API + '?day=' + encodeURIComponent(qzTodayStr()), {method:'GET'});
+    const res = await fetch(QZ_RANK_API + '?day=' + encodeURIComponent(qzTodayStr()) + '&t=' + Date.now(), {method:'GET', cache:'no-store'});
     const data = await res.json();
     return (data && data.ok && Array.isArray(data.list)) ? data.list : [];
   }catch(e){ return null; }
