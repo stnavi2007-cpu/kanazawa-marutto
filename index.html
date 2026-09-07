@@ -27459,12 +27459,19 @@ function qzCheckName(name){
 // --- ランキング保存/読み込み ---
 const QZ_RANK_API = 'https://script.google.com/macros/s/AKfycbzdYm37-INScXlHoqjC2lDTVfaDsJxotD_ViGB-EehLfZ8FNIB0zu2kzlrX8JOfA5xX6w/exec';
 // 全国ランキングを読む(GAS・GET)。通信失敗はnullを返す
-async function qzRankFetch(){
-  try{
-    const res = await fetch(QZ_RANK_API + '?day=' + encodeURIComponent(qzTodayStr()) + '&t=' + Date.now(), {method:'GET', cache:'no-store'});
-    const data = await res.json();
-    return (data && data.ok && Array.isArray(data.list)) ? data.list : [];
-  }catch(e){ return null; }
+function qzRankFetch(){
+  return new Promise((resolve)=>{
+    const cb = 'qzcb_' + Date.now() + '_' + Math.floor(Math.random()*1e6);
+    let done = false;
+    const s = document.createElement('script');
+    const cleanup = ()=>{ try{ delete window[cb]; }catch(e){ window[cb]=undefined; } if(s.parentNode) s.parentNode.removeChild(s); };
+    window[cb] = (data)=>{ if(done) return; done=true; cleanup(); resolve((data && data.ok && Array.isArray(data.list)) ? data.list : []); };
+    s.onerror = ()=>{ if(done) return; done=true; cleanup(); resolve(null); };
+    // 8秒で応答が無ければ通信失敗扱い
+    setTimeout(()=>{ if(done) return; done=true; cleanup(); resolve(null); }, 8000);
+    s.src = QZ_RANK_API + '?day=' + encodeURIComponent(qzTodayStr()) + '&callback=' + cb + '&t=' + Date.now();
+    document.body.appendChild(s);
+  });
 }
 // 全国ランキングに投稿(GAS・POST)。text/plainでCORSプリフライト回避
 async function qzRankPost(entry){
@@ -27782,13 +27789,33 @@ window.showKohka=function(){
 
   // ===== ディープリンク：URLの#idでカードを直接開く =====
   function openFromHash(){
-    const h=decodeURIComponent(location.hash.replace('#',''));
-    if(!h)return;
-    const p=document.getElementById(h);
-    if(p && p.classList.contains('cat-panel') && !p.classList.contains('on')){
-      openCat(h);
+    const raw=decodeURIComponent(location.hash.replace('#',''));
+    if(!raw)return;
+    // #カードID  または  #カードID-N (Nはタブ番号 1始まり)
+    let id=raw, tabNo=0;
+    const mt=raw.match(/^(.+)-(\d+)$/);
+    if(mt && document.getElementById(mt[1])){ id=mt[1]; tabNo=parseInt(mt[2],10); }
+    const p=document.getElementById(id);
+    if(p && p.classList.contains('cat-panel')){
+      if(!p.classList.contains('on')) openCat(id);
+      if(tabNo>0){
+        setTimeout(function(){
+          const tabs=document.querySelectorAll('#'+id+' .rn-tab');
+          if(tabs[tabNo-1]) tabs[tabNo-1].click();
+        }, 450);
+      }
     }
   }
+  // タブ(rn-tab)を押したらURLを #カードID-N に更新(シェア用・Nはそのカードのタブ順)
+  document.addEventListener('click', function(e){
+    const btn=e.target.closest && e.target.closest('.rn-tab');
+    if(!btn) return;
+    const card=btn.closest('.cat-panel');
+    if(!card || !card.id) return;
+    const tabs=[].slice.call(card.querySelectorAll('.rn-tab'));
+    const idx=tabs.indexOf(btn);
+    if(idx>=0){ try{ history.replaceState(null,'','#'+card.id+'-'+(idx+1)); }catch(_){}}
+  }, true);
   window.addEventListener('hashchange',openFromHash);
   // 初期ロード（描画完了後に開く。アニメ用IntersectionObserverより後）
   if(document.readyState==='loading'){
