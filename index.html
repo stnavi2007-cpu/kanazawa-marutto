@@ -51,14 +51,14 @@
  .logo-mark::before{content:"";width:13px;height:13px;border-radius:50%;background:var(--navy);}
  .logo-mark::after{content:"";position:absolute;width:6px;height:6px;border-radius:50%;background:var(--paper-warm);top:14px;left:16px;}
  .brand-txt b{font-family:'Zen Maru Gothic',sans-serif;font-weight:900;font-size:20px;letter-spacing:.5px;display:block;line-height:1.15;}
- .brand-txt span{font-size:11px;color:var(--ink-soft);letter-spacing:.5px;}
+ .brand-txt > span{font-size:11px;color:var(--ink-soft);letter-spacing:.5px;}
  .rgt{display:flex;align-items:center;gap:14px;}
  nav.menu{display:flex;gap:2px;}
  nav.menu a{font-size:13.5px;font-weight:700;color:var(--navy);text-decoration:none;padding:8px 12px;border-radius:30px;transition:.15s;}
  nav.menu a:hover{background:var(--navy);color:#fff;}
  /* 中間幅：ナビを詰める */
  @media(max-width:1460px){nav.menu a{padding:8px 9px;font-size:13px;}}
- @media(max-width:1680px){nav.menu a{padding:8px 6px;font-size:12px;} .brand-txt span{display:none;}}
+ @media(max-width:1680px){nav.menu a{padding:8px 6px;font-size:12px;} .brand-txt > span{display:none;}}
  @media(max-width:1320px){nav.menu a{padding:7px 4px;font-size:11.5px;}}
  @media(max-width:1180px){nav.menu{display:none;}}
  /* スマホ用メニュー */
@@ -82,7 +82,9 @@
    .rgt{gap:8px;}
  }
  @media(max-width:420px){
-   .brand-txt span{display:none;}
+   .brand-txt > span{display:none;}
+   .brand-txt b{font-size:16px;}
+   .brand{gap:8px;}
    .furi-btn{padding:5px 8px;font-size:11px;}
    .burger{width:38px;height:34px;padding:0 8px;}
    .rgt{gap:6px;}
@@ -92,6 +94,7 @@
    .logo-mark{transform:scale(.85);}
    .furi-btn{padding:5px 7px;font-size:10.5px;}
  }
+ @media(max-width:365px){ .brand-txt{display:none;} }
  @media(max-width:340px){
    .brand-txt{display:none;}
    .furi-btn::before{content:"ふり ";}
@@ -13217,8 +13220,13 @@ body:not(.furigana) #kane ruby rt{display:none!important;}
 </div>
 
 
+
+
 <div class="wrap">
-  <div id="topNews" style="border-left:5px solid var(--gold);background:var(--paper-warm);border-radius:12px;padding:12px 14px;margin:0 auto 14px;box-shadow:0 1px 4px rgba(0,0,0,.06);">
+  <div class="marutto-banner reveal">
+    <img src="marutto.jpg" alt="金沢まるっと — 金沢のシンボルが集まった世界" loading="lazy">
+  </div>
+  <div id="topNews" style="border-left:5px solid var(--gold);background:var(--paper-warm);border-radius:12px;padding:12px 14px;margin:14px auto 14px;box-shadow:0 1px 4px rgba(0,0,0,.06);">
     <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px;">
       <span style="font-size:20px;">📰</span>
       <span style="font-weight:900;font-size:17px;">さいしんニュース</span>
@@ -13227,7 +13235,6 @@ body:not(.furigana) #kane ruby rt{display:none!important;}
     <div id="tnList"></div>
     <button onclick="tnOpen()" style="margin-top:8px;background:none;border:none;color:var(--gold);font-weight:700;font-size:13px;cursor:pointer;padding:2px 0;">「最近のニュース」のカードをひらく →</button>
   </div>
-</div>
 <script>
 (function(){
   function plain(h){var d=document.createElement('div');d.innerHTML=h;d.querySelectorAll('rt,rp').forEach(function(e){e.remove()});return (d.textContent||'').replace(/\s+/g,' ').trim();}
@@ -13248,11 +13255,6 @@ body:not(.furigana) #kane ruby rt{display:none!important;}
   if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',build);}else{build();}
 })();
 </script>
-
-<div class="wrap">
-  <div class="marutto-banner reveal">
-    <img src="marutto.jpg" alt="金沢まるっと — 金沢のシンボルが集まった世界" loading="lazy">
-  </div>
   
   <section class="block reveal" style="padding-top:0;">
     <div class="flow-panel reveal no-ruby" style="border-left:5px solid var(--gold);background:var(--paper-warm);">
