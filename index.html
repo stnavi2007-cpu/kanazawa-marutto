@@ -108,7 +108,7 @@
 <header class="site">
   <div class="bar">
     <a class="brand" href="/">
-      <span class="logo-mark"><img src="marutto%20logo.jpg" alt="金沢まるっと" loading="eager"></span>
+      <span class="logo-mark"><img src="marutto%20logo.jpg" alt="金沢まるっと" loading="eager" decoding="async"></span>
       <span class="brand-txt"><b class="maru">金沢まるっと</b><span>金沢のこと、まるっとわかるじ</span></span>
     </a>
     <div class="rgt">
@@ -241,7 +241,7 @@
 
 <div class="wrap">
   <div class="marutto-banner reveal">
-    <img src="marutto.jpg" alt="金沢まるっと — 金沢のシンボルが集まった世界" loading="lazy">
+    <img src="marutto.jpg" alt="金沢まるっと — 金沢のシンボルが集まった世界" loading="lazy" fetchpriority="high">
   </div>
   <div id="topNews" style="border-left:5px solid var(--gold);background:var(--paper-warm);border-radius:12px;padding:12px 14px;margin:14px auto 14px;box-shadow:0 1px 4px rgba(0,0,0,.06);">
     <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px;">
@@ -987,42 +987,124 @@
 <script>
 window.__NEWS2_URL="assets/cards/lazy-news2.html";
 (function(){
-  // 2026-11-09 高速化：カード本文は fetch で並列取得する（従来の同期XHRの直列取得が初回表示を固まらせていた）。
-  // 並列取得に失敗した分だけ、保険として従来の同期XHRで取り直す。__tplsReady は全テンプレートがそろったら解決する。
-  var started=false, resolveReady=null;
+  // 2026-11-09 高速化 第2弾（遅延読み込み）：初回表示ではカード本文を全件取得しない。
+  // 優先はニュース帯用の news2 と、URLの #ハッシュ で指定されたカードだけ。
+  // 「きょうは何の日？」「今日のことば」「議員名鑑タブ(mkTabs)」はデータが site.js 内蔵のためカード本文に依存しない（調査済み）。
+  // 残りは window の load 後、アイドル時間に少しずつプリフェッチして最終的に全件そろえる。
+  // 個別取得に失敗した分は、その1本だけ従来の同期XHRで取り直す保険を残す。
+  // __tplsReady は「全件そろった」ときに解決する互換Promise。__loadTpls は全件読み込みを開始する互換関数。
+  // テンプレートごとの Promise は window.__tplPromises[id] に持ち、window.__loadTpl(id) で個別に取得できる。
+  var resolveReady=null, prefetchStarted=false, allStarted=false;
   window.__tplsDone=false;
   window.__tplsReady=new Promise(function(res){ resolveReady=res; });
+  window.__tplPromises={};
   function sync(url){
     try{ var x=new XMLHttpRequest(); x.open("GET", url, false); x.send(null);
       if(x.status>=200&&x.status<300) return x.responseText; }catch(e){}
     return null;
   }
-  function fillOne(el){
-    if(el.textContent) return Promise.resolve();
+  function elFor(id){ return document.getElementById("lazy-"+id); }
+  function loadOne(id){
+    var prev=window.__tplPromises[id];
+    if(prev) return prev;
+    var el=elFor(id);
+    if(!el) return Promise.resolve(false);
+    if(el.textContent){
+      var done=Promise.resolve(true);
+      window.__tplPromises[id]=done;
+      return done;
+    }
     var url=el.getAttribute("data-src");
+    if(!url){
+      var none=Promise.resolve(false);
+      window.__tplPromises[id]=none;
+      return none;
+    }
     var p=null;
     try{ p=fetch(url); }catch(e){ p=null; }
-    if(!p||!p.then){ var c0=sync(url); if(c0!=null) el.textContent=c0; return Promise.resolve(); }
-    return p.then(function(r){
-      if(!r.ok) throw new Error("status "+r.status);
-      return r.text();
-    }).then(function(t){ el.textContent=t; }).catch(function(){
-      var c=sync(url);
-      if(c!=null) el.textContent=c;
-    });
+    var job;
+    if(!p||!p.then){
+      var c0=sync(url); if(c0!=null) el.textContent=c0;
+      job=Promise.resolve(!!el.textContent);
+    }else{
+      job=p.then(function(r){
+        if(!r.ok) throw new Error("status "+r.status);
+        return r.text();
+      }).then(function(t){ el.textContent=t; return true; }).catch(function(){
+        var c=sync(url);
+        if(c!=null) el.textContent=c;
+        return !!el.textContent;
+      });
+    }
+    window.__tplPromises[id]=job;
+    return job;
   }
-  function go(){
-    if(started) return window.__tplsReady;
-    started=true;
+  window.__loadTpl=loadOne;
+  function allIds(){
     var els=document.querySelectorAll('script[type="text/html"][data-src]');
-    var jobs=[];
-    for(var i=0;i<els.length;i++) jobs.push(fillOne(els[i]));
-    Promise.all(jobs).then(function(){ window.__tplsDone=true; resolveReady(true); }, function(){ window.__tplsDone=true; resolveReady(true); });
+    var ids=[];
+    for(var i=0;i<els.length;i++){
+      var eid=els[i].id||"";
+      if(eid.indexOf("lazy-")===0) ids.push(eid.slice(5));
+    }
+    return ids;
+  }
+  function startAll(){
+    if(allStarted) return window.__tplsReady;
+    allStarted=true;
+    var ids=allIds();
+    var jobs=ids.map(function(id){ return loadOne(id); });
+    Promise.all(jobs).then(function(){
+      window.__tplsDone=true;
+      resolveReady(true);
+    }, function(){
+      window.__tplsDone=true;
+      resolveReady(true);
+    });
     return window.__tplsReady;
   }
-  // 互換用：読み込みを開始する（開始済みなら即時に終わる）。ニュース帯 build() など旧来の呼び出し向け。
-  window.__loadTpls=function(){ return go(); };
-  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded", go); else go();
+  // 互換用：全件読み込みを開始する（開始済みなら即時に終わる）。
+  window.__loadTpls=function(){ return startAll(); };
+  function hashCardId(){
+    try{
+      var raw=decodeURIComponent((location.hash||"").replace("#",""));
+      if(!raw) return null;
+      var mt=raw.match(/^(.+)-(\d+)$/);
+      var base=(mt&&document.getElementById(mt[1]))?mt[1]:raw;
+      if(elFor(base)) return base;
+    }catch(e){}
+    return null;
+  }
+  function priority(){
+    // 初回表示で要る分だけ：ニュース帯(news2)＋ハッシュ指定カード。
+    loadOne("news2");
+    var hid=hashCardId();
+    if(hid&&hid!=="news2") loadOne(hid);
+  }
+  function prefetchRest(){
+    if(prefetchStarted) return;
+    prefetchStarted=true;
+    var ids=allIds().filter(function(id){ return !window.__tplPromises[id]; });
+    var i=0;
+    function batch(){
+      var n=0;
+      while(i<ids.length&&n<6){ loadOne(ids[i]); i++; n++; }
+      if(i<ids.length){
+        if(window.requestIdleCallback) requestIdleCallback(batch,{timeout:4000});
+        else setTimeout(batch,600);
+      }else{
+        // 全件の開始がそろったら、完了で __tplsReady を解決する
+        startAll();
+      }
+    }
+    batch();
+  }
+  function armPrefetch(){
+    if(document.readyState==="complete") setTimeout(prefetchRest,1500);
+    else window.addEventListener("load", function(){ setTimeout(prefetchRest,1500); });
+  }
+  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded", priority); else priority();
+  armPrefetch();
 })();
 </script>
 <script type="text/html" id="lazy-news2" data-src="assets/cards/lazy-news2.html"></script>

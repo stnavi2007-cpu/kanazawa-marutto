@@ -5,8 +5,12 @@
   var __tnWaited=false;
   function build(){
     var lz=document.getElementById('lazy-news2'); if(!lz)return;
-    if(!lz.textContent&&window.__loadTpls){try{window.__loadTpls();}catch(e){}}
-    if(!lz.textContent&&!__tnWaited&&window.__tplsReady&&window.__tplsReady.then){__tnWaited=true;window.__tplsReady.then(function(){try{build();}catch(e){}});return;}
+    if(!lz.textContent&&window.__loadTpl){try{window.__loadTpl('news2');}catch(e){}}
+    if(!lz.textContent&&!__tnWaited){__tnWaited=true;
+      var __tnP=(window.__tplPromises&&window.__tplPromises.news2)||(window.__loadTpl?window.__loadTpl('news2'):null);
+      if(__tnP&&__tnP.then){__tnP.then(function(){try{build();}catch(e){}});}
+      else if(window.__tplsReady&&window.__tplsReady.then){window.__tplsReady.then(function(){try{build();}catch(e){}});}
+      return;}
     var tmp=document.createElement('div'); tmp.innerHTML=lz.textContent;
     var intro=tmp.querySelector('#news2-p1 .rn-intro'); if(!intro)return;
     var lines=intro.innerHTML.split(/<br\s*\/?>/i).map(plain).filter(function(t){return t.length>0;}).slice(0,3);
@@ -5615,7 +5619,11 @@ window.__cardInit.aikyori=function(){
     window.__lastOpenedCat=id;
     if(!p.dataset.loaded){
       var lz=document.getElementById('lazy-'+id);
-      if(lz&&!lz.textContent&&!window.__tplsDone&&window.__tplsReady&&window.__tplsReady.then){window.__tplsReady.then(function(){try{openCat(id);}catch(e){}});return;}
+      if(lz&&!lz.textContent&&!window.__tplsDone){
+        var __ocP=(window.__tplPromises&&window.__tplPromises[id])||(window.__loadTpl?window.__loadTpl(id):null);
+        if(__ocP&&__ocP.then){__ocP.then(function(){try{openCat(id);}catch(e){}});return;}
+        if(window.__tplsReady&&window.__tplsReady.then){window.__tplsReady.then(function(){try{openCat(id);}catch(e){}});return;}
+      }
       if(lz){ p.insertAdjacentHTML('beforeend',lz.textContent); p.dataset.loaded='1';
         if(window.__cardInit&&window.__cardInit[id]){try{window.__cardInit[id]();}catch(e){}}
         var __LR={kouyaku:'kouyakuRender',sanpi:'sanpiRender'};
