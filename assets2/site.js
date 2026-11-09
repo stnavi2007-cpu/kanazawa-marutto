@@ -5543,9 +5543,11 @@ window.__cardInit.aikyori=function(){
   const CORNER_COLOR={};
   Object.values(CORNER).forEach(([col,ids])=>ids.forEach(id=>CORNER_COLOR[id]=col));
 
-  // index.html と同じ場所に置いた {id}.jpg を参照(相対パス)。
-  // 画像を別フォルダ(例 images/)に移す場合は 'images/' に変更。
-  const CAT_IMG_BASE='';
+  // index.html と同じ場所(サイトのルート)に置いた {id}.jpg を参照(ルート絶対パス)。
+  // ※CSS変数(--thumb)経由の url() は、消費側CSS(site.css)の置き場所 assets2/ 基準で解決されるため、
+  //   相対パス('')だと /assets2/{id}.jpg になって404になる。必ず '/' 始まりにすること。
+  // 画像を別フォルダ(例 images/)に移す場合は '/images/' に変更。
+  const CAT_IMG_BASE='/';
   function applyCatImages(){
     document.querySelectorAll('.cat[data-cat]').forEach(tile=>{
       const id=tile.getAttribute('data-cat');
