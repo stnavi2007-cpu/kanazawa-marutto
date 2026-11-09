@@ -2,9 +2,11 @@
 (function(){
   function plain(h){var d=document.createElement('div');d.innerHTML=h;d.querySelectorAll('rt,rp').forEach(function(e){e.remove()});return (d.textContent||'').replace(/\s+/g,' ').trim();}
   function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+  var __tnWaited=false;
   function build(){
     var lz=document.getElementById('lazy-news2'); if(!lz)return;
     if(!lz.textContent&&window.__loadTpls){try{window.__loadTpls();}catch(e){}}
+    if(!lz.textContent&&!__tnWaited&&window.__tplsReady&&window.__tplsReady.then){__tnWaited=true;window.__tplsReady.then(function(){try{build();}catch(e){}});return;}
     var tmp=document.createElement('div'); tmp.innerHTML=lz.textContent;
     var intro=tmp.querySelector('#news2-p1 .rn-intro'); if(!intro)return;
     var lines=intro.innerHTML.split(/<br\s*\/?>/i).map(plain).filter(function(t){return t.length>0;}).slice(0,3);
@@ -5613,6 +5615,7 @@ window.__cardInit.aikyori=function(){
     window.__lastOpenedCat=id;
     if(!p.dataset.loaded){
       var lz=document.getElementById('lazy-'+id);
+      if(lz&&!lz.textContent&&!window.__tplsDone&&window.__tplsReady&&window.__tplsReady.then){window.__tplsReady.then(function(){try{openCat(id);}catch(e){}});return;}
       if(lz){ p.insertAdjacentHTML('beforeend',lz.textContent); p.dataset.loaded='1';
         if(window.__cardInit&&window.__cardInit[id]){try{window.__cardInit[id]();}catch(e){}}
         var __LR={kouyaku:'kouyakuRender',sanpi:'sanpiRender'};

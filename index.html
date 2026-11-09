@@ -987,18 +987,41 @@
 <script>
 window.__NEWS2_URL="assets/cards/lazy-news2.html";
 (function(){
+  // 2026-11-09 高速化：カード本文は fetch で並列取得する（従来の同期XHRの直列取得が初回表示を固まらせていた）。
+  // 並列取得に失敗した分だけ、保険として従来の同期XHRで取り直す。__tplsReady は全テンプレートがそろったら解決する。
+  var started=false, resolveReady=null;
+  window.__tplsDone=false;
+  window.__tplsReady=new Promise(function(res){ resolveReady=res; });
   function sync(url){
     try{ var x=new XMLHttpRequest(); x.open("GET", url, false); x.send(null);
       if(x.status>=200&&x.status<300) return x.responseText; }catch(e){}
     return null;
   }
-  function go(){
-    document.querySelectorAll('script[type="text/html"][data-src]').forEach(function(el){
-      var c=sync(el.getAttribute("data-src"));
+  function fillOne(el){
+    if(el.textContent) return Promise.resolve();
+    var url=el.getAttribute("data-src");
+    var p=null;
+    try{ p=fetch(url); }catch(e){ p=null; }
+    if(!p||!p.then){ var c0=sync(url); if(c0!=null) el.textContent=c0; return Promise.resolve(); }
+    return p.then(function(r){
+      if(!r.ok) throw new Error("status "+r.status);
+      return r.text();
+    }).then(function(t){ el.textContent=t; }).catch(function(){
+      var c=sync(url);
       if(c!=null) el.textContent=c;
     });
   }
-  window.__loadTpls=go;
+  function go(){
+    if(started) return window.__tplsReady;
+    started=true;
+    var els=document.querySelectorAll('script[type="text/html"][data-src]');
+    var jobs=[];
+    for(var i=0;i<els.length;i++) jobs.push(fillOne(els[i]));
+    Promise.all(jobs).then(function(){ window.__tplsDone=true; resolveReady(true); }, function(){ window.__tplsDone=true; resolveReady(true); });
+    return window.__tplsReady;
+  }
+  // 互換用：読み込みを開始する（開始済みなら即時に終わる）。ニュース帯 build() など旧来の呼び出し向け。
+  window.__loadTpls=function(){ return go(); };
   if(document.readyState==="loading") document.addEventListener("DOMContentLoaded", go); else go();
 })();
 </script>
