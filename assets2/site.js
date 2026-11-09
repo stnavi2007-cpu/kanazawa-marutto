@@ -4,6 +4,7 @@
   function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
   function build(){
     var lz=document.getElementById('lazy-news2'); if(!lz)return;
+    if(!lz.textContent&&window.__loadTpls){try{window.__loadTpls();}catch(e){}}
     var tmp=document.createElement('div'); tmp.innerHTML=lz.textContent;
     var intro=tmp.querySelector('#news2-p1 .rn-intro'); if(!intro)return;
     var lines=intro.innerHTML.split(/<br\s*\/?>/i).map(plain).filter(function(t){return t.length>0;}).slice(0,3);
