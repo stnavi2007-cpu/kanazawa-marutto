@@ -34815,6 +34815,12 @@ window.openContact=function(){
     setTimeout(function(){var t=(d||f).getBoundingClientRect().top+window.scrollY-80;window.scrollTo({top:t,behavior:'smooth'});},60);
   },120);
 };
+// URLの末尾が #contact（または #toiawase）なら、お問い合わせ・訂正フォームを開く（百万石クエストなど外からのリンク用）
+(function(){
+  function go(){ if(/^#(contact|toiawase)$/.test(location.hash)) window.openContact(); }
+  window.addEventListener('hashchange',go);
+  if(document.readyState==='complete') go(); else window.addEventListener('load',go);
+})();
 </script>
 </body>
 </html>
