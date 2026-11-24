@@ -13258,13 +13258,17 @@ body:not(.furigana) #kane ruby rt{display:none!important;}
 .kz-tl .d{flex:0 0 112px;font-weight:900;color:#7a5c14;font-size:12.5px;white-space:nowrap;}
 .kz-tl .now{background:#fff6dc;border-radius:8px;margin:0 -6px;padding:8px 6px;}
 .kz-more{display:block;margin-top:8px;background:none;border:none;color:var(--gold);font-weight:800;font-size:13px;cursor:pointer;padding:4px 0;}
+.kz-all{margin-top:10px;}
+.kz-all-sum{list-style:none;cursor:pointer;display:block;text-align:center;background:var(--gold);color:#fff;font-weight:900;font-size:14px;border-radius:999px;padding:10px 12px;}
+.kz-all-sum::-webkit-details-marker{display:none;}
+.kz-all[open]>.kz-all-sum{background:#f3ead3;color:#7a5c14;margin-bottom:6px;}
 .kz-foot{font-size:11.5px;color:var(--ink-soft);margin-top:12px;line-height:1.7;border-top:1px dashed var(--line);padding-top:8px;}
 </style>
     <div class="kz-head">
       <span class="kz-title">🗞 きょうの金沢</span>
       <span class="kz-date">11月25日（水）朝の更新</span>
     </div>
-    <p class="kz-lead">金沢市のいまの動きを、毎朝ここにまとめます。ニュースや新聞を見なくても、ここを読めば大事なことがわかるようにしています。</p>
+    <p class="kz-lead">金沢市のいまの動きを、毎朝ここにまとめます。</p>
 
     <div class="kz-sec">📌 いま大事なこと</div>
     <div class="kz-3">
@@ -13274,6 +13278,8 @@ body:not(.furigana) #kane ruby rt{display:none!important;}
       <div>🗳 12月1日から市議会。12月15日に採決</div>
     </div>
 
+    <details class="kz-all">
+      <summary class="kz-all-sum">👇 くわしく見る（ニュース・議会・予定）</summary>
     <div class="kz-sec">📰 ニュース</div>
 
     <details class="kz-card">
@@ -13370,6 +13376,7 @@ body:not(.furigana) #kane ruby rt{display:none!important;}
     </div>
 
     <div class="kz-foot">✅ 書いてあることは、市の発表資料などの元の資料で確かめています。報道をもとにした部分には「報道」とつけています。<br>⚖️ 意見が分かれる話は、賛成・反対の両方の言い分を並べます。<br>🗂 前の日のニュースは「最近のニュース」カードに残しています。</div>
+    </details>
     <button class="kz-more" onclick="tnOpen()">🗂「最近のニュース」のカードをひらく →</button>
   </div>
 <script>
