@@ -102,4 +102,26 @@ for f in os.listdir('c'):
 urls=[BASE,BASE+'c/']+[f'{BASE}c/{cid}.html' for cid,_,_,_ in cards]
 open('sitemap.xml','w',encoding='utf-8').write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+''.join(f'  <url><loc>{u}</loc><lastmod>{today}</lastmod></url>\n' for u in urls)+'</urlset>\n')
 open('robots.txt','w',encoding='utf-8').write(f'User-agent: *\nAllow: /\n\nSitemap: {BASE}sitemap.xml\n')
+# 百万石クエストの「かわら版」用：トップの「きょうの金沢」のニュースを kyou.json に書き出す（2026-11-25 ネタ合わせ）
+def kyou_json():
+    i=s.find('<div id="kyouKZ"')
+    if i<0: return
+    d=0;end=None
+    for mm in re.finditer(r'<(/?)div\b',s[i:]):
+        d+=-1 if mm.group(1) else 1
+        if d==0: end=i+mm.end();break
+    seg=re.sub(r'<rp>.*?</rp>','',s[i:end],flags=re.S)
+    def rb(x):  # ふりがな(ruby/rt)だけ残す
+        x=re.sub(r'<(?!/?(ruby|rt)\b)[^>]+>','',x)
+        return re.sub(r'\s+',' ',x).strip()
+    dm=re.search(r'<span class="kz-date">(.*?)</span>',seg,re.S)
+    items=[]
+    for cm in re.finditer(r'<details class="kz-card[^"]*">\s*<summary>(.*?)</summary>',seg,re.S):
+        sm=cm.group(1)
+        tags=[rb(x) for x in re.findall(r'<span class="kz-tag">(.*?)</span>',sm,re.S)]
+        h=re.search(r'<span class="kz-h">(.*?)</span>\s*<span class="kz-s">',sm,re.S)
+        b=re.search(r'<span class="kz-s">(.*?)</span>\s*<span class="kz-open">',sm,re.S)
+        if h: items.append({"tags":tags,"t":rb(h.group(1)),"b":rb(b.group(1)) if b else ""})
+    json.dump({"day":today,"date":rb(dm.group(1)) if dm else "","items":items},open('kyou.json','w',encoding='utf-8'),ensure_ascii=False)
+kyou_json()
 print('cards',len(cards),'urls',len(urls))
